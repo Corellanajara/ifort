@@ -1,0 +1,7 @@
+{
+  "name": "blockchainApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
