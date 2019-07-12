@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.header li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+.header li:last-child {
+  border-right: none;
+}
+
+.header li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.header li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+
+
+
+.sidenav {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 80%;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.transparente {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <ul>
+    <li (click)="estado=!estado"><a class="active" href="#menu">Menu</a></li>
+
+    <li style="float:right"><a href="#about">Alerta</a></li>
+    <li style="float:right"><a href="#about">Imagen</a></li>
+  </ul>
+</div>
+
+<div class="sidenav" *ngIf="estado">
+  <a href="javascript:void(0)" class="closebtn" (click)="estado=!estado">&times;</a>
+  <ul>
+  	<li *ngFor="let menu of menus" style="color:white">
+			<h2>
+        {{menu.titulo}}
+			</h2>
+			<hr>
+		</li>
+
+  </ul>
+</div>
+
+
+</body>
+</html>
