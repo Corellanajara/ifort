@@ -1,0 +1,17 @@
+{
+  "name": "product-app",
+  "version": "1.0.0",
+  "description": "Api para Ropa y estilo ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Corellanajara",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.1.5",
+    "mongoose": "^5.4.2"
+  }
+}
