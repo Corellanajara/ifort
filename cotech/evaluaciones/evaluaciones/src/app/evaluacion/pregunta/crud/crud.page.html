@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>crud</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Tipo de pregunta</ion-label>
+    <ion-select value="brown" okText="Orkay" cancelText="Dismiss" [(ngModel)]="tipo">
+      <ion-select-option value="Rango">Rango</ion-select-option>
+      <ion-select-option value="Porcentaje">Porcentaje</ion-select-option>
+      <ion-select-option value="Numero">Numero</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-list *ngIf="tipo != '' ">
+    <ion-list>
+      <ion-label>
+        Pregunta o item
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="pregunta"></ion-input>
+    </ion-list>
+  </ion-list>
+
+  <ion-list *ngIf="tipo == 'Rango' ">
+    <ion-item>
+      <ion-label>
+        Minimo <small>Valor minimo para el rango</small>
+      </ion-label>
+      <ion-input type="number" [(ngModel)]="min"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Máximo <small>Valor maximo para el rango</small>
+      </ion-label>
+      <ion-input type="number" [(ngModel)]="max"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label >Ejemplo</ion-label>
+      <ion-range min="0" max="{{max}}" color="secondary" [(ngModel)]="cantidad">
+        <ion-label slot="start">{{(min || "Minimo")}} -> {{(max|| "Maximo")}}</ion-label>
+        <ion-label slot="end">{{cantidad}}</ion-label>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>

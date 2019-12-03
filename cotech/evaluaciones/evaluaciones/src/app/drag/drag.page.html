@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>A tu medida! </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div>
+    <div class='title'>
+        <small>Anda creando tus weas hasta que tenga sentido  para ti</small>
+        <lib-ngx-tree-component
+        [treeData]="myTree"
+        (ondragstart)="onDragStart($event)"
+        (ondragenter)="onDragEnter($event)"
+        (ondragleave)="onDragLeave($event)"
+        (ondrop)="onDrop($event)"
+        (onallowdrop)="onAllowDrop($event)"
+        (onadditem)="onAddItem($event)"
+        (onStartDeleteItem)="onStartDeleteItem($event)"
+        (onFinishDeleteItem)="onFinishDeleteItem($event)"
+        (onCancelDeleteItem)="onCancelDeleteItem($event)"
+        (onStartRenameItem)="onStartRenameItem($event)"
+        (onFinishRenameItem)="onFinishRenameItem($event)"
+        [config]='config'>
+        </lib-ngx-tree-component>
+        <!-- =================================== -->
+        <div class='event' >Event: <span>{{currentEvent}}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <ion-button  expand="full" color="success" fill="outline" (click)="saveTree()">Guardar</ion-button>
+<!--
+  <ion-button expand="full" color="danger" fill="outline" (click)="disableAll()">Deshabilitar Funciones</ion-button>
+
+
+  <ion-segment  color="secondary">
+    <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of myTree;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index)">
+      <ion-label>{{nodo.name}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <h3 style="text-align:center">{{mensaje}}</h3>  -->
+</ion-content>

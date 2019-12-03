@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"  defaultHref="usuarios"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Asignar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-icon name="arrow-back" style="font-size:25px;" *ngIf="this.pasos.length > 0" (click)="volver()">Atras</ion-icon>
+  <ion-toolbar>
+    <ion-segment scrollable  color="secondary">
+      <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)">
+        <ion-label>{{nodo.name}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+
+  <h3 style="text-align:center">{{mensaje}}</h3>
+</ion-content>
