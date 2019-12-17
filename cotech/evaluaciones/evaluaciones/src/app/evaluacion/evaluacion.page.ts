@@ -11,16 +11,20 @@ export class EvaluacionPage implements OnInit {
 
 
   public tiposDeEvaluacion = ["Cuestionario","Evaluación"];
-  public evaluacion = {nombre:"",descripcion:'',tipo:"",id:""};
+  public evaluacion = {nombre:"",descripcion:'',tipo:"",preguntas : [],id:''};
+  public verAgregar = false;
+  evaluaciones = [];
   constructor(private alertController :AlertController,private modalCtrl : ModalController) { }
 
   ngOnInit() {
   }
   public guardarEvaluacion(){
-    console.log(this.evaluacion);
+    this.evaluacion.id = ""+(this.evaluaciones.length + 1);
+    this.evaluaciones.push(this.evaluacion);
+    this.evaluacion = {nombre:"",descripcion:'',preguntas : [],tipo:"",id:""};
   }
   public actualizarEvaluacion(){
-
+    this.redefinirEvaluacion();
   }
   async abrirPreguntas() {
     const modal = await this.modalCtrl.create({
@@ -31,14 +35,15 @@ export class EvaluacionPage implements OnInit {
     }
     });
     modal.onDidDismiss().then(modal=>{
-      console.log("en preguntas",modal);
+      this.evaluacion.preguntas = modal.data;
+      console.log("preguntas conseguidas",modal);
     });
     return await modal.present();
   }
   async confirmar() {
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <strong>crear una evaluación</strong>!!!',
+      message: 'Estas a punto de <br><strong>CREAR UNA EVALUACIÓN</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',
@@ -50,7 +55,8 @@ export class EvaluacionPage implements OnInit {
         }, {
           text: 'Okay',
           handler: () => {
-            console.log("CREADO");
+            this.guardarEvaluacion();
+            this.verAgregar = false;
           }
         }
       ]
@@ -58,7 +64,14 @@ export class EvaluacionPage implements OnInit {
 
     await alert.present();
   }
+  visualizar(evaluacion,slide){
 
+    this.evaluacion = evaluacion;
+    slide.close()
+  }
+  redefinirEvaluacion(){
+    this.evaluacion = {nombre:"",descripcion:'',preguntas : [],tipo:"",id:""};
+  }
 
 
 }

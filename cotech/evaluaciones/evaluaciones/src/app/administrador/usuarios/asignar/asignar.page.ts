@@ -11,7 +11,9 @@ export class AsignarPage implements OnInit {
   arbol = [];
   indice = 0;
   pasos = [];
+  mensaje = "";
   sucursal = 0;
+  count : number = 0;
   constructor(private modalCtrl:ModalController) {
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
@@ -30,12 +32,23 @@ export class AsignarPage implements OnInit {
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
-    this.mensaje = "Seleciona ";    
+    this.mensaje = "Seleciona ";
   }
   public seleccionaNodo(nodo,indice){
-    console.log("hice click en selecciona",nodo);
-    this.mensaje = "Seleccionado "+nodo.name;
-    this.sucursal = nodo.id;
+
+    this.count++;
+    setTimeout(() => {
+      if (this.count == 1) {
+        this.count = 0;
+        console.log("hice click en selecciona",nodo);
+        this.mensaje = "Seleccionado "+nodo.name;
+        this.sucursal = nodo.id;
+      }if(this.count > 1){
+        this.count = 0;
+        this.navegaNodo(nodo,indice,true);
+      }
+    }, 250);
+
   }
   navegaNodo(nodo,indice,aumentaConteo){
     if(this.arbol[indice].childrens.length > 0){

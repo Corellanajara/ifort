@@ -1,44 +1,76 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>evaluacion</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align:center">Evaluación</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content #evaluaciones>
-  <ion-item>
-    <ion-label>Nombre de la evaluación</ion-label>
-    <ion-input  [(ngModel)]="evaluacion.nombre" placeholder="ej : Evaluación de rendimiento"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Descripción</ion-label>
-    <ion-input  [(ngModel)]="evaluacion.descripcion" placeholder="ej : Evaluación de rendimiento"></ion-input>
-  </ion-item>
+<ion-content >
 
- <ion-button (click)="abrirPreguntas()" expand="block" [disabled]=" evaluacion.nombre == '' " >Ver/Agregar preguntas</ion-button>
+  <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="redefinirEvaluacion();verAgregar = true;" *ngIf="!verAgregar">
+     <ion-fab-button>
+       <ion-icon name="add" ></ion-icon>
+     </ion-fab-button>
+   </ion-fab>
+   <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="redefinirEvaluacion();verAgregar = false;" *ngIf="verAgregar">
+      <ion-fab-button>
+        <ion-icon name="remove" ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  <br>
+  <div *ngIf="verAgregar">
+    <ion-item style="padding-top: 20px">
+      <ion-label position="floating" style="font-size: 20px;color:black">Nombre</ion-label>
+      <ion-input [(ngModel)]="evaluacion.nombre" ></ion-input>
+    </ion-item>
+    <br>
+    <ion-item style="padding-top: 20px">
+      <ion-input  [(ngModel)]="evaluacion.descripcion" placeholder="Descripción"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item-divider>
 
- <ion-button *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  expand="full" fill="outline" (click)="guardarEvaluacion()">Guardar</ion-button>
- <ion-button *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "  expand="full" fill="outline" (click)="actualizarEvaluacion()">Actualizar</ion-button>
+    </ion-item-divider>
+    <ion-button (click)="abrirPreguntas()" expand="block" color="success" fill="outline" [disabled]=" evaluacion.nombre == '' "  style="color:black" >Ver/Agregar preguntas <span *ngIf="evaluacion.preguntas"> ({{evaluacion.preguntas.length}})</span></ion-button>
 
- <ion-button expand="full" fill="outline"></ion-button>
+    <ion-button *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  expand="full" color="tertiary" fill="outline" (click)="confirmar()" style="color:black">Guardar</ion-button>
+    <ion-button *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "  expand="full" color="tertiary" fill="outline"(click)="actualizarEvaluacion();verAgregar = false" style="color:black">Actualizar</ion-button>
 
- <ion-list>
-   <ion-item-sliding>
-     <ion-item>
-       <ion-label>Item</ion-label>
-     </ion-item>
-     <ion-item-options side="end">
-       <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-     </ion-item-options>
-   </ion-item-sliding>
+  </div>
 
-   <ion-item-sliding>
-     <ion-item>
-       <ion-label>Item</ion-label>
-     </ion-item>
-     <ion-item-options side="end">
-       <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-     </ion-item-options>
-   </ion-item-sliding>
- </ion-list>
+
+
+
+   <br>
+
+   <ion-item-divider style="text-align:center;font-size: 20px;">
+     <b>Lista de evaluaciones</b>
+   </ion-item-divider>
+
+   <ion-list>
+
+     <ion-item-sliding *ngFor="let ev of evaluaciones" #slidingItem  >
+      <ion-item-options side="start">
+        <ion-item-option color="danger" expandable (click)="eliminar(ev)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <ion-label (click)="visualizar(ev,slidingItem);verAgregar = true">{{ev.nombre}}</ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="tertiary" expandable (click)="visualizar(ev,slidingItem);verAgregar = true;">
+          <ion-icon  slot="icon-only" name="eye"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <h3 *ngIf="evaluaciones.length == 0">No hay evaluaciones disponibles</h3>
+
+   </ion-list>
 
 </ion-content>

@@ -21,7 +21,7 @@ interface Menu {
 
 export class UserService {
 
-  private url = "http://localhost:3600";
+  private url: string = "http://178.128.71.20:4120";
 
   constructor(private http: HttpClient) { }
 
@@ -34,8 +34,14 @@ export class UserService {
     });
   }
   insertar(User : any){
-    return this.http.post<any[]>(`${this.url}/users/`, User ,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    console.log(User);
+    User.permissionLevel = 1;
+    User.menus = [];
+    let accessToken = sessionStorage.getItem('accessToken');
+    return this.http.post<Usuario>(`${this.url}/users/`,User, {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization',`Bearer ${accessToken}`)
     });
   }
   actualizar(id:string,User : any){

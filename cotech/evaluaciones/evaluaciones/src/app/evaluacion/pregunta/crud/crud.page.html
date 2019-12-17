@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>crud</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()" ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear pregunta</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,34 +19,35 @@
   </ion-item>
   <ion-list *ngIf="tipo != '' ">
     <ion-list>
-      <ion-label>
-        Pregunta o item
-      </ion-label>
-      <ion-input type="text" [(ngModel)]="pregunta"></ion-input>
+      <ion-input type="text" [(ngModel)]="pregunta" placeholder="Ingresa nombre de la pregunta"></ion-input>
     </ion-list>
   </ion-list>
 
   <ion-list *ngIf="tipo == 'Rango' ">
     <ion-item>
       <ion-label>
-        Minimo <small>Valor minimo para el rango</small>
+        Minimo
       </ion-label>
       <ion-input type="number" [(ngModel)]="min"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>
-        Máximo <small>Valor maximo para el rango</small>
+        Máximo
       </ion-label>
       <ion-input type="number" [(ngModel)]="max"></ion-input>
     </ion-item>
     <ion-item >
       <ion-label >Ejemplo</ion-label>
-      <ion-range min="0" max="{{max}}" color="secondary" [(ngModel)]="cantidad">
+      <ion-range min="{{min}}" max="{{max}}" color="secondary" [(ngModel)]="cantidad" [disabled]="!min || !max || !validarValores(min,max) ">
         <ion-label slot="start">{{(min || "Minimo")}} -> {{(max|| "Maximo")}}</ion-label>
         <ion-label slot="end">{{cantidad}}</ion-label>
       </ion-range>
     </ion-item>
+
+    <ion-button [disabled]="pregunta == '' || !min || !max " expand="full" color="success" fill="outline" (click)="agregarPregunta()">Agregar</ion-button>
+
   </ion-list>
 
+<ion-button *ngIf="tipo != 'Rango' && tipo != '' " [disabled]="pregunta == '' " expand="full" color="success" fill="outline" (click)="agregarPregunta()">Agregar</ion-button>
 
 </ion-content>

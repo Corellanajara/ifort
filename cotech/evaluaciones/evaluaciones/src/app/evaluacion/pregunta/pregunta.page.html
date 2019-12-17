@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="usuarios"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ evaluacion.nombre }} - Preguntas</ion-title>
   </ion-toolbar>
@@ -13,14 +13,23 @@
     <ion-item-sliding *ngFor="let pregunta of preguntas">
       <ion-item>
         <ion-label>{{pregunta.titulo}}</ion-label>
+        <ion-button slot="end">
+          {{pregunta.tipo}}
+        </ion-button>
       </ion-item>
       <ion-item-options side="end" >
         <ion-item-option (click)="editarPregunta(prgunta)" color="warning">Editar</ion-item-option>
         <ion-item-option (click)="eliminarPregunta(prgunta)" color="danger">Borrar</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
+    <ion-item *ngIf="preguntas.length == 0">
+      <h2>No existen preguntas para esta prueba</h2>
+    </ion-item>
   </ion-list>
 
-<ion-button *ngIf="evaluacion.id == '' " expand="full" color="success" fill="outline" (click)="crearPregunta()">Agregar</ion-button>
+
+<ion-button expand="full" color="success" fill="outline" (click)="crearPregunta()">Agregar</ion-button>
+
+<ion-button expand="full" color="tertiary" fill="outline" (click)="guardarPreguntas()" >Guardar</ion-button>
 
 </ion-content>

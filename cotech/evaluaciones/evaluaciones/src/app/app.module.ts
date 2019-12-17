@@ -18,10 +18,11 @@ import { MenusService } from './_servicios/menu.service';
 import { UserService } from './_servicios/user.service';
 import { PermisosPage } from './administrador/usuarios/permisos/permisos.page';
 import { AsignarPage } from './administrador/usuarios/asignar/asignar.page';
+import { ImportarPage } from './administrador/usuarios/importar/importar.page';
 
 @NgModule({
-  declarations: [AppComponent, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,ImportarPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ PreguntaPage,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,

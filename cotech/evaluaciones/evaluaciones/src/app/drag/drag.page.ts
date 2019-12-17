@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ITreeState, ITreeOptions } from 'angular-tree-component';
 import { v4 } from 'uuid';
 
@@ -8,7 +8,7 @@ import { v4 } from 'uuid';
   styleUrls: ['./drag.page.scss'],
 })
 
-export class DragPage implements OnInit{
+export class DragPage{
     mensaje = "";
     currentEvent: string = 'Listos para comenzar';
     config = {
@@ -60,11 +60,13 @@ export class DragPage implements OnInit{
         ]
       }
     ];
-    constructor() { 
+    constructor() {
       console.log("ON INIT");
       let arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
       if(arbol){
           this.myTree = JSON.parse(sessionStorage.getItem('jerarquia'));
+          console.log(JSON.parse(sessionStorage.getItem('config')));
+          this.config = JSON.parse(sessionStorage.getItem('config'));
       }
 
     }
@@ -79,6 +81,7 @@ export class DragPage implements OnInit{
     }
     public saveTree(){
       sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
+      sessionStorage.setItem('config',JSON.stringify(this.config));
     }
 
     onDragStart(event) {

@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'asignar',
     loadChildren: () => import('./asignar/asignar.module').then( m => m.AsignarPageModule)
+  },
+  {
+    path: 'importar',
+    loadChildren: () => import('./importar/importar.module').then( m => m.ImportarPageModule)
   }
 ];
 

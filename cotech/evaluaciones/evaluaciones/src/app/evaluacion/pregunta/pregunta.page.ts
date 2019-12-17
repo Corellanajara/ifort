@@ -11,14 +11,18 @@ import { CrudPage } from './crud/crud.page';
 
 export class PreguntaPage implements OnInit {
   public evaluacion : any;
-  public preguntas = [{titulo:'preg 1',tipo:1}];
+  public preguntas = [];
   public tipos = ["porcentaje","numerico","rango"];
   constructor(private navParams : NavParams,private modalCtrl : ModalController) {
     this.evaluacion = navParams.get('evaluacion');
+    this.preguntas = (this.evaluacion.preguntas || []);
     console.log(this.evaluacion);
  }
 
   ngOnInit() {
+  }
+  dismiss(){
+    this.modalCtrl.dismiss();
   }
   async crearPregunta() {
     const modal = await this.modalCtrl.create({
@@ -26,7 +30,7 @@ export class PreguntaPage implements OnInit {
       cssClass: 'modals',
     });
     modal.onDidDismiss().then(modal=>{
-      console.log("en preguntas",modal);
+      this.preguntas.push(modal.data);
     });
     return await modal.present();
   }
@@ -42,5 +46,8 @@ export class PreguntaPage implements OnInit {
       console.log("en preguntas",modal);
     });
     return await modal.present();
+  }
+  guardarPreguntas(){
+    this.modalCtrl.dismiss(this.preguntas);
   }
 }

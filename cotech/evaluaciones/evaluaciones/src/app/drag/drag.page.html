@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>A tu medida! </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Jerarquia </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +12,7 @@
 
   <div>
     <div class='title'>
-        <small>Anda creando tus weas hasta que tenga sentido  para ti</small>
+
         <lib-ngx-tree-component
         [treeData]="myTree"
         (ondragstart)="onDragStart($event)"

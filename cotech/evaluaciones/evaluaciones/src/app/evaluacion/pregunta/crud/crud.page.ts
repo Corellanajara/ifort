@@ -7,7 +7,8 @@ import { NavParams,ModalController } from '@ionic/angular';
   styleUrls: ['./crud.page.scss'],
 })
 export class CrudPage implements OnInit {
-
+  pregunta = "";
+  tipo = "";
   constructor(private modalCtrl:ModalController) { }
 
   ngOnInit() {
@@ -15,5 +16,17 @@ export class CrudPage implements OnInit {
   dismiss(){
     this.modalCtrl.dismiss();
   }
-
+  validarValores(min,max){
+    if(min < 0){
+      return false;
+    }
+    if(min < max){
+      return true;
+    }
+    return false;
+  }
+  agregarPregunta(){
+    let tipoPregunta = {titulo:this.pregunta,tipo:this.tipo};
+    this.modalCtrl.dismiss(tipoPregunta);
+  }
 }
