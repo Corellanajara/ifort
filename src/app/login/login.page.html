@@ -1,0 +1,45 @@
+<ion-content color="primary" class="ion-padding">
+  <form class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+    <p class="login-text">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-lock fa-stack-1x"></i>
+      </span>
+    </p>
+    <input type="email" ngModel name="email" class="login-username" autofocus="true" required="true" placeholder="Email" autocomplete="off" />
+    <input type="password" ngModel name="password" class="login-password" required="true" placeholder="Clave" autocomplete="off" />
+    <input type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión" class="login-submit" />
+  </form>
+  <a href="#" class="login-forgot-pass">¿No recuerdas tu contraseña?</a>
+  <div class="underlay-photo"></div>
+  <div class="underlay-black"></div>
+  <!--
+  <form #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+    <ion-grid>
+      <ion-row color="primary" class="ion-justify-content-center">
+        <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+          <div class="ion-text-center">
+            <h3>Login</h3>
+          </div>
+          <div  class="ion-padding">
+            <ion-item>
+              <ion-input name="email" type="email" placeholder="your@email.com" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+            </ion-item>
+          </div>
+          <div  class="ion-padding">
+            <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+         <div class="ion-text-center">
+           Si no posees una cuenta puedes crear una en  <a routerLink='/registro'>registrate</a>
+         </div>
+     </ion-row>
+    </ion-grid>
+  </form>
+-->
+</ion-content>

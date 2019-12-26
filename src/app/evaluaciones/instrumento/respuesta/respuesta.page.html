@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>respuesta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h2 style="text-align:center">{{titulo}}</h2>
+  <h3 style="text-align:center">{{descripcion}}</h3>
+  <br>
+
+  <ion-list *ngIf="noOcultar">
+    <ion-item *ngIf="tipo == 'Numero'">
+      <ion-input [(ngModel)]="valor" type="number" placeholder="pon tu respuesta"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="tipo == 'Rango'">
+      <ion-range color="danger" pin="true" [disabled]="!noOcultar" min="{{min}}" max="{{max}}" step="1" [(ngModel)]="valor" snaps="true"></ion-range>
+    </ion-item>
+  </ion-list>
+
+  <p *ngIf="!noOcultar" style="text-align:center">{{valor}}</p>
+  <br>
+  <ion-button   expand="full" color="tertiary" *ngIf="noOcultar" fill="outline" (click)="guardar()" [disabled]="!valor"  style="color:black">Guardar respuesta</ion-button>
+  <br>
+</ion-content>

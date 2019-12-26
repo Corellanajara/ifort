@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title style="text-align:center">Instrumento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2 style="text-align:center">{{instrumento.nombre}}</h2>
+  <br>
+  <ion-list>
+    <ion-item-sliding *ngFor="let indicador of indicadores">
+      <ion-item (click)="responder(indicador)">
+        <ion-label>{{indicador.titulo}} <input type="checkbox" id="modal" /></ion-label>
+        <ion-button slot="end">
+          {{(indicador.valor||indicador.tipo)}}
+        </ion-button>
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-item-option (click)="editarIndicador(prgunta)" color="warning">Editar</ion-item-option>
+        <ion-item-option (click)="eliminarIndicador(prgunta)" color="danger">Borrar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="indicadores.length == 0">
+      <h2>No existen indicadores para esta evaluación</h2>
+    </ion-item>
+  </ion-list>
+
+  <ion-button   expand="full" color="tertiary" *ngIf="noOcultar" fill="outline" (click)="guardarEvaluacion()" [disabled]="sinResponder(indicadores)"  style="color:black">Guardar Evaluación</ion-button>
+
+</ion-content>

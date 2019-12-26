@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"  ></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ evaluacion.nombre }} - Indicadores</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button fill="solid" color="secondary" (click)="crearIndicador();verAgregar = true;" >
+        <ion-icon name="add" ></ion-icon>
+      </ion-button>
+      <ion-button fill="solid" color="secondary" (click)="abrirImportar();verAgregar = false;" >
+        <ion-icon name="document" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let indicador of indicadores">
+      <ion-item>
+        <ion-label>{{indicador.titulo}}</ion-label>
+        <ion-button slot="end">
+          {{indicador.tipo}}
+        </ion-button>
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-item-option (click)="editarIndicador(prgunta)" color="warning">Editar</ion-item-option>
+        <ion-item-option (click)="eliminarIndicador(prgunta)" color="danger">Borrar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item *ngIf="indicadores.length == 0">
+      <h2>No existen indicadores para esta evaluación</h2>
+    </ion-item>
+  </ion-list>
+  <br><br>
+  <ion-button expand="full" color="tertiary" fill="outline" (click)="guardarindicadores()" >Guardar</ion-button>
+  
+</ion-content>

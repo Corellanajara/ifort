@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()" ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear indicador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>Tipo de indicador</ion-label>
+    <ion-select value="brown" okText="Orkay" cancelText="Dismiss" [(ngModel)]="tipo">
+      <ion-select-option value="Rango">Rango</ion-select-option>
+      <ion-select-option value="Porcentaje">Porcentaje</ion-select-option>
+      <ion-select-option value="Numero">Numero</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-list *ngIf="tipo != '' ">
+    <ion-item>
+      <ion-input type="text" [(ngModel)]="indicador" placeholder="Ingresa nombre del indicador"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-input type="text" [(ngModel)]="descripcion" placeholder="Ingresa descripcion del indicador"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="tipo == 'Rango' ">
+    <ion-item>
+      <ion-label>
+        Minimo
+      </ion-label>
+      <ion-input type="number" [(ngModel)]="min"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Máximo
+      </ion-label>
+      <ion-input type="number" [(ngModel)]="max"></ion-input>
+    </ion-item>
+    <ion-item >
+      <ion-label >Ejemplo</ion-label>
+      <ion-range min="{{min}}" max="{{max}}" color="secondary" [(ngModel)]="cantidad" [disabled]="!min || !max || !validarValores(min,max) ">
+        <ion-label slot="start">{{(min || "Minimo")}} -> {{(max|| "Maximo")}}</ion-label>
+        <ion-label slot="end">{{cantidad}}</ion-label>
+      </ion-range>
+    </ion-item>
+
+
+
+  </ion-list>
+
+  <ion-footer style="margin-top: 40%">
+      <ion-button  *ngIf="tipo == 'Rango' " [disabled]="indicador == '' || !min || !max " expand="full" color="success" fill="outline" (click)="agregarIndicador()">Agregar</ion-button>
+      <ion-button *ngIf="tipo != 'Rango' && tipo != '' " [disabled]="indicador == '' " expand="full" color="success" fill="outline" (click)="agregarIndicador()">Agregar</ion-button>
+  </ion-footer>
+</ion-content>

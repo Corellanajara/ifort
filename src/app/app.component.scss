@@ -1,0 +1,35 @@
+
+ion-toolbar {
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+}
+ion-content {
+  --color:white!important;
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+}
+ion-item{
+  --color:white!important;
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+}
+.list-md{
+  padding-top:0!important;
+  padding-bottom:0!important;
+  margin-top: 0!important;
+}
+.item-menu{
+      /** background **/
+  --background-focused:#262f3d;
+  --background-hover:#262f3d;
+  --background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+    /** objetos del item **/
+    /** color del item (dentro objetos,letras) **/
+ --color:#fff;
+
+ --color-activated:#ffff;
+    /** color de lo de dentro cuando se le apreta tab encima **/
+ --color-focused:#fff;
+    /** color de lo de dentro cuando se le pasa el mouse encima **/
+ --color-hover:#ffff;
+}
