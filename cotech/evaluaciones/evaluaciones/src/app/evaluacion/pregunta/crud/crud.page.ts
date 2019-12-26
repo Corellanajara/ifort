@@ -7,8 +7,10 @@ import { NavParams,ModalController } from '@ionic/angular';
   styleUrls: ['./crud.page.scss'],
 })
 export class CrudPage implements OnInit {
-  pregunta = "";
+  indicador = "";
   tipo = "";
+  min : any;
+  max : any;
   constructor(private modalCtrl:ModalController) { }
 
   ngOnInit() {
@@ -25,8 +27,13 @@ export class CrudPage implements OnInit {
     }
     return false;
   }
-  agregarPregunta(){
-    let tipoPregunta = {titulo:this.pregunta,tipo:this.tipo};
+  agregarIndicador(){
+    var tipoPregunta = {};
+    if(this.tipo == 'Rango'){
+      tipoPregunta = {min : this.min,max:this.max ,titulo:this.indicador,tipo:this.tipo };
+    }else{
+      tipoPregunta = {titulo:this.indicador,tipo:this.tipo};
+    }
     this.modalCtrl.dismiss(tipoPregunta);
   }
 }

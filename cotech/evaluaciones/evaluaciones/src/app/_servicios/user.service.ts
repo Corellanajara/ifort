@@ -9,6 +9,8 @@ interface Usuario {
   password: string;
   permissionLevel: string;
   menus : Array<Menu>;
+  evaluaciones : Array<any>;
+  asignado : Array<any>;
   _id : string;
 }
 interface Menu {
@@ -27,7 +29,8 @@ export class UserService {
 
   listar() {
     let accessToken = sessionStorage.getItem('accessToken');
-    return this.http.get<any[]>(`${this.url}/users/`, {
+    let id = sessionStorage.getItem('empresaId');
+    return this.http.get<Usuario>(`${this.url}/users/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization',`Bearer ${accessToken}`)
@@ -35,8 +38,10 @@ export class UserService {
   }
   insertar(User : any){
     console.log(User);
+    let id = sessionStorage.getItem('empresaId');
     User.permissionLevel = 1;
-    User.menus = [];
+    User.menus = [];    
+    User.empresaId = id;
     let accessToken = sessionStorage.getItem('accessToken');
     return this.http.post<Usuario>(`${this.url}/users/`,User, {
       headers: new HttpHeaders()
@@ -60,6 +65,14 @@ export class UserService {
   gathering(id:string){
     let accessToken = sessionStorage.getItem('accessToken');
     return this.http.get<Usuario>(`${this.url}/users/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization',`Bearer ${accessToken}`)
+    });
+  }
+  listarByEmpresa(id:string){
+    let accessToken = sessionStorage.getItem('accessToken');
+    return this.http.get<Usuario>(`${this.url}/users/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization',`Bearer ${accessToken}`)

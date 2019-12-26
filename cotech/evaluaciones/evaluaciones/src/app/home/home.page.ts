@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
+import { ModalController } from '@ionic/angular';
+import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
+import { UserService } from '../_servicios/user.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +10,9 @@ import { Chart } from "chart.js";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  asignado : any;
+  valorPersonalResult = 0;
+  personalResults : any;
   @ViewChild("barCanvas",{static: false}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",{static: false}) doughnutCanvas: ElementRef;
   @ViewChild("lineCanvas",{static: false}) lineCanvas: ElementRef;
@@ -23,72 +28,12 @@ export class HomePage implements OnInit {
   private bubbleChart: Chart;
   ngAfterViewInit(){
     console.log("hola mundo");
-    this.barChart = new Chart(this.barCanvas.nativeElement,{
-        type:"bar",
-        data: {
-          labels: ["Madera","Concreto","Zinc","Tierra","Acero","Plástico"],
-          datasets: [
-            {
-              label: "Materiales 2019",
-              data: [12,19,3,5,2,3],
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
-              ],
-              borderColor: [
-                "rgba(255,99,132,1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)",
-                "rgba(255, 159, 64, 1)"
-              ],
-               borderWidth: 2
-            },
-            {
-              label: "Materiales 2020",
-              data: [13,18,3,6,1,4],
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)"
-              ],
-              borderColor: [
-                "rgba(255,99,132,1)",
-                "rgba(54, 162, 235, 1)",
-                "rgba(255, 206, 86, 1)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)",
-                "rgba(255, 159, 64, 1)"
-              ],
-               borderWidth: 2
-            }
-          ]
-        },
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                  }
-              }
-            ]
-          }
-        }
-    });
+    this.graficarPersonalData();
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
       type: "doughnut",
       data: {
-        labels: ["Ofertas Caducadas", "Ofertas Completadas", "Ofertas Activas con Match", "Ofertas Activas sin Match "],
+        labels: ["A", "B", "C", "D"],
         datasets: [
           {
             label: "# of Votes",
@@ -117,7 +62,7 @@ export class HomePage implements OnInit {
         labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
         datasets: [
           {
-            label: "Ofertas Completadas",
+            label: "Datos a",
             fill: false,
             lineTension: 0.3,
 
@@ -143,7 +88,7 @@ export class HomePage implements OnInit {
             spanGaps: false
           },
           {
-            label: "Ofertas Caducadas",
+            label: "Datos b",
             fill: false,
             lineTension: 0.3,
             backgroundColor: "#ff6384",
@@ -174,7 +119,7 @@ export class HomePage implements OnInit {
     type: "radar",
     data: {
 
-      labels: ["Madera", "Zinc", "Tierra", "Concreto","Plástico"],
+      labels: ["A", "B", "C", "D","E"],
       datasets: [
         {
           label: "Marzo",
@@ -208,7 +153,7 @@ export class HomePage implements OnInit {
     type: "polarArea",
     data: {
 
-      labels: ["Madera", "Zinc", "Tierra", "Concreto","Plástico"],
+      labels: ["A", "B", "C", "D","E"],
       datasets: [
         {
           label: "Marzo",
@@ -238,7 +183,7 @@ export class HomePage implements OnInit {
     labels: "Africa",
     datasets: [
       {
-        label: ["Madera"],
+        label: ["A"],
         backgroundColor: "rgba(255,221,50,0.2)",
         borderColor: "rgba(255,221,50,1)",
         data: [{
@@ -248,7 +193,7 @@ export class HomePage implements OnInit {
         }]
       },
       {
-        label: ["Tierra"],
+        label: ["B"],
         backgroundColor: "rgba(60,186,159,0.2)",
         borderColor: "rgba(60,186,159,1)",
         data: [{
@@ -258,7 +203,7 @@ export class HomePage implements OnInit {
         }]
       },
       {
-        label: ["Zinc"],
+        label: ["C"],
         backgroundColor: "rgba(0,0,0,0.2)",
         borderColor: "#000",
         data: [{
@@ -268,7 +213,7 @@ export class HomePage implements OnInit {
         }]
       },
       {
-        label: ["Concreto"],
+        label: ["D"],
         backgroundColor: "rgba(193,46,12,0.2)",
         borderColor: "rgba(193,46,12,1)",
         data: [{
@@ -284,9 +229,144 @@ export class HomePage implements OnInit {
   }
   ngOnInit() {
 
+    this.asignado = JSON.parse(sessionStorage.getItem('asignado'));
+    console.log(this.asignado);
+
+    if(!this.asignado){
+      this.asignado = {name:'Aun no asignado'};
+    }else{
+      this.asignado = this.asignado[0];
+    }
+  }
+  constructor(
+    private userService : UserService,
+    private modalCtrl : ModalController,
+  ) {
+    this.getPersonalResults();
+  }
+  graficarPersonalData(){
+    let arr = [];
+    let valores = [];
+    let labels = [];
+    let backgroundColors = [];
+    let bordesColors = [];
+    let background = ["rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 159, 64, 0.2)"];
+    let bordes = ["rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255, 159, 64, 1)"];
+
+    let evaluaciones = JSON.parse(sessionStorage.getItem('evaluaciones'));
+    for(let i = evaluaciones.length; i > 0 ; i = i - 1){
+      if(evaluaciones[i - 1].estado > 0){
+        if(arr.length != 6){
+          labels.push(evaluaciones[i - 1].instrumento.nombre);
+          arr.push(evaluaciones[i - 1]);
+          valores.push(this.getPersonalResultsByEv(evaluaciones[i - 1]));
+          backgroundColors.push(background[backgroundColors.length]);
+          bordesColors.push(bordes[bordesColors.length]);
+        }
+      }
+    }
+console.log(evaluaciones);
+console.log(arr);
+
+    this.barChart = new Chart(this.barCanvas.nativeElement,{
+        type:"bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Evaluaciones",
+              data: valores,
+              backgroundColor:backgroundColors,
+              borderColor: bordesColors,
+               borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                  }
+              }
+            ]
+          }
+        }
+    });
 
   }
-  constructor() {
+
+  traerDatos(evento){
+    let userId = sessionStorage.getItem('userId');
+    this.userService.gathering(userId).subscribe( datos => {
+      console.log(datos);
+      sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
+      this.getPersonalResults();
+      if(evento){
+        evento.target.complete();
+      }
+    })
+
+  }
+  async verEvaluacion(evaluacion) {
+    const modal = await this.modalCtrl.create({
+      component:  InstrumentoPage,
+      cssClass: 'modals',
+      componentProps: {
+      'evaluacion': evaluacion.instrumento,
+      'noOcultar': false
+    }
+    });
+
+    return await modal.present();
+  }
+  getPersonalEvaluation(){
+    let evaluaciones = JSON.parse(sessionStorage.getItem('evaluaciones'));
+    for(let i = evaluaciones.length; i > 0 ; i = i - 1){
+      if(evaluaciones[i - 1].estado > 0){
+        return evaluaciones[i - 1];
+      }
+    }
+  }
+  getPersonalResultsByEv(evaluacion){
+    var instrumento = evaluacion.instrumento ;
+    var puntos = 0;
+    for(let indice = 0 ; indice < instrumento.indicadores.length;indice++){
+      let indicador = instrumento.indicadores[indice];
+      if(indicador.valor){
+          puntos += indicador.valor;
+      }
+    }
+    //console.log(puntos);
+    //this.valorPersonalResult = puntos;
+    //this.personalResults = puntos;
+    return puntos;
+
+  }
+  getPersonalResults(){
+
+    if(this.valorPersonalResult > 0){
+      return this.valorPersonalResult;
+    }
+    let evaluaciones = JSON.parse(sessionStorage.getItem('evaluaciones'));
+    for(let i = evaluaciones.length; i > 0 ; i = i - 1){
+
+      if(evaluaciones[i - 1].estado > 0){
+        var instrumento = evaluaciones[i - 1].instrumento ;
+        var puntos = 0;
+        for(let indice = 0 ; indice < instrumento.indicadores.length;indice++){
+          let indicador = instrumento.indicadores[indice];
+          if(indicador.valor){
+              puntos += indicador.valor;
+          }
+        }
+        console.log(puntos);
+        this.valorPersonalResult = puntos;
+        this.personalResults = puntos;
+        return puntos;
+      }
+    }
 
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams,ModalController } from '@ionic/angular';
-
-
+import { ImportarPagePregunta } from './importar/importar.page';
 import { CrudPage } from './crud/crud.page';
+
 @Component({
   selector: 'app-pregunta',
   templateUrl: './pregunta.page.html',
@@ -11,11 +11,11 @@ import { CrudPage } from './crud/crud.page';
 
 export class PreguntaPage implements OnInit {
   public evaluacion : any;
-  public preguntas = [];
+  public indicadores = [];
   public tipos = ["porcentaje","numerico","rango"];
   constructor(private navParams : NavParams,private modalCtrl : ModalController) {
     this.evaluacion = navParams.get('evaluacion');
-    this.preguntas = (this.evaluacion.preguntas || []);
+    this.indicadores = (this.evaluacion.indicadores || []);
     console.log(this.evaluacion);
  }
 
@@ -24,13 +24,30 @@ export class PreguntaPage implements OnInit {
   dismiss(){
     this.modalCtrl.dismiss();
   }
-  async crearPregunta() {
+  async crearIndicador() {
     const modal = await this.modalCtrl.create({
       component:  CrudPage,
       cssClass: 'modals',
     });
     modal.onDidDismiss().then(modal=>{
-      this.preguntas.push(modal.data);
+      if(modal.data){
+        console.log(modal);
+        this.indicadores.push(modal.data);
+      }
+
+    });
+    return await modal.present();
+  }
+  async abrirImportar(){
+    const modal = await this.modalCtrl.create({
+      component: ImportarPagePregunta,
+      cssClass: 'modals',
+      componentProps: {
+      'evaluacion': this.evaluacion,
+    }
+    });
+    modal.onDidDismiss().then(modal=>{
+      console.log("datos",modal);
     });
     return await modal.present();
   }
@@ -43,11 +60,11 @@ export class PreguntaPage implements OnInit {
     }
     });
     modal.onDidDismiss().then(modal=>{
-      console.log("en preguntas",modal);
+      console.log("en indicadores",modal);
     });
     return await modal.present();
   }
-  guardarPreguntas(){
-    this.modalCtrl.dismiss(this.preguntas);
+  guardarindicadores(){
+    this.modalCtrl.dismiss(this.indicadores);
   }
 }

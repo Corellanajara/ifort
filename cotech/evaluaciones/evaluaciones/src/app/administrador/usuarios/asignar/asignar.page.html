@@ -17,6 +17,7 @@
     </ion-segment>
   </ion-toolbar>
 
-
   <h3 style="text-align:center">{{mensaje}}</h3>
+
+  <ion-button [disabled]="!nodo"  expand="full" color="tertiary" fill="outline" (click)="asignar()"  style="color:black">Asignar</ion-button>
 </ion-content>

@@ -58,3 +58,23 @@ ion-chip{
   margin-bottom: 3%;
   margin-top: 3%;
 }
+
+
+ion-toolbar{
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+}
+
+ion-item{
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+}
+
+ion-content {
+  --color:white!important;
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+}
+ion-card{
+  --background: white;
+}

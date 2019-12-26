@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ITreeState, ITreeOptions } from 'angular-tree-component';
 import { v4 } from 'uuid';
+import { EmpresaService } from '../_servicios/empresas.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-drag',
@@ -10,6 +12,7 @@ import { v4 } from 'uuid';
 
 export class DragPage{
     mensaje = "";
+    Empresa : Any;
     currentEvent: string = 'Listos para comenzar';
     config = {
         showActionButtons: true,
@@ -60,8 +63,14 @@ export class DragPage{
         ]
       }
     ];
-    constructor() {
+    constructor(
+      private loadingController:LoadingController,
+      private empresaService: EmpresaService) {
       console.log("ON INIT");
+      console.log(sessionStorage.getItem('empresa'));
+
+      this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
+      this.config.rootTitle = this.Empresa.nombre;
       let arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
       if(arbol){
           this.myTree = JSON.parse(sessionStorage.getItem('jerarquia'));
@@ -80,6 +89,11 @@ export class DragPage{
       this.config.enableDragging = false;
     }
     public saveTree(){
+      this.Empresa.jerarquia = this.myTree;
+      console.log(this.Empresa);
+      this.empresaService.actualizar(this.Empresa.id,this.Empresa).subscribe( act => {
+        console.log(act);
+      })
       sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
       sessionStorage.setItem('config',JSON.stringify(this.config));
     }
@@ -135,5 +149,16 @@ export class DragPage{
       }else{
         this.seleccionaNodo(nodo,indice);
       }
+    }
+
+    async cargando() {
+      const loading = await this.loadingController.create({
+        spinner: null,
+        duration: 2000,
+        message: 'Guardando jerarquia <ion-spinner></ion-spinner>',
+        translucent: true,
+        cssClass: 'custom-class custom-loading'
+      });
+      return await loading.present();
     }
   }

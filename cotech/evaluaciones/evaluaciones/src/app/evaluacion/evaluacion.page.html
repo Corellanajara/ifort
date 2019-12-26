@@ -8,7 +8,30 @@
 </ion-header>
 
 <ion-content >
+  <ion-fab vertical="top" horizontal="end" *ngIf="!verAgregar">
+    <ion-fab-button>
+      <ion-icon name="apps"></ion-icon>
+    </ion-fab-button>
 
+    <ion-fab-list side="start">
+
+         <ion-fab-button (click)="abrirImportar();verAgregar = false;" >
+           <ion-icon name="document" ></ion-icon>
+         </ion-fab-button>
+
+         <ion-fab-button (click)="redefinirEvaluacion();verAgregar = true;" *ngIf="!verAgregar">
+           <ion-icon name="add" ></ion-icon>
+         </ion-fab-button>
+
+    </ion-fab-list>
+
+  </ion-fab>
+  <ion-fab vertical="top" horizontal="end" *ngIf="verAgregar">
+    <ion-fab-button (click)="redefinirEvaluacion();verAgregar = false;" >
+      <ion-icon name="remove" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+<!--
   <ion-fab vertical="top" horizontal="end" slot="fixed" (click)="redefinirEvaluacion();verAgregar = true;" *ngIf="!verAgregar">
      <ion-fab-button>
        <ion-icon name="add" ></ion-icon>
@@ -18,7 +41,7 @@
       <ion-fab-button>
         <ion-icon name="remove" ></ion-icon>
       </ion-fab-button>
-    </ion-fab>
+    </ion-fab>-->
   <br>
   <div *ngIf="verAgregar">
     <ion-item style="padding-top: 20px">
@@ -33,7 +56,7 @@
     <ion-item-divider>
 
     </ion-item-divider>
-    <ion-button (click)="abrirPreguntas()" expand="block" color="success" fill="outline" [disabled]=" evaluacion.nombre == '' "  style="color:black" >Ver/Agregar preguntas <span *ngIf="evaluacion.preguntas"> ({{evaluacion.preguntas.length}})</span></ion-button>
+    <ion-button (click)="abrirPreguntas()" expand="block" color="success" fill="outline" [disabled]=" evaluacion.nombre == '' "  style="color:black" >Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{evaluacion.indicadores.length}})</span></ion-button>
 
     <ion-button *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  expand="full" color="tertiary" fill="outline" (click)="confirmar()" style="color:black">Guardar</ion-button>
     <ion-button *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "  expand="full" color="tertiary" fill="outline"(click)="actualizarEvaluacion();verAgregar = false" style="color:black">Actualizar</ion-button>
@@ -49,9 +72,9 @@
      <b>Lista de evaluaciones</b>
    </ion-item-divider>
 
-   <ion-list>
+   <ion-list style="background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);">
 
-     <ion-item-sliding *ngFor="let ev of evaluaciones" #slidingItem  >
+     <ion-item-sliding  *ngFor="let ev of cantidadInputs(evaluaciones);index as i" #slidingItem  >
       <ion-item-options side="start">
         <ion-item-option color="danger" expandable (click)="eliminar(ev)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
@@ -59,7 +82,9 @@
       </ion-item-options>
 
       <ion-item>
+        <ion-checkbox slot="start"  (ionChange)="recalcular()" [(ngModel)]="activos[i]"></ion-checkbox>
         <ion-label (click)="visualizar(ev,slidingItem);verAgregar = true">{{ev.nombre}}</ion-label>
+        <ion-input slot="end" type="number" (ionChange)="recalcular()" placeholder="%" [(ngModel)]="inputs[i]" name="input{{i}}"></ion-input>
       </ion-item>
 
       <ion-item-options side="end">
@@ -70,7 +95,24 @@
     </ion-item-sliding>
 
     <h3 *ngIf="evaluaciones.length == 0">No hay evaluaciones disponibles</h3>
-
+    <p *ngIf="porcentaje>100" style="color:red">{{porcentaje}}%</p>
+    <p *ngIf="porcentaje==100" style="color:green">{{porcentaje}}%</p>
+    <p *ngIf="porcentaje<100" style="color:blue">{{porcentaje}}%</p>
    </ion-list>
+
+   <div class="" *ngIf="porcentaje == 100">
+     <ion-icon name="arrow-back" style="font-size:25px;" *ngIf="this.pasos.length > 0" (click)="volver()">Atras</ion-icon>
+     <ion-toolbar>
+       <ion-segment scrollable  color="secondary">
+         <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,index)" (dblclick)="navegaNodo(nodo,index,true)">
+           <ion-label>{{nodo.name}}</ion-label>
+         </ion-segment-button>
+       </ion-segment>
+     </ion-toolbar>
+
+   </div>
+   <h3 style="text-align:center">{{mensaje}}</h3>
+
+   <ion-button [disabled]="!nodo || revisarActivoVacio() "  expand="full" color="success" fill="outline" (click)="enviarEvaluacion()"  style="color:black">Enviar evaluación</ion-button>
 
 </ion-content>

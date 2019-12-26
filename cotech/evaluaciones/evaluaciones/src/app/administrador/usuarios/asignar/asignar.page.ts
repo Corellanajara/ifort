@@ -8,13 +8,18 @@ import { NavParams, ModalController } from '@ionic/angular';
 })
 export class AsignarPage implements OnInit {
   jerarquia = [];
+  usuario : any;
   arbol = [];
   indice = 0;
   pasos = [];
   mensaje = "";
   sucursal = 0;
+  nodo : any;
   count : number = 0;
-  constructor(private modalCtrl:ModalController) {
+  constructor(
+    private navParams : NavParams,
+    private modalCtrl:ModalController) {
+    this.usuario = navParams.get('usuario');
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
     console.log(this.jerarquia);
@@ -23,6 +28,7 @@ export class AsignarPage implements OnInit {
     this.modalCtrl.dismiss();
   }
   ngOnInit() {
+    this.nodo = undefined;
   }
   volver(){
     console.log(this.pasos);
@@ -32,16 +38,20 @@ export class AsignarPage implements OnInit {
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
+    this.nodo = undefined;
     this.mensaje = "Seleciona ";
   }
+  public asignar(){
+    this.modalCtrl.dismiss(this.nodo);
+  }
   public seleccionaNodo(nodo,indice){
-
     this.count++;
     setTimeout(() => {
       if (this.count == 1) {
         this.count = 0;
         console.log("hice click en selecciona",nodo);
         this.mensaje = "Seleccionado "+nodo.name;
+        this.nodo = nodo;
         this.sucursal = nodo.id;
       }if(this.count > 1){
         this.count = 0;
@@ -51,6 +61,7 @@ export class AsignarPage implements OnInit {
 
   }
   navegaNodo(nodo,indice,aumentaConteo){
+    console.log(this.arbol);
     if(this.arbol[indice].childrens.length > 0){
       console.log("navegado")
       this.indice++;

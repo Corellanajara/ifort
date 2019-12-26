@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>canjeables</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div class="wrapper" *ngFor="let producto of productos;index as i">
+    <div class="container">
+      <div class="top"></div>
+      <div class="bottom {{clicked[i]}}">
+        <div class="left">
+          <div class="details">
+            <h1>Silla</h1>
+            <p>250 ptos</p>
+          </div>
+          <div class="buy" (click)="cambiarEstilo(i)"><ion-icon style="font-size:500%" name="cart"></ion-icon></div>
+        </div>
+        <div class="right">
+          <div class="done"><ion-icon style="font-size:500%" name="checkmark"></ion-icon></div>
+          <div class="details">
+            <h1>Silla</h1>
+            <p>Solicitado!</p>
+          </div>
+          <div class="remove " (click)="cambiarEstilo(i)"><ion-icon style="font-size:500%" name="trash"></ion-icon></div>
+        </div>
+      </div>
+    </div>
+    <div class="inside">
+      <div class="icon"><ion-icon name="information-circle-outline"></ion-icon></div>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>Width</th>
+            <th>Height</th>
+          </tr>
+          <tr>
+            <td>3000mm</td>
+            <td>4000mm</td>
+          </tr>
+          <tr>
+            <th>Something</th>
+            <th>Something</th>
+          </tr>
+          <tr>
+            <td>200mm</td>
+            <td>200mm</td>
+          </tr>
+          <tr>
+            <th>Something</th>
+            <th>Something</th>
+          </tr>
+          <tr>
+            <td>200mm</td>
+            <td>200mm</td>
+          </tr>
+          <tr>
+            <th>Something</th>
+            <th>Something</th>
+          </tr>
+          <tr>
+            <td>200mm</td>
+            <td>200mm</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>

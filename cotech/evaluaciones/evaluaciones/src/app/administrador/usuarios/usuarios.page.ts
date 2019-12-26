@@ -61,10 +61,9 @@ export class UsuariosPage implements OnInit {
 
     const modal = await this.modalCtrl.create({
       component : ImportarPage,
-      cssClass : 'modals'      
+      cssClass : 'modals'
     })
     modal.onDidDismiss().then(modal=>{
-      console.log(usuario);
       console.log("datos de importar usuarios",modal);
       if(modal.data){
           console.log(modal)
@@ -97,13 +96,17 @@ export class UsuariosPage implements OnInit {
     });
 
     modal.onDidDismiss().then(modal=>{
-      console.log(usuario);
       console.log("datos de permisos de usuario",modal);
       if(modal.data){
-          usuario.menus = modal.data;
+        let id = sessionStorage.getItem('userId');
+        usuario.menus = modal.data;
+        usuario.password = undefined;
+        if(usuario.id == id){
           this.events.publish('user:login', usuario.menus);
           sessionStorage.setItem('menus',JSON.stringify(usuario.menus));
+        }
           usuario.password = undefined;
+          console.log("usuario a actualizar",usuario);
           this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
             console.log(res);
           })
@@ -116,7 +119,6 @@ export class UsuariosPage implements OnInit {
   public guardarUsuario(){
     this.usuario.id = ""+(this.usuarios.length + 1 );
     this.userService.insertar(this.usuario).subscribe(usuario =>{
-      console.log(usuario);
       this.presentToast("Usuario creado satisfactoriamente");
       this.usuario = this.usuarioVacio;
     })
@@ -158,7 +160,13 @@ export class UsuariosPage implements OnInit {
       console.log(usuario);
       console.log("datos de asignacion de usuario",modal);
       if(modal.data){
-          console.log(modal)
+        let id = sessionStorage.getItem('userId');
+        usuario.asignado = modal.data;                
+        usuario.password = undefined;
+        console.log("usuario a actualizar",usuario);
+        this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
+          console.log(res);
+        })
       }
 
 

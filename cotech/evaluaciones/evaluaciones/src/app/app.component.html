@@ -1,15 +1,15 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-header>
+  <ion-split-pane contentId="main-content" >
+    <ion-menu contentId="main-content" type="overlay" >
+      <ion-header class="titulo-menu">
         <ion-toolbar>
-          <ion-title>Evapp</ion-title>
+          <ion-title>IFORT</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list>
+        <ion-list class="margin-list">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.path]" (click)="log(p)">
+            <ion-item class="item-menu" [routerDirection]="'root'" [routerLink]="[p.path]" (click)="log(p)">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
@@ -25,6 +25,6 @@
       </ion-footer>
     </ion-menu>
 
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-router-outlet id="main-content" ></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

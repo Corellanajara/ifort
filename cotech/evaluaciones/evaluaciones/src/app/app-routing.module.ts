@@ -42,6 +42,18 @@ const routes: Routes = [
   {
     path: 'drag',
     loadChildren: () => import('./drag/drag.module').then( m => m.DragPageModule)
+  },
+  {
+    path: 'canjeables',
+    loadChildren: () => import('./canjeables/canjeables.module').then( m => m.CanjeablesPageModule)
+  },
+  {
+    path: 'evaluaciones',
+    loadChildren: () => import('./evaluaciones/evaluaciones.module').then( m => m.EvaluacionesPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   }
 ];
 
