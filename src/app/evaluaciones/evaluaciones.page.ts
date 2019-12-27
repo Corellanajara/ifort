@@ -37,10 +37,7 @@ export class EvaluacionesPage implements OnInit {
     }
     return evs;
   }
-  evaluar(evaluacion){
-    console.log(evaluacion);
-    console.log(evaluacion.instrumento.nombre);
-  }
+
   async evaluar(i,evaluacion,usuario) {
     console.log(i);
     console.log(evaluacion);

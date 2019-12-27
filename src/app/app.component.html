@@ -7,10 +7,21 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+
+        <ion-item class="item-perfil">
+          <ion-avatar>
+            <img src="https://www.universal.org.ar/wp-content/uploads/2013/11/83253174_0.jpg">
+          </ion-avatar>
+        </ion-item>
+
+        <ion-item class="item-perfil">
+          <ion-title class="ion-title">Cristopher Orellana</ion-title>
+        </ion-item>
+
         <ion-list class="margin-list">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item class="item-menu" [routerDirection]="'root'" [routerLink]="[p.path]" (click)="log(p)">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-icon slot="start" [name]="p.icon" color="blanco"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
@@ -20,7 +31,7 @@
       </ion-content>
       <ion-footer>
         <ion-toolbar (click)="logout()">
-          <ion-button menuToggle expand="full" color="success" fill="outline" (click)="logout()">Cerrar sesión</ion-button>
+          <ion-button menuToggle size="medium" (click)="logout()">Cerrar sesión</ion-button>
         </ion-toolbar>
       </ion-footer>
     </ion-menu>

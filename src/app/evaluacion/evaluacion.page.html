@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title style="text-align:center">Evaluación</ion-title>
+    <ion-title>Evaluación</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -56,10 +56,9 @@
     <ion-item-divider>
 
     </ion-item-divider>
-    <ion-button (click)="abrirPreguntas()" expand="block" color="success" fill="outline" [disabled]=" evaluacion.nombre == '' "  style="color:black" >Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{evaluacion.indicadores.length}})</span></ion-button>
-
-    <ion-button *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  expand="full" color="tertiary" fill="outline" (click)="confirmar()" style="color:black">Guardar</ion-button>
-    <ion-button *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "  expand="full" color="tertiary" fill="outline"(click)="actualizarEvaluacion();verAgregar = false" style="color:black">Actualizar</ion-button>
+    <ion-button class="ion-button" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{evaluacion.indicadores.length}})</span></ion-button>
+    <ion-button class="ion-button" *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  size="medium" (click)="confirmar()">Guardar</ion-button>
+    <ion-button class="ion-button" *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "   size="medium" (click)="actualizarEvaluacion();verAgregar = false">Actualizar</ion-button>
 
   </div>
 
@@ -72,7 +71,7 @@
      <b>Lista de evaluaciones</b>
    </ion-item-divider>
 
-   <ion-list style="background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);">
+   <ion-list>
 
      <ion-item-sliding  *ngFor="let ev of cantidadInputs(evaluaciones);index as i" #slidingItem  >
       <ion-item-options side="start">
@@ -88,7 +87,7 @@
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option color="tertiary" expandable (click)="visualizar(ev,slidingItem);verAgregar = true;">
+        <ion-item-option color="secondary"expandable (click)="visualizar(ev,slidingItem);verAgregar = true;">
           <ion-icon  slot="icon-only" name="eye"></ion-icon>
         </ion-item-option>
       </ion-item-options>
@@ -109,10 +108,9 @@
          </ion-segment-button>
        </ion-segment>
      </ion-toolbar>
-
    </div>
    <h3 style="text-align:center">{{mensaje}}</h3>
 
-   <ion-button [disabled]="!nodo || revisarActivoVacio() "  expand="full" color="success" fill="outline" (click)="enviarEvaluacion()"  style="color:black">Enviar evaluación</ion-button>
+   <ion-button  class="ion-button" [disabled]="!nodo || revisarActivoVacio() " size="medium" (click)="enviarEvaluacion()">Enviar evaluación</ion-button>
 
 </ion-content>

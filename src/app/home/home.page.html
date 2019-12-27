@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title color="blanco">
       Home - {{(asignado.name || "Aun sin asignar")}}
     </ion-title>
   </ion-toolbar>
@@ -19,10 +19,10 @@
     <ion-row>
       <ion-col>
 
-        <ion-card style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-gradiente" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
           <ion-card-header>
-            <ion-card-title>Mis resultados</ion-card-title>
-            <ion-card-subtitle>De la última evaluación</ion-card-subtitle>
+            <ion-card-title color="blanco">Mis resultados</ion-card-title>
+            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
@@ -32,10 +32,10 @@
 
       </ion-col>
       <ion-col>
-        <ion-card style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-gradiente" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
           <ion-card-header>
-            <ion-card-title>Mis resultados</ion-card-title>
-            <ion-card-subtitle>De la última evaluación</ion-card-subtitle>
+            <ion-card-title color="blanco">Mis resultados</ion-card-title>
+            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
@@ -62,7 +62,7 @@
 
 
   <ion-card >
-      <ion-card-header color="blanco">
+      <ion-card-header class="header-card">
         <ion-item>
           <ion-label>Actividades</ion-label>
 
@@ -80,7 +80,7 @@
   </ion-card>
 
   <ion-card >
-    <ion-card-header color="blanco">
+    <ion-card-header class="header-card">
       <ion-item>
         <ion-label>Rendimiento</ion-label>
 
@@ -97,8 +97,8 @@
   </ion-card-content>
   </ion-card>
 
-  <ion-card  >
-      <ion-card-header color="blanco">
+  <ion-card>
+      <ion-card-header class="header-card">
         <ion-item>
           <ion-label>Estadisticas</ion-label>
 
@@ -116,7 +116,7 @@
   </ion-card>
 
   <ion-card >
-      <ion-card-header color="blanco">
+      <ion-card-header class="header-card">
         <ion-item>
           <ion-label>Actividades</ion-label>
 
@@ -134,7 +134,7 @@
   </ion-card>
 
   <ion-card >
-      <ion-card-header color="blanco">
+      <ion-card-header class="header-card">
         <ion-item>
           <ion-label>Actividades</ion-label>
 
@@ -152,7 +152,7 @@
   </ion-card>
 
   <ion-card >
-      <ion-card-header color="blanco">
+      <ion-card-header class="header-card">
         <ion-item>
           <ion-label>Actividades</ion-label>
 

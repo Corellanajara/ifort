@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>respuesta</ion-title>
+    <ion-title>Respuesta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <h2 style="text-align:center">{{titulo}}</h2>
-  <h3 style="text-align:center">{{descripcion}}</h3>
+  <h3 style="text-align:center">{{titulo}}</h3>
+  <h4 style="text-align:center">{{descripcion}}</h4>
   <br>
 
   <ion-list *ngIf="noOcultar">
@@ -21,6 +21,6 @@
 
   <p *ngIf="!noOcultar" style="text-align:center">{{valor}}</p>
   <br>
-  <ion-button   expand="full" color="tertiary" *ngIf="noOcultar" fill="outline" (click)="guardar()" [disabled]="!valor"  style="color:black">Guardar respuesta</ion-button>
+  <ion-button class="ion-button" *ngIf="noOcultar" (click)="guardar()" [disabled]="!valor">Guardar respuesta</ion-button>
   <br>
 </ion-content>

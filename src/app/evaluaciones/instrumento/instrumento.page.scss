@@ -211,3 +211,63 @@ label {
 		z-index: 111;
 	}
 }
+
+ion-toolbar{
+  /*
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  */
+
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  --color: white !important;
+}
+
+ion-item{/*
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  */
+  --background-focused:#f5f5f5;
+  --background-hover:#f5f5f5;
+}
+
+ion-content {
+  --background: white;
+  /*
+  --color:white!important;
+  --background: rgb(2,0,36);
+  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+  */
+}
+
+ion-card{
+  --background: white;
+}
+
+.header-card{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  ion-item{
+  --background: transparent;
+  --color: white;
+  --border-color: transparent;
+  }
+}
+
+.card-gradiente{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --color: white !important;
+}
+
+ion-fab-button{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background-activated: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background-hover: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --color: white;
+}
+
+.ion-button{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background-activated: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background-hover: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  width: 70% !important;
+  margin-left: 15% !important;
+}

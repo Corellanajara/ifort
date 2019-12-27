@@ -11,10 +11,10 @@
   <ion-list>
     <ion-item *ngFor="let menu of menus">
       <ion-label>{{menu.title}}</ion-label>
-      <ion-checkbox slot="end" [(ngModel)]="menu.isChecked"></ion-checkbox>
+      <ion-checkbox slot="end" [(ngModel)]="menu.isChecked" color="secondary"></ion-checkbox>
     </ion-item>
   </ion-list>
 
-<ion-button  expand="full" color="success" fill="outline" (click)="guardarPermisos()">Guardar Permisos</ion-button>
+<ion-button  size="medium" (click)="guardarPermisos()">Guardar Permisos</ion-button>
 
 </ion-content>

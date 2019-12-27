@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>evaluaciones</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Evaluaciones</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="traerUsuarios($event)">
     <ion-refresher-content></ion-refresher-content>

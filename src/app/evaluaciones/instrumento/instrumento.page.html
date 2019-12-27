@@ -4,14 +4,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <h2 style="text-align:center">{{instrumento.nombre}}</h2>
+<ion-content class="contenedor-paginas">
+  <h3 style="text-align:center">{{instrumento.nombre}}</h3>
   <br>
   <ion-list>
     <ion-item-sliding *ngFor="let indicador of indicadores">
       <ion-item (click)="responder(indicador)">
         <ion-label>{{indicador.titulo}} <input type="checkbox" id="modal" /></ion-label>
-        <ion-button slot="end">
+        <ion-button slot="end" color="secondary">
           {{(indicador.valor||indicador.tipo)}}
         </ion-button>
       </ion-item>
@@ -25,6 +25,6 @@
     </ion-item>
   </ion-list>
 
-  <ion-button   expand="full" color="tertiary" *ngIf="noOcultar" fill="outline" (click)="guardarEvaluacion()" [disabled]="sinResponder(indicadores)"  style="color:black">Guardar Evaluación</ion-button>
+  <ion-button  class="ion-button" *ngIf="noOcultar" (click)="guardarEvaluacion()" [disabled]="sinResponder(indicadores)"  style="color:black">Guardar Evaluación</ion-button>
 
 </ion-content>

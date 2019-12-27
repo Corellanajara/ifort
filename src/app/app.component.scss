@@ -1,17 +1,42 @@
 
 ion-toolbar {
+  /*
   --background: rgb(2,0,36);
   --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  */
+  --background: #262f3d;
+  --color: white !important;
 }
+
+.ion-title{
+  text-align: center;
+  margin-top: 3.5%;
+  margin-bottom: 3.5%;
+  font-size: 24px;
+}
+
+ion-avatar{
+  width: 20%;
+  height: auto;
+  margin-top: 5%;
+  margin-left: 40%;
+}
+
 ion-content {
+  /*
   --color:white!important;
   --background: rgb(2,0,36);
   --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+  */
+    --background: #262f3d;
 }
 ion-item{
   --color:white!important;
+  /*
   --background: rgb(2,0,36);
   --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+  */
+  --background: #262f3d;
 }
 .list-md{
   padding-top:0!important;
@@ -20,9 +45,9 @@ ion-item{
 }
 .item-menu{
       /** background **/
-  --background-focused:#262f3d;
-  --background-hover:#262f3d;
-  --background:linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
+  --background-focused:#263238;
+  --background-hover:#263238;
+  --background: #262f3d;
     /** objetos del item **/
     /** color del item (dentro objetos,letras) **/
  --color:#fff;
@@ -32,4 +57,26 @@ ion-item{
  --color-focused:#fff;
     /** color de lo de dentro cuando se le pasa el mouse encima **/
  --color-hover:#ffff;
+
+ --border-color: transparent;
+}
+
+.item-perfil{
+ --border-color: transparent;
+}
+
+ion-button{
+  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background-activated: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background-hover: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  width: 70% !important;
+  margin-left: 15% !important;
+}
+
+ion-avatar img{
+
+  width: 100px !important;
+  height: 100px !important;
+  --border-radius: 50px;
+  margin-left: -20%;
 }

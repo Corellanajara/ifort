@@ -1,15 +1,19 @@
-<ion-content color="primary" class="ion-padding">
+<ion-content class="ion-padding">
   <form class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
     <p class="login-text">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-lock fa-stack-1x"></i>
-      </span>
     </p>
+
+    <div class="contenedor-imagen">
+      <img class="imagen-candado" src="assets/icon/candado.png">
+    </div>
     <input type="email" ngModel name="email" class="login-username" autofocus="true" required="true" placeholder="Email" autocomplete="off" />
     <input type="password" ngModel name="password" class="login-password" required="true" placeholder="Clave" autocomplete="off" />
     <input type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión" class="login-submit" />
   </form>
+
+  <div class="contenedor-imagen">
+    <img class="imagen-candado" src="assets/icon/hombre.png">
+  </div>
   <a href="#" class="login-forgot-pass">¿No recuerdas tu contraseña?</a>
   <div class="underlay-photo"></div>
   <div class="underlay-black"></div>

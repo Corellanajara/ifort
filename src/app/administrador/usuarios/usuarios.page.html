@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button (click)="dismiss()"  defaultHref="usuarios"></ion-back-button>
     </ion-buttons>
-    <ion-title style="padding-left: 30%;">Usuarios</ion-title>
+    <ion-title>Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -60,7 +60,7 @@
       <ion-input formControlName="email" type="email" [(ngModel)]="usuario.email"></ion-input>
     </ion-item>
     <br>
-    NO QUIERO MOSTRAR LA CLAVE, TEMAS DE SEGURIDAD HASHEOS ETC
+      NO QUIERO MOSTRAR LA CLAVE, TEMAS DE SEGURIDAD HASHEOS ETC
     <ion-item style="padding-top: 20px">
 
       <ion-label position="floating" style="font-size: 20px;color:black">Clave</ion-label>
@@ -74,8 +74,8 @@
 
     </ion-item-divider>
 
-    <ion-button *ngIf="usuario.id == '' " [disabled]="!formularioUsuario.valid"  expand="full" color="tertiary" fill="outline" (click)="confirmar()" style="color:black">Guardar</ion-button>
-    <ion-button *ngIf="usuario.id != ''"  expand="full" color="tertiary" fill="outline"(click)="actualizarUsuario();verAgregar = false" style="color:black">Actualizar</ion-button>
+    <ion-button *ngIf="usuario.id == '' " size="medium" [disabled]="!formularioUsuario.valid" (click)="confirmar()">Guardar</ion-button>
+    <ion-button *ngIf="usuario.id != ''"  size="medium" (click)="actualizarUsuario();verAgregar = false">Actualizar</ion-button>
 
   </form>
 

@@ -12,12 +12,12 @@
   <ion-toolbar>
     <ion-segment scrollable  color="secondary">
       <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)">
-        <ion-label>{{nodo.name}}</ion-label>
+        <ion-label color="blanco">{{nodo.name}}</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
   <h3 style="text-align:center">{{mensaje}}</h3>
 
-  <ion-button [disabled]="!nodo"  expand="full" color="tertiary" fill="outline" (click)="asignar()"  style="color:black">Asignar</ion-button>
+  <ion-button [disabled]="!nodo"   (click)="asignar()" size="medium">Asignar</ion-button>
 </ion-content>
