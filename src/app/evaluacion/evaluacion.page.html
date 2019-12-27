@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -7,7 +7,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
+
+  <div class="contenedor-imagen">
+    <img class="imagen-evaluacion" src="https://image.flaticon.com/icons/png/512/1260/1260185.png">
+  </div>
+
   <ion-fab vertical="top" horizontal="end" *ngIf="!verAgregar">
     <ion-fab-button>
       <ion-icon name="apps"></ion-icon>
@@ -56,14 +61,11 @@
     <ion-item-divider>
 
     </ion-item-divider>
-    <ion-button class="ion-button" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{evaluacion.indicadores.length}})</span></ion-button>
+    <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{evaluacion.indicadores.length}})</span></ion-button>
     <ion-button class="ion-button" *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  size="medium" (click)="confirmar()">Guardar</ion-button>
     <ion-button class="ion-button" *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "   size="medium" (click)="actualizarEvaluacion();verAgregar = false">Actualizar</ion-button>
 
   </div>
-
-
-
 
    <br>
 
@@ -100,16 +102,16 @@
    </ion-list>
 
    <div class="" *ngIf="porcentaje == 100">
-     <ion-icon name="arrow-back" style="font-size:25px;" *ngIf="this.pasos.length > 0" (click)="volver()">Atras</ion-icon>
+     <ion-icon name="arrow-back" color="primary" style="font-size:25px;" *ngIf="this.pasos.length > 0" (click)="volver()">Atras</ion-icon>
      <ion-toolbar>
-       <ion-segment scrollable  color="secondary">
+       <ion-segment scrollable>
          <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,index)" (dblclick)="navegaNodo(nodo,index,true)">
-           <ion-label>{{nodo.name}}</ion-label>
+           <ion-label color="primary">{{nodo.name}}</ion-label>
          </ion-segment-button>
        </ion-segment>
      </ion-toolbar>
    </div>
-   <h3 style="text-align:center">{{mensaje}}</h3>
+   <h3 class="mensaje">{{mensaje}}</h3>
 
    <ion-button  class="ion-button" [disabled]="!nodo || revisarActivoVacio() " size="medium" (click)="enviarEvaluacion()">Enviar evaluación</ion-button>
 

@@ -6,10 +6,15 @@
     <ion-title>Evaluaciones</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="traerUsuarios($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <div class="contenedor-imagen">
+    <img class="imagen-evaluaciones" src="https://image.flaticon.com/icons/png/512/1570/1570567.png">
+  </div>
 
 
   <ion-fab vertical="top" horizontal="end" *ngIf="!verAgregar">
@@ -42,8 +47,10 @@
   </ion-item-divider>
 
   <ion-item-sliding #slidingItem *ngFor="let usuario of usuarios">
-
     <ion-item >
+      <div class="contenedor-card">
+        <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554846.png">
+      </div>
       <ion-label >{{usuario.firstName}} {{usuario.lastName}}</ion-label>
     </ion-item>
 

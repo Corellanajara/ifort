@@ -13,6 +13,9 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <div class="contenedor-imagen">
+    <img class="imagen-usuarios" src="https://image.flaticon.com/icons/png/512/554/554846.png">
+  </div>
 
   <ion-fab vertical="top" horizontal="end" *ngIf="!verAgregar">
     <ion-fab-button>
@@ -94,6 +97,9 @@
     </ion-item-options>
 
     <ion-item (click)="visualizar(usuario,slidingItem);verAgregar = true">
+      <div class="contenedor-card">
+        <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554846.png">
+      </div>
       <ion-label >{{usuario.firstName}} {{usuario.lastName}}</ion-label>
     </ion-item>
 

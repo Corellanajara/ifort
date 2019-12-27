@@ -19,7 +19,7 @@ body{
   z-index: 0;
   display: inline-block;
   width: 100%;
-  background: #00bfff;
+  background: #ce93d8;
   cursor: pointer;
   color: #fff;
   padding: 10px 0;
@@ -37,21 +37,35 @@ body{
     left: 0;
     opacity: 0;
     cursor: pointer;
+    border-radius: 10px;
+    background-color: #ce93d8 !important;
 }
 
 ion-toolbar{
   /*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  --background: #ce93d8;
   --color: white !important;
+}
+
+.contenedor-imagen{
+  background: #ce93d8;
+	margin-bottom: 5%;
+}
+
+.imagen-importar{
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 ion-item{/*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
   --background-focused:#f5f5f5;
   --background-hover:#f5f5f5;
@@ -92,9 +106,9 @@ ion-fab-button{
 }
 
 ion-button{
-  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
-  --background-activated: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
-  --background-hover: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background: #ce93d8;
+  --background-activated: #ce93d8;
+  --background-hover: #ce93d8;
   width: 70% !important;
   margin-left: 15% !important;
 }

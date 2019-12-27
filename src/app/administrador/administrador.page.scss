@@ -37,6 +37,31 @@
   min-height: 30px;
 }
 
+.contenedor-imagen{
+  background: #ff9100;
+	margin-bottom: 5%;
+}
+
+.imagen-administrador{
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.contenedor-card{
+  --background: #3949ab;
+  --color: white !important;
+		margin-right: 5%;
+}
+
+.imagen-card{
+  width: 50px;
+  margin-left: 0%;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
 ion-chip{
   margin-left: 4%;
   margin-right: 2%;
@@ -48,10 +73,10 @@ ion-chip{
 ion-toolbar{
   /*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  --background: #ff9100;
   --color: white !important;
 	font-family: 'Roboto';
 	text-align: center;
@@ -59,7 +84,7 @@ ion-toolbar{
 
 ion-item{/*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
   cursor: pointer;
   --background-focused:#f5f5f5;

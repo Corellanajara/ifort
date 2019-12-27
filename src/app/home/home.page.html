@@ -14,12 +14,18 @@
   <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <div class="contenedor-imagen">
+    <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
+  </div>
 
   <ion-grid>
     <ion-row>
       <ion-col>
 
-        <ion-card class="card-gradiente" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <div class="contenedor-azul">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/2257/2257295.png">
+          </div>
           <ion-card-header>
             <ion-card-title color="blanco">Mis resultados</ion-card-title>
             <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
@@ -32,7 +38,10 @@
 
       </ion-col>
       <ion-col>
-        <ion-card class="card-gradiente" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <div class="contenedor-naranjo">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1170/1170616.png">
+          </div>
           <ion-card-header>
             <ion-card-title color="blanco">Mis resultados</ion-card-title>
             <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
@@ -44,10 +53,13 @@
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <div class="contenedor-celeste">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1572/1572268.png">
+          </div>
           <ion-card-header>
-            <ion-card-title>Mis resultados</ion-card-title>
-            <ion-card-subtitle>De la última evaluación</ion-card-subtitle>
+            <ion-card-title color="blanco">Mis resultados</ion-card-title>
+            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
@@ -63,9 +75,12 @@
 
   <ion-card >
       <ion-card-header class="header-card">
-        <ion-item>
-          <ion-label>Actividades</ion-label>
 
+        <ion-item>
+          <div class="contenedor-card">
+            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/1175/1175009.png">
+          </div>
+          <ion-label>Actividades</ion-label>
           <ion-buttons>
             <ion-button slot="end">
               <ion-icon slot="icon-only" name="more"></ion-icon>
@@ -82,6 +97,9 @@
   <ion-card >
     <ion-card-header class="header-card">
       <ion-item>
+        <div class="contenedor-card">
+          <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/906/906188.png">
+        </div>
         <ion-label>Rendimiento</ion-label>
 
         <ion-buttons>
@@ -100,6 +118,9 @@
   <ion-card>
       <ion-card-header class="header-card">
         <ion-item>
+          <div class="contenedor-card">
+            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/321/321743.png">
+          </div>
           <ion-label>Estadisticas</ion-label>
 
           <ion-buttons>
@@ -118,6 +139,9 @@
   <ion-card >
       <ion-card-header class="header-card">
         <ion-item>
+          <div class="contenedor-card">
+            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/386/386901.png">
+          </div>
           <ion-label>Actividades</ion-label>
 
           <ion-buttons>
@@ -136,6 +160,9 @@
   <ion-card >
       <ion-card-header class="header-card">
         <ion-item>
+          <div class="contenedor-card">
+            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/425/425067.png">
+          </div>
           <ion-label>Actividades</ion-label>
 
           <ion-buttons>
@@ -154,6 +181,9 @@
   <ion-card >
       <ion-card-header class="header-card">
         <ion-item>
+          <div class="contenedor-card">
+            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554719.png">
+          </div>
           <ion-label>Actividades</ion-label>
 
           <ion-buttons>

@@ -2,7 +2,7 @@
 ion-toolbar {
   /*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
   --background: #262f3d;
   --color: white !important;
@@ -66,9 +66,9 @@ ion-item{
 }
 
 ion-button{
-  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
-  --background-activated: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
-  --background-hover: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
+  --background: #3949ab;
+  --background-activated: #3949ab;
+  --background-hover: #3949ab;
   width: 70% !important;
   margin-left: 15% !important;
 }

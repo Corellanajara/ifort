@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content class="contenedor-paginas">
+
+  <div class="contenedor-imagen">
+    <img class="imagen-instrumento" src="https://image.flaticon.com/icons/png/512/1786/1786595.png">
+  </div>
+
   <h3 style="text-align:center">{{instrumento.nombre}}</h3>
   <br>
   <ion-list>
@@ -25,6 +30,6 @@
     </ion-item>
   </ion-list>
 
-  <ion-button  class="ion-button" *ngIf="noOcultar" (click)="guardarEvaluacion()" [disabled]="sinResponder(indicadores)"  style="color:black">Guardar Evaluación</ion-button>
+  <ion-button  class="ion-button" *ngIf="noOcultar" (click)="guardarEvaluacion()" [disabled]="sinResponder(indicadores)"  style="color:white">Guardar Evaluación</ion-button>
 
 </ion-content>

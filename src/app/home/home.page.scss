@@ -63,23 +63,75 @@ ion-chip{
 ion-toolbar{
   /*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  --background: #3949ab;
+
   --color: white !important;
   font-family: 'Roboto';
   text-align: center;
 }
 
+.contenedor-imagen{
+  background: #3949ab;
+}
+
+.imagen-home{
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.imagen-card{
+  width: 50px;
+  margin-left: 0%;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.contenedor-azul{
+  background: #1a237e;
+}
+
+.card-azul{
+  --background: #1a237e;
+  --color: white !important;
+}
+
+.contenedor-naranjo{
+  background: #ef6c00;
+}
+
+.card-naranjo{
+  --background: #ef6c00;
+  --color: white !important;
+}
+
+.contenedor-celeste{
+  background: #03a9f4;
+}
+
+.card-celeste{
+  --background: #03a9f4;
+  --color: white !important;
+}
+
+.contenedor-card{
+  --background: #3949ab;
+  --color: white !important;
+}
+
+
 ion-item{/*
   --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%);
+  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
   font-family: 'Roboto';
   text-align: center;
   ion-label{
-    --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,44,121,0.5648148148148149) 0%, rgba(134,0,255,1) 100%) !important;
+    --background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
     font-family: 'Roboto';
     text-align: center;
     font-size: 18px;
@@ -102,7 +154,7 @@ ion-card{
 }
 
 .header-card{
-  --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%);
+  --background: #3949ab;
   ion-item{
   --background: transparent;
   --color: white;

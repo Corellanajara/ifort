@@ -1,13 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="menus"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="administrador"></ion-back-button>
     </ion-buttons>
     <ion-title>Menu</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="contenedor-imagen">
+    <img class="imagen-menus" src="https://image.flaticon.com/icons/png/512/295/295600.png">
+  </div>
   <ion-item *ngFor="let menu of menus">
     <ion-label>
       {{menu.title}}
