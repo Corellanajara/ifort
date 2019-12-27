@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
           let empresaId = datos.empresaId;
           let asignado = datos.asignado;
           let menus = datos.menus;
-          menus.push({title: "Perfil",path: "perfil",icon: "person"})
+          menus.push({title: "Perfil",path: "perfil",icon: "person",_id:"askjdals"})
           sessionStorage.setItem('empresaId', empresaId);
           sessionStorage.setItem('menus',JSON.stringify(datos.menus));
           sessionStorage.setItem('asignado',JSON.stringify(asignado));

@@ -19,6 +19,7 @@ export class ImportarPageEvaluacion implements OnInit {
     private modalCtrl:ModalController,
     private location : Location) { }
   file : File = null;
+  evaluacion : any;
   arrayBuffer:any;
   usuarios = [];
   ngOnInit() {
@@ -36,6 +37,9 @@ export class ImportarPageEvaluacion implements OnInit {
   public mandarCorreo(correo,clave){
     console.log("correo mandado a "+correo+ " tu clave es "+clave,);
   }
+  importar(){
+    this.modalCtrl.dismiss(this.evaluacion);
+  }
   Upload() {
     let self = this;
       let fileReader = new FileReader();
@@ -50,19 +54,16 @@ export class ImportarPageEvaluacion implements OnInit {
             var worksheet = workbook.Sheets[first_sheet_name];
             var datos = XLSX.utils.sheet_to_json(worksheet,{raw:true});
             for(let i = 0 ; i < datos.length ; i ++){
+
               let data : UsuarioImportado = datos[i];
-              if( !data.Nombre || !data.Apellido || !data.Correo){
+              if( !data.Titulo || !data.Categorima || !data.Indicador){
                 alert("TIENE DATOS CORRUPTOS");
                 return false;
               }
+              
             }
             for(let i = 0 ; i < datos.length;i++){
-              let data : UsuarioImportado = datos[i];;
-              console.log(data);
-              let password = (data.Clave || "claveTemporal");
-              let usuario = {firstName:data.Nombre,lastName:data.Apellido,email:data.Correo,password:password};
-              self.usuarios.push(usuario);
-              self.mandarCorreo(data.Correo,password);
+
             }
             console.log(self.usuarios);
         }

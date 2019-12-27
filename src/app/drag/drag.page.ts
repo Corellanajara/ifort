@@ -12,7 +12,7 @@ import { LoadingController } from '@ionic/angular';
 
 export class DragPage{
     mensaje = "";
-    Empresa : Any;
+    Empresa : any;
     currentEvent: string = 'Listos para comenzar';
     config = {
         showActionButtons: true,

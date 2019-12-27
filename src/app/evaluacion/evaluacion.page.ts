@@ -19,6 +19,9 @@ export class EvaluacionPage implements OnInit {
   public verAgregar = false;
   public activos = [];
   private usuarios = [];
+  mensaje = "";
+  sucursal = "";
+  indice = 0;
   pasos = [];
   evaluaciones = [];
   inputs = [];
@@ -73,7 +76,7 @@ export class EvaluacionPage implements OnInit {
       console.log(data);
     })
     this.evaluaciones.push(this.evaluacion);
-    this.evaluacion = {nombre:"",descripcion:'',indicadores : [],tipo:"",id:""};
+    this.evaluacion = {nombre:"",descripcion:'',indicadores : [],tipo:"",id:"",fecha:new Date()};
   }
   public actualizarEvaluacion(){
     this.evaluacionesService.actualizar(this.evaluacion.id,this.evaluacion).subscribe(data=>{
@@ -135,12 +138,16 @@ export class EvaluacionPage implements OnInit {
     }
     });
     modal.onDidDismiss().then(modal=>{
-      console.log("datos",modal);
+      let evaluacion = modal.data.evaluacion;
+      this.evaluacionesService.insertar(evaluacion).subscribe(data=>{
+        console.log(data);
+      })
+
     });
     return await modal.present();
   }
   redefinirEvaluacion(){
-    this.evaluacion = {nombre:"",descripcion:'',indicadores : [],tipo:"",id:""};
+    this.evaluacion = {nombre:"",descripcion:'',indicadores : [],tipo:"",id:"",fecha:new Date()};
   }
 
   volver(){

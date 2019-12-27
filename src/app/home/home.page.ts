@@ -12,6 +12,7 @@ import { UserService } from '../_servicios/user.service';
 export class HomePage implements OnInit {
   asignado : any;
   valorPersonalResult = 0;
+  total = 1;
   personalResults : any;
   @ViewChild("barCanvas",{static: false}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",{static: false}) doughnutCanvas: ElementRef;
@@ -363,6 +364,7 @@ console.log(arr);
         }
         console.log(puntos);
         this.valorPersonalResult = puntos;
+        this.total = instrumento.indicadores.length;
         this.personalResults = puntos;
         return puntos;
       }

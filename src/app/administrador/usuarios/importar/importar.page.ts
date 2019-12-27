@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { Location } from '@angular/common';
 import { UserService } from '../../../_servicios/user.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController,ToastController } from '@ionic/angular';
 
 interface UsuarioImportado{
   Correo : string,
   Nombre : string,
+  Rut : string,
+  Telefono : string,
+  Cargo : string,
   Clave : string,
   Apellido : string
 }
@@ -18,6 +21,7 @@ interface UsuarioImportado{
 export class ImportarPage implements OnInit {
 
   constructor(
+    private toastController : ToastController,
     private userService : UserService,
     private modalCtrl:ModalController,
     private location : Location) { }
@@ -44,6 +48,13 @@ export class ImportarPage implements OnInit {
       this.presentToast("Usuario creado satisfactoriamente");
     })
   }
+  async presentToast(Mensaje) {
+    const toast = await this.toastController.create({
+      message: Mensaje,
+      duration: 2000
+    });
+    toast.present();
+  }
   Upload() {
     let self = this;
       let fileReader = new FileReader();
@@ -58,16 +69,18 @@ export class ImportarPage implements OnInit {
             var worksheet = workbook.Sheets[first_sheet_name];
             var datos = XLSX.utils.sheet_to_json(worksheet,{raw:true});
             for(let i = 0 ; i < datos.length ; i ++){
-              let data : UsuarioImportado = datos[i];
+              let dato = datos[i] as UsuarioImportado;
+              let user = {Nombre:dato.Nombre,Apellido:dato.Apellido,Rut:dato.Rut,Telefono:dato.Telefono,Correo: dato.Correo,Cargo:dato.Cargo,Clave:(dato.Clave||"clavetemporal") }
+              let data : UsuarioImportado = user;
               if( !data.Nombre || !data.Apellido || !data.Correo){
                 alert("TIENE DATOS CORRUPTOS");
                 return false;
               }
             }
             for(let i = 0 ; i < datos.length;i++){
-              let data : UsuarioImportado = datos[i];;
-              console.log(data);
-              let password = (data.Clave || "claveTemporal");              
+              let data  = datos[i] as UsuarioImportado;
+
+              let password = (data.Clave || "claveTemporal");
               let usuario = {firstName:data.Nombre,lastName:data.Apellido,rut:data.Rut,phone:data.Telefono,email:data.Correo,cargo:data.Cargo,password:password};
               self.usuarios.push(usuario);
               self.mandarCorreo(usuario);

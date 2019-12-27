@@ -2,14 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
 import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from './instrumento/instrumento.page';
-
+interface Usuario {
+  firstName: string;
+  lastName: string;
+  rut : string;
+  email: string;
+  phone : string;
+  cargo : string;
+  password: string;
+  permissionLevel: string;
+  menus : Array<Menu>;
+  evaluaciones : Array<any>;
+  asignado : Array<any>;
+  empresaId : string;
+  _id : string;
+}
+interface Menu {
+    title: string;
+    path: string;
+    icon: string;
+    _id: string;
+}
 @Component({
   selector: 'app-evaluaciones',
   templateUrl: './evaluaciones.page.html',
   styleUrls: ['./evaluaciones.page.scss'],
 })
 export class EvaluacionesPage implements OnInit {
-  private usuarios = [];
+  private usuarios  : Usuario[] = [];
   constructor(private modalCtrl:ModalController,private userService:UserService) {
     userService.listar().subscribe(usuarios=>{
       this.usuarios = usuarios;

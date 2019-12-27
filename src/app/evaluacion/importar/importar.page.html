@@ -26,37 +26,7 @@
 
   <br>
   <ion-grid *ngIf="file">
-    <ion-row >
-      <ion-col size="3">
-        <b color="primary">Nombres</b>
-      </ion-col>
-      <ion-col size="3">
-        <b color="primary">Apellidos</b>
-      </ion-col>
-      <ion-col size="3">
-        <b color="primary">Correos</b>
-      </ion-col>
-      <ion-col size="3">
-        <b color="primary">Claves</b>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngFor="let usuario of usuarios">
-      <ion-col size="3" color="primary">
-        {{ (usuario.firstName.length < 7 ? usuario.firstName : usuario.firstName.substring(0,7 )+".." )}}
-      </ion-col>
-      <ion-col size="3" color="primary">
-
-        {{ (usuario.lastName.length < 7 ? usuario.lastName : usuario.lastName.substring(0,7 )+".." )}}
-      </ion-col>
-      <ion-col size="3" color="primary">
-
-        {{ (usuario.email.length < 7 ? usuario.email : usuario.email.substring(0,7 )+".." )}}
-      </ion-col>
-      <ion-col size="3">
-
-        {{ (usuario.password.length < 7 ? usuario.password : usuario.password.substring(0,7 )+".." )}}
-      </ion-col>
-    </ion-row>
+    
   </ion-grid>
   <br>
 

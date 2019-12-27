@@ -14,6 +14,7 @@ interface Usuario {
   menus : Array<Menu>;
   evaluaciones : Array<any>;
   asignado : Array<any>;
+  empresaId : string;
   _id : string;
 }
 
@@ -34,7 +35,7 @@ export class UserService {
   listar() {
     let accessToken = sessionStorage.getItem('accessToken');
     let id = sessionStorage.getItem('empresaId');
-    return this.http.get<Usuario>(`${this.url}/users/empresa/${id}` , {
+    return this.http.get<Usuario[]>(`${this.url}/users/empresa/${id}` , {
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization',`Bearer ${accessToken}`)

@@ -26,7 +26,7 @@ export class EvaluacionesService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
-  actualizar(id:number,Evaluacion : any){
+  actualizar(id:string,Evaluacion : any){
     let accessToken = sessionStorage.getItem('accessToken');
     return this.http.patch<any[]>(`${this.url}/evaluaciones/${id}`, Evaluacion ,{
       headers: new HttpHeaders()
