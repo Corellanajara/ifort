@@ -161,7 +161,7 @@ export class UsuariosPage implements OnInit {
       console.log("datos de asignacion de usuario",modal);
       if(modal.data){
         let id = sessionStorage.getItem('userId');
-        usuario.asignado = modal.data;                
+        usuario.asignado = modal.data;
         usuario.password = undefined;
         console.log("usuario a actualizar",usuario);
         this.userService.actualizar(usuario._id,usuario).subscribe(res=>{

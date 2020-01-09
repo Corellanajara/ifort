@@ -9,10 +9,12 @@ import { UserService } from '../_servicios/user.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
 export class HomePage implements OnInit {
   asignado : any;
   valorPersonalResult = 0;
   personalResults : any;
+
   @ViewChild("barCanvas",{static: false}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",{static: false}) doughnutCanvas: ElementRef;
   @ViewChild("lineCanvas",{static: false}) lineCanvas: ElementRef;
@@ -26,6 +28,7 @@ export class HomePage implements OnInit {
   private radarChart: Chart;
   private polarChart: Chart;
   private bubbleChart: Chart;
+
   ngAfterViewInit(){
     console.log("hola mundo");
     this.graficarPersonalData();
