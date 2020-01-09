@@ -5,6 +5,15 @@ import { ImportarPageEvaluacion } from './importar/importar.page';
 import {  EvaluacionesService } from '../_servicios/evaluaciones.service';
 import { UserService } from '../_servicios/user.service';
 
+interface Evaluacion {
+  nombre:string,
+  sigla:string,
+  tipo:string,
+  indicadores : Array<any>,
+  fecha: Date,
+  id: string
+}
+
 @Component({
   selector: 'app-evaluacion',
   templateUrl: './evaluacion.page.html',
@@ -15,7 +24,7 @@ export class EvaluacionPage implements OnInit {
 
   public tiposDeEvaluacion = ["Cuestionario","Evaluación"];
 
-  public evaluacion = {nombre:"",descripcion:'',tipo:"",indicadores : [],id:'',fecha:new Date()};
+  public evaluacion : Evaluacion = {sigla:'',nombre:"",tipo:"",indicadores : [],id:'',fecha:new Date()};
   public verAgregar = false;
   public activos = [];
   private usuarios = [];
@@ -72,11 +81,12 @@ export class EvaluacionPage implements OnInit {
   }
   public guardarEvaluacion(){
     //this.evaluacion.id = ""+(this.evaluaciones.length + 1);
+    console.table(this.evaluacion);
     this.evaluacionesService.insertar(this.evaluacion).subscribe(data=>{
       console.log(data);
     })
     this.evaluaciones.push(this.evaluacion);
-    this.evaluacion = {nombre:"",descripcion:'',indicadores : [],tipo:"",id:"",fecha:new Date()};
+    this.evaluacion = {sigla:'',nombre:"",indicadores : [],tipo:"",id:"",fecha:new Date()};
   }
   public actualizarEvaluacion(){
     this.evaluacionesService.actualizar(this.evaluacion.id,this.evaluacion).subscribe(data=>{
@@ -85,6 +95,7 @@ export class EvaluacionPage implements OnInit {
     this.redefinirEvaluacion();
   }
   async abrirPreguntas() {
+    console.log(this.evaluacion);
     const modal = await this.modalCtrl.create({
       component: PreguntaPage,
       cssClass: 'modals',
@@ -94,13 +105,23 @@ export class EvaluacionPage implements OnInit {
     });
     modal.onDidDismiss().then(modal=>{
       if(modal.data){
-          this.evaluacion.indicadores = modal.data;
+        console.log("indicadores conseguidas",modal.data);
+          var indicadores = [];
+          for(let key in modal.data){
+            var datos = modal.data[key];
+            for(let i = 0 ; i  < datos.length ; i++){
+              datos[i].categoria = key;
+              indicadores.push(datos[i]);
+            }
+          }
+          this.evaluacion.indicadores = indicadores;
       }
-      console.log("indicadores conseguidas",modal);
+      console.log("indicadores conseguidas",modal.data);
     });
     return await modal.present();
   }
   async confirmar() {
+    console.log(this.evaluacion);
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>CREAR UNA EVALUACIÓN</strong>!!!',
@@ -129,6 +150,15 @@ export class EvaluacionPage implements OnInit {
     this.evaluacion = evaluacion;
     slide.close()
   }
+  traerDatos(evento){
+    let userId = sessionStorage.getItem('userId');
+    this.evaluacionesService.listar().subscribe(evaluaciones => {
+      this.evaluaciones = evaluaciones;
+      if(evento){
+        evento.target.complete();
+      }
+    });
+  }
   async abrirImportar(){
     const modal = await this.modalCtrl.create({
       component: ImportarPageEvaluacion,
@@ -137,17 +167,42 @@ export class EvaluacionPage implements OnInit {
       'evaluacion': this.evaluacion,
     }
     });
+    var self = this;
     modal.onDidDismiss().then(modal=>{
+      console.log(modal.data);
+      var timestamp = new Date();
+      var evaluacion = undefined;
+      if(modal.data){
+        evaluacion = {sigla:modal.data.sigla,nombre:modal.data.nombre,categorias:modal.data.categorias,tipo:"",id:"",fecha:timestamp};
+        console.log(evaluacion);
+        var indicadores = [];
+        for(let key in modal.data.categorias){
+          var datos = modal.data.categorias[key];
+          for(let i = 0 ; i  < datos.length ; i++){
+            datos[i].categoria = key;
+            indicadores.push(datos[i]);
+          }
+        }
+        let ev = {sigla : modal.data.sigla, nombre : modal.data.nombre , indicadores : indicadores,fecha:timestamp};
+
+
+        this.evaluacionesService.insertar(ev).subscribe(data=>{
+          console.log(data);
+          self.ngOnInit();
+        })
+      }
+      /*
       let evaluacion = modal.data.evaluacion;
       this.evaluacionesService.insertar(evaluacion).subscribe(data=>{
         console.log(data);
       })
+      */
 
     });
     return await modal.present();
   }
   redefinirEvaluacion(){
-    this.evaluacion = {nombre:"",descripcion:'',indicadores : [],tipo:"",id:"",fecha:new Date()};
+    this.evaluacion = {sigla:'',nombre:"",indicadores : [],tipo:"",id:"",fecha:new Date()};
   }
 
   volver(){
@@ -217,6 +272,7 @@ export class EvaluacionPage implements OnInit {
     }
     for(let i = 0 ; i < this.usuarios.length; i++){
       let usuario = this.usuarios[i];
+      usuario.password = undefined;
       this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
         console.log(data);
         this.mostrarToast();
@@ -242,6 +298,19 @@ export class EvaluacionPage implements OnInit {
     }
     this.asignarEvaluacion(evaluaciones);
 
+  }
+  getIndicadores(obj){
+    if(obj.length > 0){
+      return obj.length;
+    }
+    var cantidad = 0 ;
+    for(let key in obj){
+      let categoria = obj[key];
+      for(let i = 0 ; i < categoria.length ; i++){
+        cantidad += 1;
+      }
+    }
+    return cantidad;
   }
 
 }

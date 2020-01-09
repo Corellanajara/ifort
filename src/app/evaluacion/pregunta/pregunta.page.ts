@@ -12,11 +12,39 @@ import { CrudPage } from './crud/crud.page';
 export class PreguntaPage implements OnInit {
   public evaluacion : any;
   public indicadores = [];
+  public categorias = [];
   public tipos = ["porcentaje","numerico","rango"];
   constructor(private navParams : NavParams,private modalCtrl : ModalController) {
     this.evaluacion = navParams.get('evaluacion');
-    this.indicadores = (this.evaluacion.indicadores || []);
-    console.log(this.evaluacion);
+    console.log("evaluacion en modal pregunta",this.evaluacion);
+    var categorias = this.evaluacion.indicadores;
+    if(categorias.length > 0 ){
+      this.indicadores = categorias;
+      for(let i = 0 ; i < this.indicadores.length;i++){
+        let data = this.indicadores[i];
+
+        let indicador = {titulo:data.titulo,tipo:data.tipo }
+        if(this.categorias[data.categoria]){
+          this.categorias[data.categoria].push(indicador);
+        }else{
+          this.categorias[data.categoria] = [];
+          this.categorias[data.categoria].push(indicador);
+        }
+      }
+    }else{
+      for(let key in categorias){
+        let categoria = categorias[key];
+        for(let i = 0 ; i < categoria.length ; i++){
+          let indicador = categoria[i];
+          indicador.categoria = key;
+          this.indicadores.push(indicador);
+        }
+      }
+    }
+    console.log(this.indicadores);
+    console.log(this.evaluacion.indicadores);
+    this.agrupar();
+
  }
 
   ngOnInit() {
@@ -33,6 +61,7 @@ export class PreguntaPage implements OnInit {
       if(modal.data){
         console.log(modal);
         this.indicadores.push(modal.data);
+        this.agrupar();
       }
 
     });
@@ -65,6 +94,29 @@ export class PreguntaPage implements OnInit {
     return await modal.present();
   }
   guardarindicadores(){
-    this.modalCtrl.dismiss(this.indicadores);
+    this.agrupar();
+    this.modalCtrl.dismiss(this.categorias);
+  }
+  getKeys(obj){
+
+    return Object.keys(obj);
+  }
+  verIndicadores(){
+    console.log(this.categorias);
+    console.log(this.indicadores);
+  }
+  agrupar(){
+    this.categorias = [];
+    for(let i = 0 ; i < this.indicadores.length;i++){
+      let data = this.indicadores[i];
+
+      let indicador = {titulo:data.titulo,tipo:data.tipo }
+      if(this.categorias[data.categoria]){
+        this.categorias[data.categoria].push(indicador);
+      }else{
+        this.categorias[data.categoria] = [];
+        this.categorias[data.categoria].push(indicador);
+      }
+    }
   }
 }

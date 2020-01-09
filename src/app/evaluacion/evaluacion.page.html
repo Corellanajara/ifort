@@ -9,6 +9,10 @@
 
 <ion-content>
 
+  <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="contenedor-imagen">
     <img class="imagen-evaluacion" src="https://image.flaticon.com/icons/png/512/1260/1260185.png">
   </div>
@@ -50,18 +54,19 @@
   <br>
   <div *ngIf="verAgregar">
     <ion-item style="padding-top: 20px">
+      <ion-label position="floating" style="font-size: 20px;color:black">Siglas</ion-label>
+      <ion-input [(ngModel)]="evaluacion.sigla" maxlength="5" ></ion-input>
+    </ion-item>
+    <ion-item style="padding-top: 20px">
       <ion-label position="floating" style="font-size: 20px;color:black">Nombre</ion-label>
       <ion-input [(ngModel)]="evaluacion.nombre" ></ion-input>
     </ion-item>
     <br>
-    <ion-item style="padding-top: 20px">
-      <ion-input  [(ngModel)]="evaluacion.descripcion" placeholder="Descripción"></ion-input>
-    </ion-item>
     <br>
     <ion-item-divider>
 
     </ion-item-divider>
-    <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{evaluacion.indicadores.length}})</span></ion-button>
+    <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{getIndicadores(evaluacion.indicadores)}})</span></ion-button>
     <ion-button class="ion-button" *ngIf="evaluacion.id == '' " [disabled]=" evaluacion.nombre == '' "  size="medium" (click)="confirmar()">Guardar</ion-button>
     <ion-button class="ion-button" *ngIf="evaluacion.id != ''" [disabled]=" evaluacion.nombre == '' "   size="medium" (click)="actualizarEvaluacion();verAgregar = false">Actualizar</ion-button>
 

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()" ></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ evaluacion.nombre }} - Indicadores</ion-title>
     <ion-buttons slot="primary">
@@ -20,11 +20,14 @@
     <div class="contenedor-imagen">
       <img class="imagen-indicador" src="https://image.flaticon.com/icons/png/512/1790/1790019.png">
     </div>
-    
-  <ion-list>
-    <ion-item-sliding *ngFor="let indicador of indicadores">
+
+  <ion-list *ngFor="let key of getKeys(categorias)">
+    <ion-list-header>
+      <ion-label>{{key}}</ion-label>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let indicador of categorias[key]">
       <ion-item>
-        <ion-label>{{indicador.titulo}}</ion-label>
+        <ion-label>{{(indicador.titulo || indicador.indicador)}}</ion-label>
         <ion-button slot="end" color="secondary">
           {{indicador.tipo}}
         </ion-button>
@@ -39,6 +42,7 @@
     </ion-item>
   </ion-list>
   <br><br>
+
   <ion-button  class="ion-button" size="medium" (click)="guardarindicadores()" >Guardar</ion-button>
 
 </ion-content>

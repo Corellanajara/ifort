@@ -23,6 +23,25 @@
       <ion-col>
 
         <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <ion-card-header>
+            <ion-card-title color="blanco">Rendimiento actual {{valorPersonalResult}}</ion-card-title>
+          </ion-card-header>
+          <circle-progress
+            [percent]=obtenDatos()
+            [radius]="100"
+            [outerStrokeWidth]="16"
+            [innerStrokeWidth]="8"
+            [backgroundOpacity] = "0"
+            [space] = "11"
+            [toFixed] = "3"
+            [maxPercent] = "320"
+            [innerStrokeColor] = "'#3a68e5'"
+            [titleFontSize] = "35"
+            [animationDuration] =  "800"
+            [showSubtitle] = false
+            [titleColor] = "'#ffffff'"
+          ></circle-progress>
+<!--
           <div class="contenedor-azul">
             <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/2257/2257295.png">
           </div>
@@ -33,7 +52,7 @@
 
           <ion-card-content style="font-size:50px">
             <b>{{ ( (personalResults/total).toFixed(1) + " % " || "Sin datos") }}</b>
-          </ion-card-content>
+          </ion-card-content> -->
         </ion-card>
 
       </ion-col>
@@ -100,7 +119,7 @@
         <div class="contenedor-card">
           <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/906/906188.png">
         </div>
-        <ion-label>Rendimiento</ion-label>
+        <ion-label>Rendimiento Personal</ion-label>
 
         <ion-buttons>
           <ion-button slot="end">

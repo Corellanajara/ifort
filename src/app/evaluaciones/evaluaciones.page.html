@@ -55,7 +55,9 @@
     </ion-item>
 
     <ion-item-options side="end" >
-      <ion-item-option *ngFor="let ev of pendientes(usuario.evaluaciones);index as i" (click)="evaluar(i,ev,usuario)">Evaluar</ion-item-option>
+      <ion-item-option *ngFor="let ev of pendientes(usuario.evaluaciones);index as i" (click)="evaluar(i,ev,usuario)">{{ev.instrumento.sigla}}</ion-item-option>
+      <ion-item-option *ngIf="pendientes(usuario.evaluaciones).length == 0"> <ion-icon name="checkmark"> </ion-icon> </ion-item-option>
+
     </ion-item-options>
   </ion-item-sliding>
 

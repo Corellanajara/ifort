@@ -8,6 +8,8 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HttpClientModule } from '@angular/common/http';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +36,7 @@ import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.pa
   imports: [
     BrowserModule,
     FormsModule,
+    NgCircleProgressModule.forRoot(),
     TreeModule.forRoot(),
     IonicModule.forRoot(),
     AppRoutingModule,

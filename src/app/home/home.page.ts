@@ -3,6 +3,7 @@ import { Chart } from "chart.js";
 import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
 import { UserService } from '../_servicios/user.service';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @Component({
   selector: 'app-home',
@@ -21,14 +22,17 @@ export class HomePage implements OnInit {
   @ViewChild("polarCanvas",{static: false}) polarCanvas: ElementRef;
   @ViewChild("bubbleCanvas",{static: false}) bubbleCanvas: ElementRef;
 
+
   private barChart: Chart;
   private doughnutChart: Chart;
   private lineChart: Chart;
   private radarChart: Chart;
   private polarChart: Chart;
   private bubbleChart: Chart;
+
   ngAfterViewInit(){
-    console.log("hola mundo");
+    console.log()
+
     this.graficarPersonalData();
 
     this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
@@ -244,6 +248,7 @@ export class HomePage implements OnInit {
     private modalCtrl : ModalController,
   ) {
     this.getPersonalResults();
+    this.datosMultiples();
   }
   graficarPersonalData(){
     let arr = [];
@@ -308,7 +313,92 @@ console.log(arr);
         evento.target.complete();
       }
     })
+    this.datosMultiples();
 
+  }
+/*
+var barChartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [{
+      label: 'Dataset 1',
+      backgroundColor: window.chartColors.red,
+      data: [
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor()
+      ]
+    }, {
+      label: 'Dataset 2',
+      backgroundColor: window.chartColors.blue,
+      data: [
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor()
+      ]
+    }, {
+      label: 'Dataset 3',
+      backgroundColor: window.chartColors.green,
+      data: [
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor(),
+        randomScalingFactor()
+      ]
+    }]
+
+  };
+*/
+
+  datosMultiples(){
+    this.userService.listar().subscribe( datos => {
+      var labels = [];
+      var datasets = [];
+      var agrupadosPorFecha = [];
+      for(let i = 0 ; i < datos.length;i++){
+        let usuario = datos[i];
+        for(let i = 0 ; i < usuario.evaluaciones.length; i++){
+          let ev = usuario.evaluaciones[i];
+          if(ev.estado > 0){
+            let percent = this.getPersonalPorcentByEv(ev);
+            if(percent > 0){
+              let key = usuario.firstName+" "+usuario.lastName;
+              let fecha = ev.fecha;
+              if(agrupadosPorFecha[fecha]){
+                if(agrupadosPorFecha[fecha][key]){
+                    agrupadosPorFecha[fecha][key].push(percent);
+                }else{
+                  agrupadosPorFecha[fecha][key] = [];
+                  agrupadosPorFecha[fecha][key].push(percent);
+                }
+              }else{
+                agrupadosPorFecha[fecha] = [];
+                agrupadosPorFecha[fecha][key] = [];
+                agrupadosPorFecha[fecha][key].push(percent);
+              }
+              labels.indexOf(ev.instrumento.sigla) === -1 ? labels.push(ev.instrumento.sigla) : console.log("This item already exists");
+            }
+          }
+        }
+      }
+      console.log(labels);
+      console.log(datasets);
+      console.log(agrupadosPorFecha);
+      for(let identificador of agrupadosPorFecha){
+        let datos = agrupadosPorFecha[identificador];
+        
+      }
+    })
   }
   async verEvaluacion(evaluacion) {
     const modal = await this.modalCtrl.create({
@@ -330,6 +420,20 @@ console.log(arr);
       }
     }
   }
+  getPersonalPorcentByEv(evaluacion){
+    var instrumento = evaluacion.instrumento ;
+    var puntos = 0;
+    for(let indice = 0 ; indice < instrumento.indicadores.length;indice++){
+      let indicador = instrumento.indicadores[indice];
+      if(indicador.valor){
+          puntos += indicador.valor;
+      }
+    }
+    //console.log(puntos);
+    //this.valorPersonalResult = puntos;
+    //this.personalResults = puntos;
+    return (puntos/instrumento.indicadores.length).toFixed(1);
+  }
   getPersonalResultsByEv(evaluacion){
     var instrumento = evaluacion.instrumento ;
     var puntos = 0;
@@ -345,10 +449,15 @@ console.log(arr);
     return puntos;
 
   }
+  obtenDatos(){
+    return (this.personalResults/this.total).toFixed(1);
+  }
   getPersonalResults(){
 
     if(this.valorPersonalResult > 0){
-      return this.valorPersonalResult;
+      if(this.valorPersonalResult <= 100){
+          return this.valorPersonalResult;
+      }
     }
     let evaluaciones = JSON.parse(sessionStorage.getItem('evaluaciones'));
     for(let i = evaluaciones.length; i > 0 ; i = i - 1){
@@ -356,14 +465,17 @@ console.log(arr);
       if(evaluaciones[i - 1].estado > 0){
         var instrumento = evaluaciones[i - 1].instrumento ;
         var puntos = 0;
+        var cantidad = 0;
         for(let indice = 0 ; indice < instrumento.indicadores.length;indice++){
           let indicador = instrumento.indicadores[indice];
           if(indicador.valor){
               puntos += indicador.valor;
+              cantidad += 1;
           }
         }
         console.log(puntos);
         this.valorPersonalResult = puntos;
+        this.valorPersonalResult / cantidad;
         this.total = instrumento.indicadores.length;
         this.personalResults = puntos;
         return puntos;

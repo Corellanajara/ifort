@@ -22,6 +22,7 @@ export class EvaluacionesService {
   insertar(Evaluacion : any){
     let id = sessionStorage.getItem('empresaId');
     Evaluacion.empresaId = id;
+    console.log("al enviar",Evaluacion);
     return this.http.post<any[]>(`${this.url}/evaluaciones/`, Evaluacion ,{
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });

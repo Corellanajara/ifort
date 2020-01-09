@@ -23,12 +23,49 @@
     <input type="file" name="upload" id="upload" (change)="incomingfile($event);Upload()" accept=".xlsx" class="upload-box" placeholder="Subir archivo">
 
   </div>
+  <div *ngIf="evaluaciones.length > 0" style="text-align:center">
+    <p>Sigla : {{this.evaluaciones[0].Sigla}}</p>
+    <p>Titulo : {{this.evaluaciones[0].Titulo}}</p>
+    <p>Categorias : {{tamObjeto(this.categorias)}}</p>
+  </div>
+
 
   <br>
   <ion-grid *ngIf="file">
-    
+    <ion-row >
+      <ion-col size="3">
+        <b>Titulo</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Categoria</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Indicador</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Sigla</b>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let evaluacion of evaluaciones">
+      <ion-col size="3">
+        {{ (evaluacion.Titulo.length < 7 ? evaluacion.Titulo : evaluacion.Titulo.substring(0,7 )+".." )}}
+      </ion-col>
+      <ion-col size="3">
+
+        {{ (evaluacion.Categoria.length < 7 ? evaluacion.Categoria : evaluacion.Categoria.substring(0,7 )+".." )}}
+      </ion-col>
+      <ion-col size="3">
+
+        {{ (evaluacion.Indicador.length < 7 ? evaluacion.Indicador : evaluacion.Indicador.substring(0,7 )+".." )}}
+      </ion-col>
+      <ion-col size="3">
+
+        {{ (evaluacion.Sigla.length < 7 ? evaluacion.Sigla : evaluacion.Sigla.substring(0,7 )+".." )}}
+      </ion-col>
+    </ion-row>
   </ion-grid>
   <br>
 
-  <ion-button [disabled]="!file" size="medium" (click)="Upload()">Importar</ion-button>
+  <ion-button [disabled]="!file" size="medium" (click)="importar()">Importar</ion-button>
 </ion-content>

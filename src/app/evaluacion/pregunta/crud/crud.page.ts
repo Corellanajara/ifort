@@ -8,6 +8,7 @@ import { NavParams,ModalController } from '@ionic/angular';
 })
 export class CrudPage implements OnInit {
   indicador = "";
+  categoria = "";
   tipo = "";
   min : any;
   max : any;
@@ -30,9 +31,9 @@ export class CrudPage implements OnInit {
   agregarIndicador(){
     var tipoPregunta = {};
     if(this.tipo == 'Rango'){
-      tipoPregunta = {min : this.min,max:this.max ,titulo:this.indicador,tipo:this.tipo };
+      tipoPregunta = {min : this.min,max:this.max ,titulo:this.indicador,tipo:this.tipo , categoria : this.categoria };
     }else{
-      tipoPregunta = {titulo:this.indicador,tipo:this.tipo};
+      tipoPregunta = {titulo:this.indicador,tipo:this.tipo , categoria : this.categoria};
     }
     this.modalCtrl.dismiss(tipoPregunta);
   }

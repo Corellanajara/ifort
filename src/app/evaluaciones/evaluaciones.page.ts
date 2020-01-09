@@ -39,6 +39,9 @@ export class EvaluacionesPage implements OnInit {
 
   ngOnInit() {
   }
+  public dismiss(){
+    this.modalCtrl.dismiss();
+  }
   public traerUsuarios(evento){
     this.userService.listar().subscribe(usuarios => {
       console.log(usuarios);
@@ -75,6 +78,7 @@ export class EvaluacionesPage implements OnInit {
       if(modal.data){
         evaluacion.instrumento.indicadores = modal.data.indicadores;
         evaluacion.estado = 1;
+        usuario.password = undefined;
         console.log(usuario);
         this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
           console.log(res);
