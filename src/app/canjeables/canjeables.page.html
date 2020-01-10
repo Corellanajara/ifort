@@ -1,11 +1,19 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Canjeables</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <div class="contenedor-imagen">
+    <img class="imagen-canjeables" src="https://image.flaticon.com/icons/svg/679/679938.svg">
+  </div>
+
+<div class="contenedor-tarjeta">
   <div class="wrapper" *ngFor="let producto of productos;index as i">
     <div class="container">
       <div class="top"></div>
@@ -68,6 +76,6 @@
       </div>
     </div>
   </div>
-
+</div>
 
 </ion-content>

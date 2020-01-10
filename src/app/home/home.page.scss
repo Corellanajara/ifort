@@ -198,3 +198,9 @@ ion-fab-button{
   width: 100% !important;
   margin-left: 0% !important;
 }
+
+@media (min-width: 900px) {
+  .menu-home{
+    display: none;
+  }
+}

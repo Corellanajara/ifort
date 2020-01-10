@@ -231,7 +231,7 @@ export class HomePage implements OnInit {
 
   }
   ngOnInit() {
-
+    let ishidden = true;
     this.asignado = JSON.parse(sessionStorage.getItem('asignado'));
     console.log(this.asignado);
 
