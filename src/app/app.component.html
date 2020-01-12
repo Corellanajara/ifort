@@ -6,19 +6,20 @@
           <ion-title>IFORT</ion-title>
         </ion-toolbar>
       </ion-header>
+
       <ion-content>
-
-        <ion-item class="item-perfil">
-          <ion-avatar>
-            <img src="https://www.universal.org.ar/wp-content/uploads/2013/11/83253174_0.jpg">
-          </ion-avatar>
-        </ion-item>
-
-        <ion-item class="item-perfil">
-          <ion-title class="ion-title">Cristopher Orellana</ion-title>
-        </ion-item>
-
         <ion-list class="margin-list">
+          <ion-item clasS="item-menu-perfil" href="perfil">
+            <div class="contenedor-imagen">
+              <img class="imagen-menu" src="https://s3-eu-west-1.amazonaws.com/eflanguagesblog/wp-content/uploads/2019/04/09093804/Useful-phrases-for-a-job-interview_568x464.jpg">
+            </div>
+            <div class="contenedor-texto">
+              <h1 class="texto-menu">Martina Ramirez</h1>
+            </div>
+          </ion-item>
+          <ion-item class="item-menu">
+            <label>General</label>
+          </ion-item>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item class="item-menu" [routerDirection]="'root'" [routerLink]="[p.path]" (click)="log(p)">
               <ion-icon slot="start" [name]="p.icon" color="blanco"></ion-icon>
@@ -29,6 +30,7 @@
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
+
       <ion-footer>
         <ion-toolbar (click)="logout()">
           <ion-button menuToggle size="medium" (click)="logout()">Cerrar sesión</ion-button>

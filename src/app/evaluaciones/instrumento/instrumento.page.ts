@@ -21,6 +21,9 @@ export class InstrumentoPage implements OnInit {
 
   ngOnInit() {
   }
+  dismiss(){
+    this.modalCtrl.dismiss();
+  }
   async responderConAlerta(indicador) {
     const alert = await this.alertController.create({
       header: 'Evaluar indicador!',
@@ -66,12 +69,13 @@ export class InstrumentoPage implements OnInit {
     console.log(indicador);
     const popover = await this.popoverController.create({
       component: RespuestaPage,
-      componentProps:{titulo:indicador.titulo, descripcion: indicador.descripcion,tipo:indicador.tipo, valor : indicador.valor,min:indicador.min,max:indicador.max,noOcultar : this.noOcultar},
+      componentProps:{titulo:indicador.titulo,obs:indicador.obs, descripcion: indicador.descripcion,tipo:indicador.tipo, valor : indicador.valor,min:indicador.min,max:indicador.max,noOcultar : this.noOcultar},
       translucent: true
     });
     popover.onDidDismiss().then(datos=>{
       if(datos.data){
           indicador.valor = datos.data.valor;
+          indicador.obs = datos.data.obs;
           console.log(indicador);
           console.log(datos);
       }

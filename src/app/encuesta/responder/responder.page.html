@@ -1,0 +1,38 @@
+<ion-header style="text-aling:center;">
+  <ion-toolbar>
+    <ion-title>{{encuestas.titulo}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="contenedor-imagen">
+    <img class="imagen-encuesta" src="https://image.flaticon.com/icons/svg/1039/1039328.svg">
+  </div>
+
+  <div class="contenedor-encuesta">
+    <div class="contenedor-descripcion">
+        <ion-label class="descripcion">{{encuestas.descripcion}}</ion-label>
+    </div>
+
+    <ion-item-divider style="text-align:center;font-size: 20px;">
+      <b>Preguntas</b>
+    </ion-item-divider>
+
+    <ion-list *ngFor="let pregunta of encuestas.preguntas;index as indice">
+      <div class="seccion-secciones">
+        <div class="seccion-preguntas">
+          <ion-label class="pregunta">{{pregunta}}</ion-label>
+        </div>
+        <div class="seccion-estrellas">
+          <ion-badge (click)="cambiarColor(indice,i)" *ngFor="let estrella of estrellas[indice];index as i" class="{{estrella.class}}"><ion-icon class="icono" name="star"></ion-icon></ion-badge>
+        </div>
+        </div>
+      <ion-item-divider>
+      </ion-item-divider>
+    </ion-list>
+
+    <ion-button  class="ion-button" size="medium" [disabled]="!complete()" (click)="easteregg()">Enviar Encuesta</ion-button>
+
+  </div>
+
+</ion-content>

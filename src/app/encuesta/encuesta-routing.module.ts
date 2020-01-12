@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: EncuestaPage
+  },
+  {
+    path: 'responder',
+    loadChildren: () => import('./responder/responder.module').then( m => m.ResponderPageModule)
   }
 ];
 

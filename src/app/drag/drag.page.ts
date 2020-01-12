@@ -68,7 +68,7 @@ export class DragPage{
       private empresaService: EmpresaService) {
       console.log("ON INIT");
       console.log(sessionStorage.getItem('empresa'));
-
+/*
       this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
       this.config.rootTitle = this.Empresa.nombre;
       let arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
@@ -77,7 +77,7 @@ export class DragPage{
           console.log(JSON.parse(sessionStorage.getItem('config')));
           this.config = JSON.parse(sessionStorage.getItem('config'));
       }
-
+*/
     }
     public disableAll(){
       this.config.showActionButtons = false;
@@ -89,11 +89,13 @@ export class DragPage{
       this.config.enableDragging = false;
     }
     public saveTree(){
-      this.Empresa.jerarquia = this.myTree;
+      //this.Empresa.jerarquia = this.myTree;
+      sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
+      sessionStorage.setItem('config',JSON.stringify(this.config));
       console.log(this.Empresa);
-      this.empresaService.actualizar(this.Empresa.id,this.Empresa).subscribe( act => {
-        console.log(act);
-      })
+      //this.empresaService.actualizar(this.Empresa.id,this.Empresa).subscribe( act => {
+        //console.log(act);
+      //})
       sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
       sessionStorage.setItem('config',JSON.stringify(this.config));
     }

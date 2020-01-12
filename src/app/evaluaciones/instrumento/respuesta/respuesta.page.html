@@ -25,7 +25,17 @@
     </ion-item>
   </ion-list>
 
+  <ion-list *ngIf="noOcultar">
+    <ion-label>Observaciones </ion-label>
+    <ion-textarea [(ngModel)]="obs" type="number" ></ion-textarea>
+  </ion-list>
+  
+  <ion-item *ngIf="!noOcultar">
+    <p>{{(obs|| "Sin observaciones")}}</p>
+  </ion-item>
+
   <p *ngIf="!noOcultar" style="text-align:center">{{valor}}</p>
+
   <br>
   <ion-button class="ion-button" *ngIf="noOcultar" (click)="guardar()" [disabled]="!valor">Guardar respuesta</ion-button>
   <br>

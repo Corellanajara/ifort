@@ -46,6 +46,7 @@ export class EvaluacionPage implements OnInit {
     private alertController :AlertController,
     private modalCtrl : ModalController
     ){
+      console.log(sessionStorage);
       this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
       this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
       console.log(this.arbol);

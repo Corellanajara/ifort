@@ -1,4 +1,6 @@
-<ion-content class="ion-padding">
+<ion-button size="large" (click)="tipo1 = true"  expand="block">Tipo 1</ion-button>
+<ion-button size="large"  (click)="tipo1 = false"  expand="block">Tipo 2</ion-button>
+<ion-content class="ion-padding" *ngIf="tipo1">
   <div class="contenedor-imagen">
     <img class="imagen-candado" src="assets/icon/hombre.png">
   </div>
@@ -42,4 +44,32 @@
     </ion-grid>
   </form>
 -->
+</ion-content>
+
+<ion-content class="ion-padding" *ngIf="!tipo1">
+
+  <ion-title>Ifort Chile</ion-title>
+
+  <form style="margin-top:10%;" class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+    <p class="login-text">
+    </p>
+    <div class="contenedor-inputs">
+      <ion-item>
+        <ion-label position="stacked"></ion-label>
+        <ion-input type="email" ngModel name="email" autofocus="true" required="true" placeholder="Email" autocomplete="off"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked"></ion-label>
+        <ion-input type="password" ngModel name="password" required="true" placeholder="Clave" autocomplete="off" ></ion-input>
+      </ion-item>
+
+      <ion-button class="boton-login" expand="block" fill="outline" color="light" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Ingresar</ion-button>
+    </div>
+  </form>
+
+  <a href="#" class="login-forgot-pass">¿No recuerdas tu contraseña?</a>
+  <div class="underlay-photo"></div>
+  <div class="underlay-black"></div>
+
 </ion-content>

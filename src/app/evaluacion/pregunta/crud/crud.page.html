@@ -58,7 +58,7 @@
   </ion-list>
 
   <ion-footer style="margin-top: 20%">
-      <ion-button  *ngIf="tipo == 'Rango' " [disabled]="categoria == '' || indicador == '' || !min || !max " size="medium" (click)="agregarIndicador()">Agregar</ion-button>
-      <ion-button *ngIf="tipo != 'Rango' && tipo != '' " [disabled]="categoria == '' || indicador == '' " size="medium" (click)="agregarIndicador()">Agregar</ion-button>
+      <ion-button  *ngIf="tipo == 'Rango' " [disabled]=" indicador == '' || !min || !max " size="medium" (click)="agregarIndicador()">Agregar</ion-button>
+      <ion-button *ngIf="tipo != 'Rango' && tipo != '' " [disabled]=" indicador == '' " size="medium" (click)="agregarIndicador()">Agregar</ion-button>
   </ion-footer>
 </ion-content>

@@ -18,13 +18,67 @@
     <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
   </div>
 
+  <ion-card class="menu-home">
+      <ion-card-header class="header-card" style="background: #303f9f;">
+        <ion-item>
+          <ion-label style="font-size:23px;">Explora</ion-label>
+        <!--
+          <ion-buttons>
+            <ion-button slot="end" color="terciary">
+              <ion-icon slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          -->
+        </ion-item>
+    </ion-card-header>
+
+    <ion-card-content style="background: #303f9f;">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-buttons>
+              <ion-button slot="end" class="boton" style="background: #ff3d00;" href="perfil">
+                <ion-icon slot="icon-only" name="person" color="light"></ion-icon>
+              </ion-button>
+
+            </ion-buttons>
+          </ion-col>
+
+          <ion-col>
+            <ion-buttons>
+              <ion-button slot="end" class="boton" style="background: #ff9800;" href="administrador">
+                <ion-icon slot="icon-only" name="folder-open" color="light"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+
+          <ion-col>
+            <ion-buttons>
+              <ion-button slot="end" class="boton" style="background: #4fc3f7;" href="instrumento">
+                <ion-icon slot="icon-only" name="document" color="light"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+
+          <ion-col>
+            <ion-buttons>
+              <ion-button slot="end" class="boton" style="background: #ff4081;" href="canjeables">
+                <ion-icon slot="icon-only" name="cart" color="light"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
   <ion-grid>
     <ion-row>
       <ion-col>
 
         <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
           <ion-card-header>
-            <ion-card-title color="blanco">Rendimiento actual {{valorPersonalResult}}</ion-card-title>
+            <ion-card-title color="blanco">Rendimiento actual </ion-card-title>
           </ion-card-header>
           <circle-progress
             [percent]=obtenDatos()
@@ -33,7 +87,8 @@
             [innerStrokeWidth]="8"
             [backgroundOpacity] = "0"
             [space] = "11"
-            [toFixed] = "3"
+            [showUnits] = true
+            [toFixed] = "1"
             [maxPercent] = "320"
             [innerStrokeColor] = "'#3a68e5'"
             [titleFontSize] = "35"
@@ -63,7 +118,6 @@
           </div>
           <ion-card-header>
             <ion-card-title color="blanco">Mis resultados</ion-card-title>
-            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
@@ -78,7 +132,6 @@
           </div>
           <ion-card-header>
             <ion-card-title color="blanco">Mis resultados</ion-card-title>
-            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
@@ -112,7 +165,26 @@
       <canvas #lineCanvas></canvas>
     </ion-card-content>
   </ion-card>
+  <ion-card >
+      <ion-card-header class="header-card">
+        <ion-item>
+          <div class="contenedor-card">
+            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554719.png">
+          </div>
+          <ion-label>Actividades</ion-label>
 
+          <ion-buttons>
+            <ion-button slot="end">
+              <ion-icon slot="icon-only" name="more"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <canvas #bubbleCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
   <ion-card >
     <ion-card-header class="header-card">
       <ion-item>
@@ -134,26 +206,7 @@
   </ion-card-content>
   </ion-card>
 
-  <ion-card>
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/321/321743.png">
-          </div>
-          <ion-label>Estadisticas</ion-label>
 
-          <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-    </ion-card-header>
-
-    <ion-card-content>
-      <canvas #doughnutCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
 
   <ion-card >
       <ion-card-header class="header-card">
@@ -197,25 +250,6 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-card >
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554719.png">
-          </div>
-          <ion-label>Actividades</ion-label>
 
-          <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-    </ion-card-header>
-
-    <ion-card-content>
-      <canvas #bubbleCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
 
 </ion-content>

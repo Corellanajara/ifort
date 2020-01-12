@@ -5,7 +5,9 @@ import { EmpresaService } from '../_servicios/empresas.service';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
-
+interface empresaBD {
+   jerarquia : Array<any>
+}
 
 @Component({
   selector: 'app-login',
@@ -43,7 +45,7 @@ export class LoginPage implements OnInit {
           let empresaId = datos.empresaId;
           let asignado = datos.asignado;
           let menus = datos.menus;
-          menus.push({title: "Perfil",path: "perfil",icon: "person",_id:"askjdals"})
+          //menus.push({title: "Perfil",path: "perfil",icon: "person",_id:"askjdals"})
           sessionStorage.setItem('empresaId', empresaId);
           sessionStorage.setItem('menus',JSON.stringify(datos.menus));
           sessionStorage.setItem('asignado',JSON.stringify(asignado));
@@ -53,6 +55,8 @@ export class LoginPage implements OnInit {
           self.empresaService.listarById(empresaId).subscribe( empresa =>{
             console.log(empresa);
             sessionStorage.setItem('empresa', JSON.stringify(empresa));
+            var jerarquia = JSON.stringify(sessionStorage.getItem('empresaId'));
+            sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
             self.router.navigate(['home']);
           });
 

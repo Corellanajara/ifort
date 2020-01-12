@@ -11,7 +11,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  asignado : any;
+  asignado : any = {name:'Aun no asignado'};
   valorPersonalResult = 0;
   total = 1;
   personalResults : any;
@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
   @ViewChild("lineCanvas",{static: false}) lineCanvas: ElementRef;
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
   @ViewChild("polarCanvas",{static: false}) polarCanvas: ElementRef;
-  @ViewChild("bubbleCanvas",{static: false}) bubbleCanvas: ElementRef;
+  @ViewChild("bubbleCanvas",{static: false}) comparativeCanvas: ElementRef;
 
 
   private barChart: Chart;
@@ -29,37 +29,15 @@ export class HomePage implements OnInit {
   private radarChart: Chart;
   private polarChart: Chart;
   private bubbleChart: Chart;
+  public random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+  }
 
   ngAfterViewInit(){
     console.log()
 
     this.graficarPersonalData();
-
-    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      type: "doughnut",
-      data: {
-        labels: ["A", "B", "C", "D"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5],
-            backgroundColor: [
-              "rgba(255, 99, 132,0.7)",
-              "rgba(54, 162, 235,0.7)",
-              "rgba(23, 210, 24,0.7)",
-              "rgba(75, 192, 192,0.7)",
-            ],
-            borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(23, 210, 24,1)",
-              "rgba(75, 192, 192, 1)",
-            ],
-            hoverBackgroundColor: ["rgba(255, 99, 132)","rgba(54, 162, 235)","rgba(23, 210, 24,1)","rgba(75, 192, 192)"]
-          }
-        ]
-      }
-    });
 
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
@@ -182,65 +160,20 @@ export class HomePage implements OnInit {
     }
   });
 
-  this.bubbleChart = new Chart(this.bubbleCanvas.nativeElement,{
-    type: "bubble",
-    data: {
-    labels: "Africa",
-    datasets: [
-      {
-        label: ["A"],
-        backgroundColor: "rgba(255,221,50,0.2)",
-        borderColor: "rgba(255,221,50,1)",
-        data: [{
-          x: 21269017,
-          y: 5.245,
-          r: 15
-        }]
-      },
-      {
-        label: ["B"],
-        backgroundColor: "rgba(60,186,159,0.2)",
-        borderColor: "rgba(60,186,159,1)",
-        data: [{
-          x: 258702,
-          y: 7.526,
-          r: 10
-        }]
-      },
-      {
-        label: ["C"],
-        backgroundColor: "rgba(0,0,0,0.2)",
-        borderColor: "#000",
-        data: [{
-          x: 3979083,
-          y: 6.994,
-          r: 15
-        }]
-      },
-      {
-        label: ["D"],
-        backgroundColor: "rgba(193,46,12,0.2)",
-        borderColor: "rgba(193,46,12,1)",
-        data: [{
-          x: 4931877,
-          y: 5.921,
-          r: 50
-        }]
-      }
-    ]
-  }
-  });
+
 
   }
   ngOnInit() {
 
-    this.asignado = JSON.parse(sessionStorage.getItem('asignado'));
-    console.log(this.asignado);
 
-    if(!this.asignado){
+    var valorAsignado = JSON.parse(sessionStorage.getItem('asignado'));
+    console.log(valorAsignado);
+    if(valorAsignado == false){
+      console.log(JSON.parse(sessionStorage.getItem('asignado')))
       this.asignado = {name:'Aun no asignado'};
     }else{
-      this.asignado = this.asignado[0];
+
+      this.asignado = valorAsignado[0];
     }
   }
   constructor(
@@ -263,7 +196,7 @@ export class HomePage implements OnInit {
     for(let i = evaluaciones.length; i > 0 ; i = i - 1){
       if(evaluaciones[i - 1].estado > 0){
         if(arr.length != 6){
-          labels.push(evaluaciones[i - 1].instrumento.nombre);
+          labels.push(evaluaciones[i - 1].instrumento.sigla);
           arr.push(evaluaciones[i - 1]);
           valores.push(this.getPersonalResultsByEv(evaluaciones[i - 1]));
           backgroundColors.push(background[backgroundColors.length]);
@@ -316,88 +249,95 @@ console.log(arr);
     this.datosMultiples();
 
   }
-/*
-var barChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'Dataset 1',
-      backgroundColor: window.chartColors.red,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ]
-    }, {
-      label: 'Dataset 2',
-      backgroundColor: window.chartColors.blue,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ]
-    }, {
-      label: 'Dataset 3',
-      backgroundColor: window.chartColors.green,
-      data: [
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor(),
-        randomScalingFactor()
-      ]
-    }]
 
-  };
-*/
 
   datosMultiples(){
     this.userService.listar().subscribe( datos => {
       var labels = [];
       var datasets = [];
+      var usuariosEvaluados = [];
       var agrupadosPorFecha = [];
       for(let i = 0 ; i < datos.length;i++){
         let usuario = datos[i];
         for(let i = 0 ; i < usuario.evaluaciones.length; i++){
           let ev = usuario.evaluaciones[i];
           if(ev.estado > 0){
-            let percent = this.getPersonalPorcentByEv(ev);
-            if(percent > 0){
-              let key = usuario.firstName+" "+usuario.lastName;
-              let fecha = ev.fecha;
-              if(agrupadosPorFecha[fecha]){
-                if(agrupadosPorFecha[fecha][key]){
-                    agrupadosPorFecha[fecha][key].push(percent);
-                }else{
-                  agrupadosPorFecha[fecha][key] = [];
+            let percent = parseFloat(this.getPersonalPorcentByEv(ev));
+            if(Number.isNaN(percent)){
+              percent = 0;
+            }
+            let key = usuario.firstName+" "+usuario.lastName;
+            let fecha = ev.fecha;
+            if(agrupadosPorFecha[fecha]){
+              if(agrupadosPorFecha[fecha][key]){
                   agrupadosPorFecha[fecha][key].push(percent);
-                }
               }else{
-                agrupadosPorFecha[fecha] = [];
                 agrupadosPorFecha[fecha][key] = [];
                 agrupadosPorFecha[fecha][key].push(percent);
               }
-              labels.indexOf(ev.instrumento.sigla) === -1 ? labels.push(ev.instrumento.sigla) : console.log("This item already exists");
+            }else{
+              agrupadosPorFecha[fecha] = [];
+              agrupadosPorFecha[fecha][key] = [];
+              agrupadosPorFecha[fecha][key].push(percent);
             }
+            labels.indexOf(ev.instrumento.sigla) === -1 ? labels.push(ev.instrumento.sigla) : console.log("This item already exists");
+            if(usuariosEvaluados.indexOf(key) === -1 ) usuariosEvaluados.push(key) ;
           }
         }
       }
-      console.log(labels);
-      console.log(datasets);
-      console.log(agrupadosPorFecha);
-      for(let identificador of agrupadosPorFecha){
+      var conjuntoDatos = [];
+      var datasets = [];
+      var indice = 0;
+      for(let identificador in agrupadosPorFecha){
         let datos = agrupadosPorFecha[identificador];
-        
+        var data = [];
+        for(let i = 0 ; i < usuariosEvaluados.length; i++){
+          let usr = usuariosEvaluados[i];
+          console.log("datos "+datos,usr);
+          let cantidad = 0;
+          if(datos[usr]){
+              cantidad = datos[usr];
+              cantidad = cantidad[0];
+          }
+          data.push(cantidad);
+        }
+        let info = {
+          label: labels[indice],
+          backgroundColor: this.random_rgba(),
+          data: data
+        }
+        datasets.push(info);
+        indice += 1;
       }
+      var barChartData = {
+          labels: usuariosEvaluados,
+          datasets: datasets
+        };
+      console.log(barChartData);
+      this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
+          type:"bar",
+          data: barChartData,
+          options: {
+  					title: {
+  						display: true,
+  						text: 'Comparativa entre los distintos usuarios'
+  					},
+  					tooltips: {
+  						mode: 'index',
+  						intersect: false
+  					},
+  					responsive: true,
+  					scales: {
+  						xAxes: [{
+  							stacked: true,
+  						}],
+  						yAxes: [{
+  							stacked: true
+  						}]
+  					}
+  				}
+      });
+
     })
   }
   async verEvaluacion(evaluacion) {
@@ -429,9 +369,6 @@ var barChartData = {
           puntos += indicador.valor;
       }
     }
-    //console.log(puntos);
-    //this.valorPersonalResult = puntos;
-    //this.personalResults = puntos;
     return (puntos/instrumento.indicadores.length).toFixed(1);
   }
   getPersonalResultsByEv(evaluacion){
@@ -443,14 +380,12 @@ var barChartData = {
           puntos += indicador.valor;
       }
     }
-    //console.log(puntos);
-    //this.valorPersonalResult = puntos;
-    //this.personalResults = puntos;
     return puntos;
 
   }
   obtenDatos(){
-    return (this.personalResults/this.total).toFixed(1);
+    var datos = this.personalResults/this.total;    
+    return datos.toFixed(1);
   }
   getPersonalResults(){
 

@@ -11,6 +11,7 @@ export class RespuestaPage implements OnInit {
   descripcion : any;
   valor : any;
   tipo : any;
+  obs : any;
   min : any;
   max : any;
   noOcultar  = false;
@@ -25,6 +26,9 @@ export class RespuestaPage implements OnInit {
     if(navParams.get('descripcion')){
       this.valor = navParams.get('descripcion');
     }
+    if(navParams.get('obs')){
+      this.obs = navParams.get('obs');
+    }
     if(navParams.get('min')){
       this.min = navParams.get('min');
     }
@@ -37,8 +41,9 @@ export class RespuestaPage implements OnInit {
 
   }
   guardar(){
-    this.popoverController.dismiss({valor:this.valor})
+    this.popoverController.dismiss({valor:this.valor,obs:this.obs})
   }
+
   ngOnInit() {
   }
 }

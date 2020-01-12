@@ -7,6 +7,7 @@ import { TreeModule } from 'angular-tree-component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+//import { Push } from '@ionic-native/push/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
@@ -29,10 +30,11 @@ import { ImportarPageEvaluacion } from './evaluacion/importar/importar.page';
 import { ImportarPagePregunta } from './evaluacion/pregunta/importar/importar.page';
 import { InstrumentoPage } from './evaluaciones/instrumento/instrumento.page';
 import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.page';
+import { ResponderPage } from './encuesta/responder/responder.page';
 
 @NgModule({
-  declarations: [AppComponent, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ PreguntaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,
@@ -45,6 +47,7 @@ import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.pa
   providers: [
     StatusBar,
     AuthService,
+    //Push,
     MenusService,
     EvaluacionesService,
     EmpresaService,

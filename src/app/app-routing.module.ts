@@ -58,7 +58,8 @@ const routes: Routes = [
   {
     path: 'encuesta',
     loadChildren: () => import('./encuesta/encuesta.module').then( m => m.EncuestaPageModule)
-  }
+  },
+  
 ];
 
 @NgModule({
