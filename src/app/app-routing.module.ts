@@ -54,7 +54,15 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },  {
+    path: 'encuestas',
+    loadChildren: () => import('./encuestas/encuestas.module').then( m => m.EncuestasPageModule)
+  },
+  {
+    path: 'responder',
+    loadChildren: () => import('./responder/responder.module').then( m => m.ResponderPageModule)
   }
+
 ];
 
 @NgModule({

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>encuestas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="top" horizontal="end" *ngIf="!verAgregar">
+    <ion-fab-button>
+      <ion-icon name="apps"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="start">
+
+         <ion-fab-button (click)="abrirImportar();verAgregar = false;" >
+           <ion-icon name="document" ></ion-icon>
+         </ion-fab-button>
+
+         <ion-fab-button (click)="redefinirEvaluacion();verAgregar = true;" *ngIf="!verAgregar">
+           <ion-icon name="add" ></ion-icon>
+         </ion-fab-button>
+
+    </ion-fab-list>
+  </ion-fab>
+
+  <ion-item-divider style="text-align:center;font-size: 20px;">
+    <b>Lista de encuestas</b>
+  </ion-item-divider>
+
+  <ion-list>
+  </ion-list>
+</ion-content>
