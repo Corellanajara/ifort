@@ -2,8 +2,8 @@
   <ion-split-pane contentId="main-content" >
     <ion-menu contentId="main-content" type="overlay" >
       <ion-header class="titulo-menu">
-        <ion-toolbar>
-          <ion-title>IFORT</ion-title>
+        <ion-toolbar class="ion-top-toolbar">
+          <ion-title>Ifort</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -32,7 +32,7 @@
       </ion-content>
 
       <ion-footer>
-        <ion-toolbar (click)="logout()">
+        <ion-toolbar (click)="logout()" class="ion-bottom-toolbar">
           <ion-button menuToggle size="medium" (click)="logout()">Cerrar sesión</ion-button>
         </ion-toolbar>
       </ion-footer>
