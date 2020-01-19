@@ -1,5 +1,5 @@
 ion-toolbar{
-	border-top-left-radius: 25px;
+
 }
 
 .item-trn {
@@ -41,7 +41,7 @@ ion-toolbar{
 }
 
 .contenedor-imagen{
-  background: #ff9100;
+  background: #21ada1;
 	margin-bottom: 5%;
 }
 
@@ -53,7 +53,7 @@ ion-toolbar{
 }
 
 .contenedor-card{
-  --background: #3949ab;
+  --background: #21ada1;
   --color: white !important;
 		margin-right: 5%;
 }
@@ -79,7 +79,7 @@ ion-toolbar{
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #ff9100;
+  --background: #21ada1;
   --color: white !important;
 	font-family: 'Roboto';
 	text-align: center;
@@ -119,4 +119,10 @@ ion-card{
 .card-gradiente{
   --background: linear-gradient(90deg, rgba(3,169,244,1) 0%, rgba(128,222,234,1) 100%) !important;
   --color: white !important;
+}
+
+@media (min-width: 900px) {
+	ion-header{
+		display: none;
+	}
 }

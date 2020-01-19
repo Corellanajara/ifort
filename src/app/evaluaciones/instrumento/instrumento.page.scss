@@ -218,12 +218,12 @@ ion-toolbar{
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #e91e63;
+  --background: #7a9fcc;
   --color: white !important;
 }
 
 .contenedor-imagen{
-  background: #e91e63;
+  background: #7a9fcc;
 	margin-bottom: 5%;
 }
 
@@ -278,9 +278,9 @@ ion-fab-button{
 
 .ion-button{
 	color: white;
-  --background: #e91e63;
-  --background-activated: #e91e63;
-  --background-hover: #e91e63;
+  --background: #7a9fcc;
+  --background-activated: #7a9fcc;
+  --background-hover: #7a9fcc;
   width: 70% !important;
   margin-left: 15% !important;
 }

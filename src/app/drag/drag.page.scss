@@ -163,14 +163,14 @@ ion-toolbar{
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #283593;
+  --background: #7A9FCC;
   --color: white !important;
   font-family: 'Roboto';
   text-align: center;
 }
 
 .contenedor-imagen{
-  background: #3949ab;
+  background: #7A9FCC;
 }
 
 .imagen-drag{
@@ -222,9 +222,9 @@ ion-fab{
 
 ion-button{
   margin-top: 10%;
-  --background: #283593 !important;
-  --background-activated: #283593 !important;
-  --background-hover: #283593 !important;
+  --background: #7A9FCC !important;
+  --background-activated: #7A9FCC !important;
+  --background-hover: #7A9FCC !important;
   width: 70% !important;
   margin-left: 15% !important;
 }
@@ -243,4 +243,10 @@ ion-button{
     margin-left: 0% !important;
     margin-top: 0%;
   }
+ }
+
+ @media (min-width: 900px) {
+   ion-header{
+     display: none;
+   }
  }

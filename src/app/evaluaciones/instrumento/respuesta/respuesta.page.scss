@@ -4,14 +4,14 @@ ion-toolbar{
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #03a9f4;
+  --background: #7a9fcc;;
   --color: white !important;
   font-family: 'Roboto';
   text-align: center;
 }
 
 .contenedor-imagen{
-  background: #03a9f4;
+  background: #7a9fcc;;
 	margin-bottom: 5%;
 }
 
@@ -65,9 +65,9 @@ ion-fab-button{
 }
 
 .ion-button{
-  --background:  #03a9f4 !important;
-  --background-activated:  #03a9f4 !important;
-  --background-hover:  #03a9f4 !important;
+  --background:  #7a9fcc !important;
+  --background-activated:  #7a9fcc !important;
+  --background-hover:  #7a9fcc !important;
   width: 70% !important;
   margin-left: 15% !important;
   color: white;

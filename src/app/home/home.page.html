@@ -1,4 +1,3 @@
-<!--
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -9,23 +8,19 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
--->
+
 <ion-content>
 
   <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!--
-
   <div class="contenedor-imagen">
     <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
   </div>
 
--->
-
   <ion-card class="menu-home">
-      <ion-card-header class="header-card" style="background: #303f9f;">
+      <ion-card-header class="header-card" style="background: #1b1f3c;">
         <ion-item>
           <ion-label style="font-size:23px;">Explora</ion-label>
         <!--
@@ -38,7 +33,7 @@
         </ion-item>
     </ion-card-header>
 
-    <ion-card-content style="background: #303f9f;">
+    <ion-card-content style="background: #1b1f3c;">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -78,8 +73,8 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-grid>
-    <ion-row>
+  <ion-grid class="grilla">
+    <ion-row class="fila">
       <ion-col>
 
         <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
