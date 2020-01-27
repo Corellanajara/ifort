@@ -102,7 +102,11 @@
 
     <h3 *ngIf="evaluaciones.length == 0">No hay evaluaciones disponibles</h3>
     <p *ngIf="porcentaje>100" style="color:red">{{porcentaje}}%</p>
-    <p *ngIf="porcentaje==100" style="color:green">{{porcentaje}}%</p>
+    <ion-item *ngIf="porcentaje==100" style="color:green">
+      <ion-icon name="grid" slot="start"></ion-icon>
+      <ion-label>Equivale a (Puntos)</ion-label>
+      <ion-input slot="end" type="number" placeholder="puntos" [(ngModel)]="puntos" name="puntos"></ion-input>
+    </ion-item>
     <p *ngIf="porcentaje<100" style="color:blue">{{porcentaje}}%</p>
    </ion-list>
 

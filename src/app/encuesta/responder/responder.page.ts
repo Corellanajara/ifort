@@ -42,8 +42,7 @@ export class ResponderPage implements OnInit {
     }
     this.porDefecto(indice);
     let estrellasActuales = this.estrellas[indice];
-    for(let e = 0; e < (i+1); e++){
-      console.log(e);
+    for(let e = 0; e < (i+1); e++){      
       estrellasActuales[e].class="md hydrated cambiador";
     }
     this.estrellas[indice] = estrellasActuales;

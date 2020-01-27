@@ -77,9 +77,27 @@ export class EvaluacionesPage implements OnInit {
     modal.onDidDismiss().then(modal=>{
       if(modal.data){
         evaluacion.instrumento.indicadores = modal.data.indicadores;
+        var valorTotal = 0;
+        var cantidad = evaluacion.instrumento.indicadores.length
+        for(let i = 0 ; i < cantidad ; i++){
+          var indicador = evaluacion.instrumento.indicadores[i];
+            valorTotal += indicador.valor;
+        }
+        var porcentaje = valorTotal / cantidad;
+        var puntos = evaluacion.puntos * (porcentaje/100);
+        puntos = Math.round(puntos);
         evaluacion.estado = 1;
         usuario.password = undefined;
+        if(usuario.puntos){
+          usuario.puntos += puntos;
+        }else{
+          usuario.puntos = puntos;
+        }
         console.log(usuario);
+        var usuarioSistema = JSON.parse(sessionStorage.getItem('usuario'));
+        if(usuario.id == usuarioSistema.id){
+          sessionStorage.setItem("usuario",JSON.stringify(usuario));
+        }
         this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
           console.log(res);
         })

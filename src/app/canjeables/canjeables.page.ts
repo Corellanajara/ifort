@@ -8,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class CanjeablesPage implements OnInit {
   productos = new Array(4);
   clicked = []
-  constructor() { }
+  usuario = undefined
+  constructor() {
+    this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    console.log(this.usuario);
+   }
 
   ngOnInit() {
     for(let i = 0 ; i < this.productos.length ; i++){

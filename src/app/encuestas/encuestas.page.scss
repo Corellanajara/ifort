@@ -1,40 +1,39 @@
-ion-toolbar{
+.toolbar{
   /*
   --background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #4caf50;
+  --background: #29b6f6;
   --color: white !important;
   font-family: 'Roboto';
   text-align: center;
 }
 
 .contenedor-imagen{
-  background: #4caf50;
+  background: #29b6f6;
 	margin-bottom: 5%;
 }
 
-.imagen-evaluaciones{
+.imagen-evaluacion{
   width: 20%;
   margin-left: 40%;
   margin-top: 5%;
   margin-bottom: 5%;
 }
-
-.contenedor-card{
-  --background: #3949ab;
-  --color: white !important;
-		margin-right: 5%;
+.seleccionable-evaluacion{
+  margin-left: 20%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 
-.imagen-card{
-  width: 50px;
-  margin-left: 0%;
-  margin-top: 0%;
-  margin-bottom: 0%;
+.mensaje{
+  text-align: center;;
+  margin-top: 5%;
+  margin-bottom: 10;
+  color: #29b6f6;
+  font-style: bold;
 }
-
 ion-item{/*
   --background: rgb(2,0,36);
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
@@ -56,9 +55,29 @@ ion-card{
   --background: white;
 }
 
+ion-fab{
+  --background: rgba(128,222,234,1);
+}
+
 ion-fab-button{
-  --background: #64dd17 !important;
-  --background-activated: #64dd17 !important;
-  --background-hover: #64dd17 !important;
+  --background: #03a9f4;
+  --background-activated: #03a9f4;
+  --background-hover: #03a9f4;
   --color: white;
+}
+
+.ion-button{
+  --background: #03a9f4;
+  --background-activated: #03a9f4;
+  --background-hover: #03a9f4;
+  width: 70% !important;
+  margin-left: 15% !important;
+}
+
+.ion-button-indicador{
+  --background: #80deea;
+  --background-activated: #80deea;
+  --background-hover: #80deea;
+  width: 70% !important;
+  margin-left: 15% !important;
 }

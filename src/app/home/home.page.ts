@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
 import { UserService } from '../_servicios/user.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +31,10 @@ export class HomePage implements OnInit {
   private polarChart: Chart;
   private bubbleChart: Chart;
   public random_rgba() {
-    var o = Math.round, r = Math.random, s = 255;
-    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    var o = Math.round, r = Math.random, s = 200;
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    console.log(rgb)
+    return rgb;
   }
 
   ngAfterViewInit(){
@@ -167,12 +170,9 @@ export class HomePage implements OnInit {
 
 
     var valorAsignado = JSON.parse(sessionStorage.getItem('asignado'));
-    console.log(valorAsignado);
     if(valorAsignado == false){
-      console.log(JSON.parse(sessionStorage.getItem('asignado')))
       this.asignado = {name:'Aun no asignado'};
     }else{
-
       this.asignado = valorAsignado[0];
     }
   }
@@ -239,7 +239,6 @@ console.log(arr);
   traerDatos(evento){
     let userId = sessionStorage.getItem('userId');
     this.userService.gathering(userId).subscribe( datos => {
-      console.log(datos);
       sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
       this.getPersonalResults();
       if(evento){
@@ -293,7 +292,6 @@ console.log(arr);
         var data = [];
         for(let i = 0 ; i < usuariosEvaluados.length; i++){
           let usr = usuariosEvaluados[i];
-          console.log("datos "+datos,usr);
           let cantidad = 0;
           if(datos[usr]){
               cantidad = datos[usr];
@@ -384,7 +382,7 @@ console.log(arr);
 
   }
   obtenDatos(){
-    var datos = this.personalResults/this.total;    
+    var datos = this.personalResults/this.total;
     return datos.toFixed(1);
   }
   getPersonalResults(){
@@ -418,5 +416,67 @@ console.log(arr);
     }
 
   }
+  exportar(id)
+  {
+      var canvas = document.querySelector('#'+id);
+      //creates image
+      var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
 
+      //creates PDF from img
+      var doc = new jsPDF('landscape');
+      doc.setFontSize(20);
+      doc.text(15, 15, id);
+      doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
+  //    doc.save('canvas.pdf');
+
+      let pdfSalida = doc.output();
+      let buffer = new ArrayBuffer(pdfSalida.length);
+      let array = new Uint8Array(buffer);
+      for (var i = 0; i < pdfSalida.length; i++) {
+        array[i] = pdfSalida.charCodeAt(i);
+      }
+      let archivo = new Blob([array], { type: 'application/pdf' });
+      var urlArchivo = URL.createObjectURL(archivo);
+      window.open(urlArchivo);
+/*
+      var doc = new jsPDF();
+      doc.setFontSize(29);
+      doc.setFont('helvetica');
+      doc.setFontType('bold');
+      doc.text(35, 25, 'El titulo de la volais');
+      doc.setFontSize(19);
+      doc.setFontType('normal');
+      doc.text(21, 43,'Date : '+new Date());
+      doc.text(21,73,'MONTO: '+12);
+      doc.text(21,89,'OTRO MONTO :'+15);
+      doc.text(21,105,'EL MISMO MONTO :'+15);
+
+      doc.setFontType('bold');
+      doc.text(21,121,'Asi se hace un pdf a partir con un blob');
+      doc.text(21,130,'que parte de un array de un buffer generado');
+      pdfSalida = doc.output();
+      buffer = new ArrayBuffer(pdfSalida.length);
+      array = new Uint8Array(buffer);
+      for (var i = 0; i < pdfSalida.length; i++) {
+        array[i] = pdfSalida.charCodeAt(i);
+      }
+      archivo = new Blob([array], { type: 'application/pdf' });
+      urlArchivo = URL.createObjectURL(archivo);
+      window.open(urlArchivo);
+/*
+        // For this, you have to use ionic native file plugin
+        const directory = this.file.externalApplicationStorageDirectory ;
+        alert(directory);
+        const fileName = "Payment-receipt.pdf";
+        this.file.writeFile(directory,fileName,buffer)
+        .then((success)=>
+        this.fileOpener.open(directory+'/'+fileName, 'application/pdf') .then(() => console.log('File is opened'))
+         )
+        .catch((error)=> console.log("Cannot Create File " +JSON.stringify(error)));
+*/
+
+
+
+        //this.createPdf(epayTransID,status,ReceiptDate,TaxPeriod,TotAmount,BankRefNo);
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams,PopoverController } from '@ionic/angular';
+import { NavParams,ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-respuesta',
@@ -16,7 +16,7 @@ export class RespuestaPage implements OnInit {
   max : any;
   noOcultar  = false;
   constructor(
-    private popoverController:PopoverController,
+    private modalCtrl:ModalController,
     private navParams:NavParams) {
     this.titulo = navParams.get('titulo');
     this.tipo = navParams.get('tipo');
@@ -41,7 +41,7 @@ export class RespuestaPage implements OnInit {
 
   }
   guardar(){
-    this.popoverController.dismiss({valor:this.valor,obs:this.obs})
+    this.modalCtrl.dismiss({valor:this.valor,obs:this.obs})
   }
 
   ngOnInit() {

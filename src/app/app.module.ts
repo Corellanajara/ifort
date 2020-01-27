@@ -15,13 +15,16 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PreguntaPage } from './evaluacion/pregunta/pregunta.page';
+import {PreguntaEncuestaPage } from './encuestas/pregunta/pregunta.page';
 import { CrudPage } from './evaluacion/pregunta/crud/crud.page';
+import { CrudEncuestaPage } from './encuestas/pregunta/crud-encuesta/crud-encuesta.page';
 
 import { AuthService } from './_servicios/auth.service';
 import { MenusService } from './_servicios/menu.service';
 import { UserService } from './_servicios/user.service';
 import { EmpresaService } from './_servicios/empresas.service';
 import { EvaluacionesService } from './_servicios/evaluaciones.service';
+import { EncuestaService } from './_servicios/encuestas.service';
 
 import { PermisosPage } from './administrador/usuarios/permisos/permisos.page';
 import { AsignarPage } from './administrador/usuarios/asignar/asignar.page';
@@ -33,8 +36,8 @@ import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.pa
 import { ResponderPage } from './encuesta/responder/responder.page';
 
 @NgModule({
-  declarations: [AppComponent,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,ResponderPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ CrudEncuestaPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,
@@ -49,6 +52,7 @@ import { ResponderPage } from './encuesta/responder/responder.page';
     AuthService,
     //Push,
     MenusService,
+    EncuestaService,
     EvaluacionesService,
     EmpresaService,
     UserService,

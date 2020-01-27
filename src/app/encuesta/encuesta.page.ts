@@ -8,7 +8,7 @@ import { ResponderPage } from './responder/responder.page';
   styleUrls: ['./encuesta.page.scss'],
 })
 export class EncuestaPage implements OnInit {
-
+  encuestas = this.getEncuestas();
   constructor(private modalCtrl : ModalController) { }
 
   ngOnInit() {
@@ -28,6 +28,12 @@ export class EncuestaPage implements OnInit {
       }
     });
     return await modal.present();
+  }
+  getEncuestas(){
+    return [{id:1,titulo:'Hola soy una encuesta'}];
+  }
+  abrirAyuda(){
+    alert("este sirve pa hacer y listar encuestas");
   }
 
 }
