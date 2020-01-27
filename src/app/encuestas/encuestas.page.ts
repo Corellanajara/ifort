@@ -202,11 +202,62 @@ export class EncuestasPage implements OnInit {
           if(this.encontrarEnNodo(asignado,this.nodo)){
             console.log("este usuario existe en el nodo o subsecuentes",usuario);
             usuario.password = undefined;
+            if(!usuario.encuestas){
+              usuario.encuestas = [];
+            }
             usuario.encuestas.push(this.encuesta);
+
           }
         }
       }
-      console.log(this.usuarios);
+      var usuariosCambiados = [];
+      for(let  i = 0 ; i < this.usuarios.length; i++){
+        let usuario = this.usuarios[i];
 
+        var asignado = undefined;
+        if(usuario.asignado && usuario.asignado.length > 0){
+          asignado = usuario.asignado[0];
+          if(this.encontrarEnNodo(asignado,this.nodo)){
+            usuariosCambiados.push(usuario);
+            this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+              console.log(usuario);
+              this.mostrarToast();
+            })
+          }
+        }
+      }
+      console.log(usuariosCambiados);
+
+    }
+
+    encontrarEnNodo(asignado,nodo){
+      var quedanHijos = true;
+      if(!nodo.childrens){
+        quedanHijos = false;
+      }
+      if(JSON.stringify(asignado)==JSON.stringify(nodo)){
+        return true;
+      }else{
+        console.log(nodo);
+        if(!quedanHijos){
+          return false;
+        }else{
+            for(let i = 0 ; i < nodo.childrens.length;i++){
+              let nuevoNodo = nodo.childrens[i];
+              if(JSON.stringify(asignado)==JSON.stringify(nuevoNodo)){
+                return true;
+              }
+            }
+        }
+        return false;
+
+      }
+    }
+    async mostrarToast() {
+      const toast = await this.toastController.create({
+        message: 'Las encuestas han sido asignadas',
+        duration: 2000
+      });
+      toast.present();
     }
 }

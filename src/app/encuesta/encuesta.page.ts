@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 import { ResponderPage } from './responder/responder.page';
+import { UserService } from '../_servicios/user.service';
 
 @Component({
   selector: 'app-encuesta',
@@ -9,9 +10,13 @@ import { ResponderPage } from './responder/responder.page';
 })
 export class EncuestaPage implements OnInit {
   encuestas = this.getEncuestas();
-  constructor(private modalCtrl : ModalController) { }
+  constructor(private userService : UserService,private modalCtrl : ModalController) { }
 
   ngOnInit() {
+    ;
+    this.userService.gathering(sessionStorage.getItem('userId')).subscribe(data=>{
+      console.log(data);
+    })
   }
   async abrirResponder(){
 
