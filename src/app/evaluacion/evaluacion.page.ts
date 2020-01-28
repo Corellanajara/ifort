@@ -31,6 +31,7 @@ export class EvaluacionPage implements OnInit {
   mensaje = "";
   sucursal = "";
   indice = 0;
+  puntos = 0;
   pasos = [];
   evaluaciones = [];
   inputs = [];
@@ -49,6 +50,9 @@ export class EvaluacionPage implements OnInit {
       console.log(sessionStorage);
       this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
       this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+      if(typeof(this.arbol != 'object') ){
+        this.arbol = JSON.parse(this.arbol);
+      }
       console.log(this.arbol);
       userService.listar().subscribe(usuarios=>{
         console.log(usuarios);
@@ -211,6 +215,9 @@ export class EvaluacionPage implements OnInit {
     this.pasos.pop();
     console.log(this.pasos);
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+    if(typeof(this.arbol != 'object') ){
+      this.arbol = JSON.parse(this.arbol);
+    }
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
@@ -264,21 +271,66 @@ export class EvaluacionPage implements OnInit {
     return false;
   }
   asignarEvaluacion(evaluaciones){
+    console.log(evaluaciones);
     for(let indice = 0 ; indice < evaluaciones.length; indice++){
-          for(let i = 0 ; i < this.usuarios.length; i++){
-            let usuario = this.usuarios[i];
-            usuario.evaluaciones.push(evaluaciones[indice]);
+      for(let i = 0 ; i < this.usuarios.length; i++){
+        let usuario = this.usuarios[i];
+        var asignado = undefined;
+        if(usuario.asignado && usuario.asignado.length > 0){
+          asignado = usuario.asignado[0];
+          if(this.encontrarEnNodo(asignado,this.nodo)){
+            console.log("este usuario existe en el nodo o subsecuentes",usuario);
             usuario.password = undefined;
+            usuario.evaluaciones.push(evaluaciones[indice]);
+
           }
+        }
+      }
     }
-    for(let i = 0 ; i < this.usuarios.length; i++){
+    var usuariosCambiados = [];
+    for(let  i = 0 ; i < this.usuarios.length; i++){
       let usuario = this.usuarios[i];
-      usuario.password = undefined;
-      this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
-        console.log(data);
-        this.mostrarToast();
-      })
+
+      var asignado = undefined;
+      if(usuario.asignado && usuario.asignado.length > 0){
+        asignado = usuario.asignado[0];
+        if(this.encontrarEnNodo(asignado,this.nodo)){
+          usuariosCambiados.push(usuario);
+          this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+            console.log(usuario);
+            this.mostrarToast();
+          })
+        }
+      }
     }
+    console.log(usuariosCambiados);
+
+
+
+  }
+  encontrarEnNodo(asignado,nodo){
+    var quedanHijos = true;
+    if(!nodo.childrens){
+      quedanHijos = false;
+    }
+    if(JSON.stringify(asignado)==JSON.stringify(nodo)){
+      return true;
+    }else{
+      console.log(nodo);
+      if(!quedanHijos){
+        return false;
+      }else{
+          for(let i = 0 ; i < nodo.childrens.length;i++){
+            let nuevoNodo = nodo.childrens[i];
+            if(JSON.stringify(asignado)==JSON.stringify(nuevoNodo)){
+              return true;
+            }
+          }
+      }
+      return false;
+
+    }
+
   }
   async mostrarToast() {
     const toast = await this.toastController.create({
@@ -289,11 +341,13 @@ export class EvaluacionPage implements OnInit {
   }
   enviarEvaluacion(){
     var evaluaciones = []
+
     let timestamp  = new Date().getTime();
     for(let activo = 0 ; activo < this.activos.length;activo++){
       if(this.activos[activo]){
-        let ifortEv = {instrumento:this.evaluaciones[activo],porcentaje:this.inputs[activo],estado:0,fecha:timestamp}
-        console.log(ifortEv);
+        let puntos = (this.puntos * this.inputs[activo] )/ 100;
+        let ifortEv = {instrumento:this.evaluaciones[activo],porcentaje:this.inputs[activo],puntos:puntos,estado:0,fecha:timestamp}
+
         evaluaciones.push(ifortEv);
       }
     }

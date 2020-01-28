@@ -67,12 +67,12 @@ export class InstrumentoPage implements OnInit {
   }
   async responder(indicador) {
     console.log(indicador);
-    const popover = await this.popoverController.create({
+    const modal = await this.modalCtrl.create({
       component: RespuestaPage,
+      cssClass: 'modals',
       componentProps:{titulo:indicador.titulo,obs:indicador.obs, descripcion: indicador.descripcion,tipo:indicador.tipo, valor : indicador.valor,min:indicador.min,max:indicador.max,noOcultar : this.noOcultar},
-      translucent: true
     });
-    popover.onDidDismiss().then(datos=>{
+    modal.onDidDismiss().then(datos=>{
       if(datos.data){
           indicador.valor = datos.data.valor;
           indicador.obs = datos.data.obs;
@@ -80,7 +80,7 @@ export class InstrumentoPage implements OnInit {
           console.log(datos);
       }
     });
-    return await popover.present();
+    return await modal.present();
   }
 
 }

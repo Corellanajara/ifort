@@ -41,9 +41,19 @@ input {
   //box-shadow: 0 0 1rem rgba(0,0,0,0.3);
   min-height: 10rem;
   margin: auto;
-  max-width: 50%;
+  max-width: 60%;
   padding: .5rem;
 }
+
+.login-form2 {
+  //background: #222;
+  //box-shadow: 0 0 1rem rgba(0,0,0,0.3);
+  height: 80% !important;
+  margin: auto;
+  max-width: 60%;
+  padding: 0%;
+}
+
 .login-text {
   //background: hsl(40,30,60);
   //border-bottom: .5rem solid white;
@@ -87,7 +97,7 @@ input {
   left: 0;
   opacity: 0.6;
   padding: .5rem;
-  position: absolute;
+  position: relative;
   text-align: center;
   //text-decoration: none;
   width: 100%;
@@ -194,8 +204,6 @@ input {
 }
 
 .login-form {
-  width: 80%;
-  margin-left: 10%;
 }
 
 .login-text {
@@ -305,14 +313,63 @@ ion-content{
 }
 
 .contenedor-inputs{
-  width: 80% !important;
-  margin-left: 10% !important;
+  width: 60% !important;
+  margin-left: 20% !important;
+  border-radius: 25px;
+  ion-item{
+
+    margin-top: 3% !important;
+    --background: #7cb098;
+    --background-hover:#7cb098;
+    --background-activated: #7cb098;
+    --background-focused: #7cb098;
+      /** objetos del item **/
+      /** color del item (dentro objetos,letras) **/
+   --color:white;
+
+   --color-activated:white;
+      /** color de lo de dentro cuando se le apreta tab encima **/
+   --color-focused:white;
+      /** color de lo de dentro cuando se le pasa el mouse encima **/
+   --color-hover:white;
+
+   --border-color: transparent;
+    input{
+      border: white !important;
+    }
+    margin-bottom: 5vh !important;
+  }
+
+  .boton-login{
+    --color: white !important;
+    margin-bottom: 6%;
+  }
+}
+
+.contenedor-inputs2{
+  width: 50% !important;
+  margin-left: 25% !important;
+  border-radius: 15px;
+  background: white;
 
   ion-item{
-    margin-top: 5vh !important;
-    --background: #7cb098;
-    --color: white;
 
+    margin-top: 3% !important;
+    --background: #f5f5f5;
+    --background-hover: #f5f5f5;
+    --background-activated: #f5f5f5;
+    --background-focused: #f5f5f5;
+      /** objetos del item **/
+      /** color del item (dentro objetos,letras) **/
+   --color: #424242;
+
+   --color-activated: #424242;
+      /** color de lo de dentro cuando se le apreta tab encima **/
+   --color-focused: #424242;
+      /** color de lo de dentro cuando se le pasa el mouse encima **/
+   --color-hover: #424242;
+
+   --border-color: transparent;
     input{
       border: white !important;
     }
@@ -324,16 +381,136 @@ ion-content{
   }
 }
 
+.no-recordar{
+  font-size: 10px;
+  color: white;
+  text-align: center;
+  margin-top: 10% !important;
+}
+
+.no-recordar2{
+  font-size: 10px;
+  color: #424242;
+  text-align: center;
+  margin-top: 10% !important;
+}
 
   ion-title{
     text-align: center;
     font-size: 35px;
-    color: white;
     font-family: serif, bold;
-    margin-top: 20vh;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-top: 10vh;
     background: #5db596;
   }
 
   ion-footer{
     --background: red;
+  }
+
+  .content-tercero{
+    --background: #f5f5f5;
+  }
+
+  .formulario2{
+    margin-top: 10%;
+    padding-bottom: 10%;
+  }
+
+
+  @media (max-width: 1000px) {
+    .formulario2{
+      width: 100%;
+      margin-top: 0%;
+      background: white;
+      padding-bottom: 0%;
+    }
+
+    .contenedor-inputs{
+      width: 100% !important;
+      margin-left:0% !important;
+      border-radius: 25px;
+
+      ion-item{
+
+        margin-top: 3% !important;
+        --background: #7cb098;
+        --background-hover:#7cb098;
+        --background-activated: #7cb098;
+        --background-focused: #7cb098;
+          /** objetos del item **/
+          /** color del item (dentro objetos,letras) **/
+       --color:white;
+
+       --color-activated:white;
+          /** color de lo de dentro cuando se le apreta tab encima **/
+       --color-focused:white;
+          /** color de lo de dentro cuando se le pasa el mouse encima **/
+       --color-hover:white;
+
+       --border-color: transparent;
+        input{
+          border: white !important;
+        }
+        margin-bottom: 5vh !important;
+      }
+
+      .boton-login{
+        --color: white !important;
+        margin-bottom: 6%;
+      }
+    }
+
+    .content-tercero{
+      --background: white !important;
+    }
+
+    .contenedor-inputs2{
+      width: 100% !important;
+      height: 100%;
+      margin-left: 0% !important;
+      border-radius: 0px;
+      background: white;
+
+
+      ion-item{
+
+        margin-top: 3% !important;
+        --background: #f5f5f5;
+        --background-hover: #f5f5f5;
+        --background-activated: #f5f5f5;
+        --background-focused: #f5f5f5;
+          /** objetos del item **/
+          /** color del item (dentro objetos,letras) **/
+       --color: #424242;
+
+       --color-activated: #424242;
+          /** color de lo de dentro cuando se le apreta tab encima **/
+       --color-focused: #424242;
+          /** color de lo de dentro cuando se le pasa el mouse encima **/
+       --color-hover: #424242;
+
+       --border-color: transparent;
+
+        input{
+          border: white !important;
+        }
+        margin-bottom: 5vh !important;
+      }
+
+      .boton-login{
+        --color: white !important;
+      }
+
+      ion-title{
+        text-align: center;
+        font-size: 30px;
+        font-family: serif, bold;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        padding-bottom: 10vh;
+        background: #5db596;
+      }
+    }
   }

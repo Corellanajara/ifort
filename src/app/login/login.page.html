@@ -1,6 +1,4 @@
-<ion-button size="large" (click)="tipo1 = true"  expand="block">Tipo 1</ion-button>
-<ion-button size="large"  (click)="tipo1 = false"  expand="block">Tipo 2</ion-button>
-<ion-content class="ion-padding" *ngIf="tipo1">
+<ion-content class="ion-padding" *ngIf="tipo == 0">
   <div class="contenedor-imagen">
     <img class="imagen-candado" src="assets/icon/hombre.png">
   </div>
@@ -46,30 +44,55 @@
 -->
 </ion-content>
 
-<ion-content class="ion-padding" *ngIf="!tipo1">
+<ion-content class="ion-padding" *ngIf="tipo == 1">
 
-  <ion-title>Ifort Chile</ion-title>
+  <ion-title style="background:none; color:white;">Ifort Chile</ion-title>
 
-  <form style="margin-top:10%;" class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
-    <p class="login-text">
-    </p>
-    <div class="contenedor-inputs">
-      <ion-item>
-        <ion-label position="stacked"></ion-label>
-        <ion-input type="email" ngModel name="email" autofocus="true" required="true" placeholder="Email" autocomplete="off"></ion-input>
-      </ion-item>
+  <div class="contenedor-inputs">
+    <form style="margin-top:10%;" class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+      <p class="login-text">
+      </p>
+        <ion-item>
+          <ion-label position="stacked"></ion-label>
+          <ion-input type="email" ngModel name="email" autofocus="true" required="true" placeholder="Email" autocomplete="off"></ion-input>
+        </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked"></ion-label>
-        <ion-input type="password" ngModel name="password" required="true" placeholder="Clave" autocomplete="off" ></ion-input>
-      </ion-item>
+        <ion-item>
+          <ion-label position="stacked"></ion-label>
+          <ion-input type="password" ngModel name="password" required="true" placeholder="Clave" autocomplete="off" ></ion-input>
+        </ion-item>
 
-      <ion-button class="boton-login" expand="block" fill="outline" color="light" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Ingresar</ion-button>
-    </div>
-  </form>
+        <ion-button class="boton-login" expand="block" color="light" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>
 
-  <a href="#" class="login-forgot-pass">¿No recuerdas tu contraseña?</a>
+        <a href="#" class="no-recordar"><ion-label style="font-size:18px;">¿No recuerdas tu contraseña?</ion-label></a>
+    </form>
+</div>
+
   <div class="underlay-photo"></div>
   <div class="underlay-black"></div>
 
+</ion-content>
+
+<ion-content class="content-tercero" *ngIf="tipo == 2">
+
+  <div class="contenedor-inputs2">
+    <form class="login-form2 formulario2" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+
+      <ion-title style="background:none; margin-bottom: 5%;" class="prueba">Ifort Chile</ion-title>
+
+        <ion-item>
+          <ion-label position="stacked"></ion-label>
+          <ion-input type="email" ngModel name="email" autofocus="true" required="true" placeholder="Email" autocomplete="off"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked"></ion-label>
+          <ion-input type="password" ngModel name="password" required="true" placeholder="Clave" autocomplete="off" ></ion-input>
+        </ion-item>
+
+        <ion-button class="boton-login" style="margin-bottom: 5%;" expand="block" color="tertiary" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>
+
+        <a href="#" class="no-recordar"><ion-label style="font-size:18px; color:black;">¿No recuerdas tu contraseña?</ion-label></a>
+    </form>
+  </div>
 </ion-content>

@@ -15,6 +15,7 @@ interface Usuario {
   evaluaciones : Array<any>;
   asignado : Array<any>;
   empresaId : string;
+  puntos : number,
   _id : string;
 }
 

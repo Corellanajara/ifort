@@ -5,6 +5,7 @@ import { EmpresaService } from '../_servicios/empresas.service';
 import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
+import { AppComponent } from '../app.component';
 interface empresaBD {
    jerarquia : Array<any>
 }
@@ -15,8 +16,10 @@ interface empresaBD {
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  tipo=1;
 
   constructor(
+    private app : AppComponent,
     private events : Events,
     private userService : UserService ,
     private empresaService : EmpresaService,
@@ -46,17 +49,25 @@ export class LoginPage implements OnInit {
           let asignado = datos.asignado;
           let menus = datos.menus;
           //menus.push({title: "Perfil",path: "perfil",icon: "person",_id:"askjdals"})
-          sessionStorage.setItem('empresaId', empresaId);
-          sessionStorage.setItem('menus',JSON.stringify(datos.menus));
-          sessionStorage.setItem('asignado',JSON.stringify(asignado));
 
-          sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
-          this.events.publish('user:login', menus);
           self.empresaService.listarById(empresaId).subscribe( empresa =>{
             console.log(empresa);
+            if(!empresa.estado){
+              self.router.navigate(['login']);
+              return;
+            }
+            sessionStorage.setItem('empresaId', empresaId);
+            sessionStorage.setItem('usuario',JSON.stringify(datos));
+            this.app.usuario.nombre = datos.firstName;
+            this.app.usuario.apellido = datos.lastName;
+            sessionStorage.setItem('menus',JSON.stringify(datos.menus));
+            sessionStorage.setItem('asignado',JSON.stringify(asignado));
+            sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
+            this.events.publish('user:login', menus);
             sessionStorage.setItem('empresa', JSON.stringify(empresa));
-            var jerarquia = JSON.stringify(sessionStorage.getItem('empresaId'));
+            var jerarquia = JSON.stringify(empresa.jerarquia);
             sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+
             self.router.navigate(['home']);
           });
 

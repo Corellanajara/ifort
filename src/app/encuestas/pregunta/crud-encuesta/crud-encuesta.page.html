@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear pregunta / afirmación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="contenedor-imagen">
+    <img class="imagen-indicador" src="https://image.flaticon.com/icons/png/512/1790/1790019.png">
+  </div>
+
+
+
+  <ion-item>
+    <ion-input type="text" [(ngModel)]="pregunta" placeholder="Ingresa titulo de la pregunta"></ion-input>
+  </ion-item>
+
+
+  <ion-footer style="margin-top: 20%">
+      <ion-button   [disabled]="pregunta == '' " size="medium" (click)="agregarPregunta()">Agregar</ion-button>
+
+  </ion-footer>
+</ion-content>

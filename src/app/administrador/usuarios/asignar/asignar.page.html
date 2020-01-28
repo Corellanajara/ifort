@@ -8,9 +8,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-icon name="arrow-back" style="font-size:25px;" *ngIf="this.pasos.length > 0" (click)="volver()">Atras</ion-icon>
+
   <ion-toolbar>
     <ion-segment scrollable  color="secondary">
+      <ion-segment-button *ngIf="this.pasos.length > 0">
+        <ion-icon name="arrow-back" style="font-size:25px;"  (click)="volver()"></ion-icon>
+      </ion-segment-button>
+
       <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)">
         <ion-label color="blanco">{{nodo.name}}</ion-label>
       </ion-segment-button>

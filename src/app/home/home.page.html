@@ -1,19 +1,23 @@
+
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title color="blanco">
-      Home - {{(asignado.name || "Aun sin asignar")}}
-    </ion-title>
+   <ion-buttons slot="start">
+     <ion-menu-button></ion-menu-button>
+   </ion-buttons>
+   <ion-title color="blanco">
+     Home - {{(asignado.name || "Aun sin asignar")}}
+   </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
 
+
   <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
   <div class="contenedor-imagen">
     <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
   </div>
@@ -36,34 +40,25 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-buttons>
-              <ion-button slot="end" class="boton" style="background: #ff3d00;" href="perfil">
-                <ion-icon slot="icon-only" name="person" color="light"></ion-icon>
-              </ion-button>
-
-            </ion-buttons>
-          </ion-col>
-
-          <ion-col>
-            <ion-buttons>
-              <ion-button slot="end" class="boton" style="background: #ff9800;" href="administrador">
-                <ion-icon slot="icon-only" name="folder-open" color="light"></ion-icon>
+            <ion-buttons class="contenedor-boton">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+                <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
               </ion-button>
             </ion-buttons>
           </ion-col>
 
           <ion-col>
-            <ion-buttons>
-              <ion-button slot="end" class="boton" style="background: #4fc3f7;" href="instrumento">
-                <ion-icon slot="icon-only" name="document" color="light"></ion-icon>
+            <ion-buttons class="contenedor-boton">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+                <img src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
               </ion-button>
             </ion-buttons>
           </ion-col>
 
           <ion-col>
-            <ion-buttons>
-              <ion-button slot="end" class="boton" style="background: #ff4081;" href="canjeables">
-                <ion-icon slot="icon-only" name="cart" color="light"></ion-icon>
+            <ion-buttons class="contenedor-boton">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+                <img src="https://image.flaticon.com/icons/svg/1170/1170576.svg">
               </ion-button>
             </ion-buttons>
           </ion-col>
@@ -72,8 +67,8 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-grid>
-    <ion-row>
+  <ion-grid class="grilla">
+    <ion-row class="fila">
       <ion-col>
 
         <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
@@ -96,23 +91,11 @@
             [showSubtitle] = false
             [titleColor] = "'#ffffff'"
           ></circle-progress>
-<!--
-          <div class="contenedor-azul">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/2257/2257295.png">
-          </div>
-          <ion-card-header>
-            <ion-card-title color="blanco">Mis resultados</ion-card-title>
-            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-card-content style="font-size:50px">
-            <b>{{ ( (personalResults/total).toFixed(1) + " % " || "Sin datos") }}</b>
-          </ion-card-content> -->
         </ion-card>
 
       </ion-col>
       <ion-col>
-        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluaciones()">
           <div class="contenedor-naranjo">
             <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1170/1170616.png">
           </div>
@@ -145,7 +128,7 @@
 
 
 
-  <ion-card >
+  <ion-card class="grafico">
       <ion-card-header class="header-card">
 
         <ion-item>
@@ -155,14 +138,14 @@
           <ion-label>Actividades</ion-label>
           <ion-buttons>
             <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
+              <ion-icon name="cloud-download"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
     </ion-card-header>
 
     <ion-card-content>
-      <canvas #lineCanvas></canvas>
+      <canvas #lineCanvas id="lineCanvas"></canvas>
     </ion-card-content>
   </ion-card>
   <ion-card >
@@ -174,15 +157,15 @@
           <ion-label>Actividades</ion-label>
 
           <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
+            <ion-button slot="end" (click)="exportar('actividades')">
+              <ion-icon name="cloud-download"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
     </ion-card-header>
 
     <ion-card-content>
-      <canvas #bubbleCanvas></canvas>
+      <canvas #bubbleCanvas id="actividades"></canvas>
     </ion-card-content>
   </ion-card>
   <ion-card >
@@ -194,15 +177,15 @@
         <ion-label>Rendimiento Personal</ion-label>
 
         <ion-buttons>
-          <ion-button slot="end">
-            <ion-icon slot="icon-only" name="more"></ion-icon>
+          <ion-button slot="end" (click)="exportar('rendimiento-personal')">
+            <ion-icon name="cloud-download"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-item>
   </ion-card-header>
 
   <ion-card-content>
-    <canvas #barCanvas></canvas>
+    <canvas style="background: #fff !important;" #barCanvas id="rendimiento-personal"></canvas>
   </ion-card-content>
   </ion-card>
 
@@ -218,7 +201,7 @@
 
           <ion-buttons>
             <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
+              <ion-icon name="cloud-download"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>
@@ -238,8 +221,8 @@
           <ion-label>Actividades</ion-label>
 
           <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
+            <ion-button slot="end" (click)="exportar('')">
+              <ion-icon name="cloud-download"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-item>

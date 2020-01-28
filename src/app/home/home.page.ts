@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
+import { ListPage } from '../list/list.page';
 import { UserService } from '../_servicios/user.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-home',
@@ -30,8 +33,10 @@ export class HomePage implements OnInit {
   private polarChart: Chart;
   private bubbleChart: Chart;
   public random_rgba() {
-    var o = Math.round, r = Math.random, s = 255;
-    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    var o = Math.round, r = Math.random, s = 200;
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    console.log(rgb)
+    return rgb;
   }
 
   ngAfterViewInit(){
@@ -167,12 +172,9 @@ export class HomePage implements OnInit {
 
 
     var valorAsignado = JSON.parse(sessionStorage.getItem('asignado'));
-    console.log(valorAsignado);
     if(valorAsignado == false){
-      console.log(JSON.parse(sessionStorage.getItem('asignado')))
       this.asignado = {name:'Aun no asignado'};
     }else{
-
       this.asignado = valorAsignado[0];
     }
   }
@@ -239,7 +241,6 @@ console.log(arr);
   traerDatos(evento){
     let userId = sessionStorage.getItem('userId');
     this.userService.gathering(userId).subscribe( datos => {
-      console.log(datos);
       sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
       this.getPersonalResults();
       if(evento){
@@ -293,7 +294,6 @@ console.log(arr);
         var data = [];
         for(let i = 0 ; i < usuariosEvaluados.length; i++){
           let usr = usuariosEvaluados[i];
-          console.log("datos "+datos,usr);
           let cantidad = 0;
           if(datos[usr]){
               cantidad = datos[usr];
@@ -352,6 +352,14 @@ console.log(arr);
 
     return await modal.present();
   }
+  async verEvaluaciones(){
+    const modal = await this.modalCtrl.create({
+      component: ListPage,
+      cssClass: 'modals'
+    });
+
+    return await modal.present();
+  }
   getPersonalEvaluation(){
     let evaluaciones = JSON.parse(sessionStorage.getItem('evaluaciones'));
     for(let i = evaluaciones.length; i > 0 ; i = i - 1){
@@ -384,7 +392,7 @@ console.log(arr);
 
   }
   obtenDatos(){
-    var datos = this.personalResults/this.total;    
+    var datos = this.personalResults/this.total;
     return datos.toFixed(1);
   }
   getPersonalResults(){
@@ -418,5 +426,24 @@ console.log(arr);
     }
 
   }
-
+  exportar(id)
+  {
+      var canvas = document.querySelector('#'+id);
+      //creates image
+      console.log(canvas);
+      var canvasImg = canvas.toDataURL("image/png", 1.0);
+      //creates PDF from img
+      var doc = new jsPDF('landscape');
+      doc.addImage(canvasImg, 'PNG', 10, 10, 280, 150 );
+  //    doc.save('canvas.pdf');
+      let pdfSalida = doc.output();
+      let buffer = new ArrayBuffer(pdfSalida.length);
+      let array = new Uint8Array(buffer);
+      for (var i = 0; i < pdfSalida.length; i++) {
+        array[i] = pdfSalida.charCodeAt(i);
+      }
+      let archivo = new Blob([array], { type: 'application/pdf' });
+      var urlArchivo = URL.createObjectURL(archivo);
+      window.open(urlArchivo);
+  }
 }

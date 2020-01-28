@@ -22,6 +22,9 @@ export class AsignarPage implements OnInit {
     this.usuario = navParams.get('usuario');
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+    if(typeof(this.arbol) != 'object' ){
+      this.arbol = JSON.parse(this.arbol);
+    }
     console.log(this.jerarquia);
   }
   dismiss(){
@@ -35,6 +38,9 @@ export class AsignarPage implements OnInit {
     this.pasos.pop();
     console.log(this.pasos);
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+    if(typeof(this.arbol ) != 'object' ){
+      this.arbol = JSON.parse(this.arbol);
+    }
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
