@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>encuesta</ion-title>
+    <ion-title>Encuestas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,11 +26,11 @@
     </ion-fab-list>
   </ion-fab>
   <ion-item-divider style="text-align:center;font-size: 20px;">
-    <b>Lista de usuarios</b>
+    <b>Lista de encuestas</b>
   </ion-item-divider>
 
-  <ion-item-sliding #slidingItem *ngFor="let encuesta of encuestas">
-    <ion-item (click)="abrirResponder()" >
+  <ion-item-sliding #slidingItem *ngFor="let encuesta of encuestas" >
+    <ion-item (click)="abrirResponder(encuesta)" >
       <div class="contenedor-card">
         <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554846.png">
       </div>
@@ -39,7 +39,7 @@
 
     <ion-item-options side="end" >
 
-      <ion-item-option (click)="abrirResponder()" > <ion-icon name="create"> </ion-icon> </ion-item-option>
+      <ion-item-option (click)="abrirResponder(encuesta)" > <ion-icon name="create"> </ion-icon> </ion-item-option>
 
     </ion-item-options>
   </ion-item-sliding>

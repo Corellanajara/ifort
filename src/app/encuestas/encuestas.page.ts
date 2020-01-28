@@ -219,6 +219,7 @@ export class EncuestasPage implements OnInit {
           asignado = usuario.asignado[0];
           if(this.encontrarEnNodo(asignado,this.nodo)){
             usuariosCambiados.push(usuario);
+            usuario.password = undefined;
             this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
               console.log(usuario);
               this.mostrarToast();

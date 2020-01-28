@@ -22,7 +22,6 @@
     </div>
 
   <ion-list>
-
     <ion-item-sliding  *ngFor="let pregunta of encuesta.preguntas">
       <ion-item>
         <ion-label>{{(pregunta.titulo )}}</ion-label>
@@ -39,6 +38,5 @@
   <br><br>
 
   <ion-button  class="ion-button" size="medium" (click)="guardarPreguntas()" >Guardar</ion-button>
-  <ion-button  class="ion-button" size="medium" (click)="log()" >LOG</ion-button>
 
 </ion-content>

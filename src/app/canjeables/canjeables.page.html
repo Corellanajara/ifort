@@ -23,18 +23,24 @@
       <div class="bottom {{clicked[i]}}">
         <div class="left">
           <div class="details">
-            <h1>Silla</h1>
-            <p>250 ptos</p>
+            <h1>{{producto.titulo}}</h1>
+            <p>{{producto.puntos}} ptos</p>
           </div>
-          <div class="buy" (click)="cambiarEstilo(i)"><ion-icon style="font-size:500%" name="cart"></ion-icon></div>
+          <div class="buy" (click)="presentAlert(i,producto)" *ngIf="usuario.puntos >= producto.puntos">
+            <ion-icon style="font-size:500%" name="cart"></ion-icon>
+          </div>
+          <div class="buy"  *ngIf="usuario.puntos < producto.puntos">
+            <ion-icon style="font-size:500%;color:gray" name="cart"></ion-icon>
+          </div>
         </div>
         <div class="right">
           <div class="done"><ion-icon style="font-size:500%" name="checkmark"></ion-icon></div>
           <div class="details">
-            <h1>Silla</h1>
+            <h1>{{producto.titulo}}</h1>
             <p>Solicitado!</p>
           </div>
-          <div class="remove " (click)="cambiarEstilo(i)"><ion-icon style="font-size:500%" name="trash"></ion-icon></div>
+          <div class="remove " ><ion-icon style="font-size:500%" name="happy"></ion-icon></div>
+
         </div>
       </div>
     </div>
