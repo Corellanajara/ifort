@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
 import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
+import { ListPage } from '../list/list.page';
 import { UserService } from '../_servicios/user.service';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+
 import * as jsPDF from 'jspdf';
 
 @Component({
@@ -350,6 +352,14 @@ console.log(arr);
 
     return await modal.present();
   }
+  async verEvaluaciones(){
+    const modal = await this.modalCtrl.create({
+      component: ListPage,
+      cssClass: 'modals'
+    });
+
+    return await modal.present();
+  }
   getPersonalEvaluation(){
     let evaluaciones = JSON.parse(sessionStorage.getItem('evaluaciones'));
     for(let i = evaluaciones.length; i > 0 ; i = i - 1){
@@ -420,15 +430,12 @@ console.log(arr);
   {
       var canvas = document.querySelector('#'+id);
       //creates image
-      var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
-
+      console.log(canvas);
+      var canvasImg = canvas.toDataURL("image/png", 1.0);
       //creates PDF from img
       var doc = new jsPDF('landscape');
-      doc.setFontSize(20);
-      doc.text(15, 15, id);
-      doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
+      doc.addImage(canvasImg, 'PNG', 10, 10, 280, 150 );
   //    doc.save('canvas.pdf');
-
       let pdfSalida = doc.output();
       let buffer = new ArrayBuffer(pdfSalida.length);
       let array = new Uint8Array(buffer);
@@ -438,45 +445,5 @@ console.log(arr);
       let archivo = new Blob([array], { type: 'application/pdf' });
       var urlArchivo = URL.createObjectURL(archivo);
       window.open(urlArchivo);
-/*
-      var doc = new jsPDF();
-      doc.setFontSize(29);
-      doc.setFont('helvetica');
-      doc.setFontType('bold');
-      doc.text(35, 25, 'El titulo de la volais');
-      doc.setFontSize(19);
-      doc.setFontType('normal');
-      doc.text(21, 43,'Date : '+new Date());
-      doc.text(21,73,'MONTO: '+12);
-      doc.text(21,89,'OTRO MONTO :'+15);
-      doc.text(21,105,'EL MISMO MONTO :'+15);
-
-      doc.setFontType('bold');
-      doc.text(21,121,'Asi se hace un pdf a partir con un blob');
-      doc.text(21,130,'que parte de un array de un buffer generado');
-      pdfSalida = doc.output();
-      buffer = new ArrayBuffer(pdfSalida.length);
-      array = new Uint8Array(buffer);
-      for (var i = 0; i < pdfSalida.length; i++) {
-        array[i] = pdfSalida.charCodeAt(i);
-      }
-      archivo = new Blob([array], { type: 'application/pdf' });
-      urlArchivo = URL.createObjectURL(archivo);
-      window.open(urlArchivo);
-/*
-        // For this, you have to use ionic native file plugin
-        const directory = this.file.externalApplicationStorageDirectory ;
-        alert(directory);
-        const fileName = "Payment-receipt.pdf";
-        this.file.writeFile(directory,fileName,buffer)
-        .then((success)=>
-        this.fileOpener.open(directory+'/'+fileName, 'application/pdf') .then(() => console.log('File is opened'))
-         )
-        .catch((error)=> console.log("Cannot Create File " +JSON.stringify(error)));
-*/
-
-
-
-        //this.createPdf(epayTransID,status,ReceiptDate,TaxPeriod,TotAmount,BankRefNo);
   }
 }

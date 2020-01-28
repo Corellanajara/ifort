@@ -1,64 +1,111 @@
 ion-toolbar{
-  /*
-  --background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
-  */
+    text-align: center;
+    --background: #7A9FCC;
+    --color:white;
+  }
+  .contenedor-imagen{
+    background: #7A9FCC;
+  	margin-bottom: 5%;
+  }
 
-  --background: #4caf50;
-  --color: white !important;
-  font-family: 'Roboto';
-  text-align: center;
-}
+  .imagen-encuesta{
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  .imagen-card{
+    width: 50px;
+    margin-left: 0%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+  }
+  .contenedor-descripcion
+  {
+    text-align: center;
+    width: 90%;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+  }
 
-.contenedor-imagen{
-  background: #4caf50;
-	margin-bottom: 5%;
-}
+  .descripcion{
 
-.imagen-evaluaciones{
-  width: 20%;
-  margin-left: 40%;
-  margin-top: 5%;
-  margin-bottom: 5%;
-}
+  }
 
-.contenedor-card{
-  --background: #3949ab;
-  --color: white !important;
-		margin-right: 5%;
-}
+  .seccion-secciones{
+    display: flex;
+    margin-top: 2.5%;
+  }
+  .seccion-preguntas{
+    width: 70%;
+  }
 
-.imagen-card{
-  width: 50px;
-  margin-left: 0%;
-  margin-top: 0%;
-  margin-bottom: 0%;
-}
+  .pregunta{
+    margin-left: 5% !important;
+  }
 
-ion-item{/*
-  --background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
-  */
-  --background-focused:#f5f5f5;
-  --background-hover:#f5f5f5;
-}
+  .seccion-estrellas{
+    width: 30%;
+    ion-badge{
+      margin-left: 1.5%;
+      --background: transparent;
+      --color: #424242;
+    }
 
-ion-content {
-  --background: white;
-  /*
-  --color:white!important;
-  --background: rgb(2,0,36);
-  --background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,68,121,0.5648148148148149) 0%, rgba(35,0,255,0.6643518518518519) 100%);
-  */
-}
+    .icono{
+      width: 25px;
+      height: 25px;
+    }
 
-ion-card{
-  --background: white;
-}
+    .cambiador{
+      color: #ffd600;
+    }
 
-ion-fab-button{
-  --background: #64dd17 !important;
-  --background-activated: #64dd17 !important;
-  --background-hover: #64dd17 !important;
-  --color: white;
-}
+  }
+
+  .ion-item{
+    --border-color: transparent;
+  }
+
+  .ion-button{
+    --background: #7A9FCC;
+    --background-activated: #7A9FCC;
+    --background-hover: #7A9FCC;
+    width: 70% !important;
+    margin-left: 15% !important;
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+
+  @media (max-width: 550px) {
+
+    .seccion-secciones{
+      display: inline !important;
+      margin-top: 2.5%;
+    }
+
+    .seccion-preguntas{
+      margin-top: 5%;
+      margin-left: 0% !important;
+      width: 100%;
+      text-align: center !important;
+    }
+
+    .pregunta{
+      margin-top: 10% !important;
+      margin-left: 0% !important;
+    }
+
+    .seccion-estrellas{
+      margin-top: 5%;
+      width: 50% !important;
+      margin-left: 25%;
+      ion-badge{
+        margin-left: 1.5%;
+        margin-left: 1.5%;
+        --background: transparent;
+        --color: #424242;
+      }
+    }
+  }

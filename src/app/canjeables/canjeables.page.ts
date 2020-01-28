@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { UserService } from '../_servicios/user.service';
+import { ProductoService } from '../_servicios/encuestas.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-canjeables',
@@ -8,12 +11,19 @@ import { UserService } from '../_servicios/user.service';
   styleUrls: ['./canjeables.page.scss'],
 })
 export class CanjeablesPage implements OnInit {
-  productos = [{titulo:"Silla bonita",puntos:1500},{titulo:"Silla fea",puntos:1200},{titulo:"Silla",puntos:3500}]
+  productos = [{descripcion : '',titulo:"Silla bonita",puntos:1500},{descripcion : '',titulo:"Silla fea",puntos:1200},{descripcion : '',titulo:"Silla",puntos:3500}]
   clicked = []
+  imagenes = []
   usuario = JSON.parse(sessionStorage.getItem('usuario'));
-  constructor(public userService : UserService,public alertController: AlertController) {
+  constructor(public sanitization : DomSanitizer,public productoService:ProductoService,public userService : UserService,public alertController: AlertController) {
     let userId = sessionStorage.getItem('userId');
     this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    productoService.listar().subscribe(datos=>{
+      for(let i = 0 ; i < datos.length;i ++){
+        this.imagenes.push(sanitization.bypassSecurityTrustStyle(`url(${datos[i].url})`));
+      }
+      this.productos = datos;
+    })
     userService.gathering(userId).subscribe( datos => {
       this.usuario = datos;
     })

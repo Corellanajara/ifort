@@ -21,6 +21,17 @@ export class EncuestaPage implements OnInit {
       this.encuestas = data.encuestas;
     })
   }
+  traerEncuestas(evento){
+    this.userService.gathering(sessionStorage.getItem('userId')).subscribe(data=>{
+      console.log(data);
+      this.usuario = data;
+      this.encuestas = data.encuestas;
+      if(evento){
+        evento.target.complete();
+      }
+    })
+
+  }
   async abrirResponder(encuesta){
 
     const modal = await this.modalCtrl.create({

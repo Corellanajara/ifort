@@ -18,8 +18,9 @@
 
 <div class="contenedor-tarjeta">
   <div class="wrapper" *ngFor="let producto of productos;index as i">
+
     <div class="container">
-      <div class="top"></div>
+      <div class="top" [style.background-image]="imagenes[i]"></div>
       <div class="bottom {{clicked[i]}}">
         <div class="left">
           <div class="details">
@@ -48,40 +49,7 @@
     <div class="inside">
       <div class="icon"><ion-icon name="information-circle-outline"></ion-icon></div>
       <div class="contents">
-        <table>
-          <tr>
-            <th>Width</th>
-            <th>Height</th>
-          </tr>
-          <tr>
-            <td>3000mm</td>
-            <td>4000mm</td>
-          </tr>
-          <tr>
-            <th>Something</th>
-            <th>Something</th>
-          </tr>
-          <tr>
-            <td>200mm</td>
-            <td>200mm</td>
-          </tr>
-          <tr>
-            <th>Something</th>
-            <th>Something</th>
-          </tr>
-          <tr>
-            <td>200mm</td>
-            <td>200mm</td>
-          </tr>
-          <tr>
-            <th>Something</th>
-            <th>Something</th>
-          </tr>
-          <tr>
-            <td>200mm</td>
-            <td>200mm</td>
-          </tr>
-        </table>
+        {{producto.descripcion}}
       </div>
     </div>
   </div>

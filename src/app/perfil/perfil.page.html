@@ -10,5 +10,57 @@
 <ion-content>
   <div class="contenedor-imagen">
     <img class="imagen-perfil" src="https://image.flaticon.com/icons/png/512/1055/1055654.png">
+    <div class="contenedor-estadisticas">
+    </div>
   </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <div class="contenedor-naranjo">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/679/679938.svg">
+          </div>
+          <ion-card-header>
+            <ion-card-title color="blanco">Tus puntos</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content style="font-size:50px">
+            <b>{{ (personalResults|| "Sin datos") }}</b>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col>
+        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <div class="contenedor-naranjo">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
+          </div>
+          <ion-card-header>
+            <ion-card-title color="blanco">Encuestas</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content style="font-size:50px">
+            <b>{{ (personalResults|| "Sin datos") }}</b>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+          <div class="contenedor-celeste">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1790/1790014.svg">
+          </div>
+          <ion-card-header>
+            <ion-card-title color="blanco">Evaluaciones</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content style="font-size:50px">
+            <b>{{ (personalResults|| "Sin datos") }}</b>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

@@ -1,8 +1,4 @@
-<ion-button size="large" (click)="tipo1 = true; tipo2=false"  expand="block">Tipo 1</ion-button>
-<ion-button size="large"  (click)="tipo1 = false; tipo2=false"  expand="block">Tipo 2</ion-button>
-<ion-button size="large"  (click)="tipo2 = true; tipo1=null"  expand="block">Tipo 3</ion-button>
-
-<ion-content class="ion-padding" *ngIf="tipo1 == true && tipo2 == false">
+<ion-content class="ion-padding" *ngIf="tipo == 0">
   <div class="contenedor-imagen">
     <img class="imagen-candado" src="assets/icon/hombre.png">
   </div>
@@ -48,9 +44,9 @@
 -->
 </ion-content>
 
-<ion-content class="ion-padding" *ngIf="!tipo1 == true && tipo2 == false">
+<ion-content class="ion-padding" *ngIf="tipo == 1">
 
-  <ion-title>Ifort Chile</ion-title>
+  <ion-title style="background:none; color:white;">Ifort Chile</ion-title>
 
   <div class="contenedor-inputs">
     <form style="margin-top:10%;" class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
@@ -68,7 +64,7 @@
 
         <ion-button class="boton-login" expand="block" color="light" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>
 
-        <a href="#" class="no-recordar"><h1>¿No recuerdas tu contraseña?</h1></a>
+        <a href="#" class="no-recordar"><ion-label style="font-size:18px;">¿No recuerdas tu contraseña?</ion-label></a>
     </form>
 </div>
 
@@ -77,10 +73,10 @@
 
 </ion-content>
 
-<ion-content color="light" *ngIf="tipo2 == true">
+<ion-content class="content-tercero" *ngIf="tipo == 2">
 
   <div class="contenedor-inputs2">
-    <form style="margin-top:10%;" class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+    <form class="login-form2 formulario2" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
 
       <ion-title style="background:none; margin-bottom: 5%;" class="prueba">Ifort Chile</ion-title>
 
@@ -94,9 +90,9 @@
           <ion-input type="password" ngModel name="password" required="true" placeholder="Clave" autocomplete="off" ></ion-input>
         </ion-item>
 
-        <ion-button class="boton-login" expand="block" color="tertiary" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>
+        <ion-button class="boton-login" style="margin-bottom: 5%;" expand="block" color="tertiary" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>
 
-        <a href="#" class="no-recordar"><h1>¿No recuerdas tu contraseña?</h1></a>
+        <a href="#" class="no-recordar"><ion-label style="font-size:18px; color:black;">¿No recuerdas tu contraseña?</ion-label></a>
     </form>
   </div>
 </ion-content>

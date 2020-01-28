@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../_servicios/user.service';
 
 @Component({
   selector: 'app-list',
@@ -19,8 +20,9 @@ export class ListPage implements OnInit {
     'bluetooth',
     'build'
   ];
+  evaluaciones = [];
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
+  constructor(private userService : UserService) {
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
@@ -28,8 +30,16 @@ export class ListPage implements OnInit {
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
+    this.traerDatos();
   }
+  traerDatos(){
+    let userId = sessionStorage.getItem('userId');
+    this.userService.gathering(userId).subscribe( datos => {
+      this.evaluaciones = datos.evaluaciones;
+      console.log(this.evaluaciones);
 
+    })
+  }
   ngOnInit() {
   }
   // add back when alpha.4 is out

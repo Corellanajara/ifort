@@ -70,7 +70,7 @@ ion-toolbar{
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #3949ab;
+  --background: #1B1F3C;
 
   --color: white !important;
   font-family: 'Roboto';
@@ -78,7 +78,7 @@ ion-toolbar{
 }
 
 .contenedor-imagen{
-  background: #3949ab;
+  background: #1B1F3C;
 }
 
 .imagen-home{
@@ -95,34 +95,47 @@ ion-toolbar{
   margin-bottom: 0%;
 }
 
+.grilla{
+  background: #1B1F3C;
+  height: 40%;
+  margin-bottom: 13%;
+}
+
+.fila{
+  height: 80%;
+}
+
 .contenedor-azul{
-  background: #64b5f6;
+  background: #1f3e7d;
 }
 
 .card-azul{
-  --background: #64b5f6;
+  --background: #1f3e7d;
   --color: white !important;
   border-radius: 30px;
+  height: 100%;
 }
 
 .contenedor-naranjo{
-  background: #5c6bc0;
+  background: #5785c4;
 }
 
 .card-naranjo{
-  --background: #5c6bc0;
+  --background: #5785c4;
   --color: white !important;
   border-radius: 30px;
+  height: 100%;
 }
 
 .contenedor-celeste{
-  background: linear-gradient(90deg, rgba(225,245,254,1) 0%, rgba(3,169,244,1) 100%);
+  background: #97c2e8;
 }
 
 .card-celeste{
-  --background: linear-gradient(90deg, rgba(225,245,254,1) 0%, rgba(3,169,244,1) 100%);
+  --background: #97c2e8;
   --color: white !important;
   border-radius: 30px;
+  height: 100%;
 }
 
 .contenedor-card{
@@ -159,6 +172,7 @@ ion-card{
   font-family: 'Roboto';
   text-align: center;
   border-radius: 30px;
+  margin-top: 3%;
 }
 
 .header-card{
@@ -210,6 +224,45 @@ ion-fab-button{
 @media (min-width: 900px) {
   .menu-home{
     display: none;
+  }
+
+  ion-header{
+    display: none;
+  }
+}
+
+
+@media (max-width: 900px){
+
+  .grilla{
+    background: transparent;
+    height: 100% !important;
+    margin-bottom: 0%;
+  }
+
+  .fila{
+    height: 100% !important;
+  }
+
+  ion-card{
+    --background: white;
+    font-family: 'Roboto';
+    text-align: center;
+    border-radius: 30px;
+    margin-top: 5%;
+  }
+
+  .card-celeste{
+    margin-bottom: 4%
+  }
+
+  .card-naranjo{
+    margin-top: 5%
+  }
+
+  .card-azul{
+    margin-top: 5%;
+    margin-bottom: 5%;
   }
 
 }

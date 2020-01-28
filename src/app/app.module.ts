@@ -25,6 +25,7 @@ import { UserService } from './_servicios/user.service';
 import { EmpresaService } from './_servicios/empresas.service';
 import { EvaluacionesService } from './_servicios/evaluaciones.service';
 import { EncuestaService } from './_servicios/encuestas.service';
+import { ProductoService } from './_servicios/encuestas.service';
 
 import { PermisosPage } from './administrador/usuarios/permisos/permisos.page';
 import { AsignarPage } from './administrador/usuarios/asignar/asignar.page';
@@ -34,10 +35,11 @@ import { ImportarPagePregunta } from './evaluacion/pregunta/importar/importar.pa
 import { InstrumentoPage } from './evaluaciones/instrumento/instrumento.page';
 import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.page';
 import { ResponderPage } from './encuesta/responder/responder.page';
+import { ListPage } from './list/list.page';
 
 @NgModule({
-  declarations: [AppComponent,ResponderPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ CrudEncuestaPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,ResponderPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ CrudEncuestaPage,ListPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,
@@ -53,6 +55,7 @@ import { ResponderPage } from './encuesta/responder/responder.page';
     //Push,
     MenusService,
     EncuestaService,
+    ProductoService,
     EvaluacionesService,
     EmpresaService,
     UserService,

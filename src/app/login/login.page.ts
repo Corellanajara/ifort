@@ -16,6 +16,7 @@ interface empresaBD {
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  tipo=1;
 
   constructor(
     private app : AppComponent,

@@ -4,14 +4,93 @@ ion-toolbar{
   background: linear-gradient(90deg, rgba(255,87,34,1) 0%, rgba(230,81,0,1) 54%);
   */
 
-  --background: #ff5252;
+  --background: #7A9FCC;
   --color: white !important;
   font-family: 'Roboto';
   text-align: center;
+
+  ion-item{
+    --background: transparent;
+    --border-color: transparent;
+    color: white;
+    width: 100%;
+    height: 10%;
+  }
+
+  .badge-canje{
+    background: transparent;
+    width: 40px;
+
+    .imagen-canjes
+    {
+
+    }
+  }
+
 }
 
 .contenedor-imagen{
-  background: #ff5252;
+  background: #7A9FCC;
+}
+
+.contenedor-estadisticas{
+  width: 100%;
+  display: flex;
+}
+
+.imagen-home{
+  width: 20%;
+  margin-left: 40%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.imagen-card{
+  width: 50px;
+  margin-left: 0%;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.contenedor-azul{
+  background: #1F3E7D
+;
+}
+
+.card-azul{
+  --background: #1F3E7D
+;
+  --color: white !important;
+  border-radius: 30px;
+}
+
+.contenedor-naranjo{
+  background: #1F3E7D
+;
+}
+
+.card-naranjo{
+  --background: #1F3E7D
+;
+  --color: white !important;
+  border-radius: 30px;
+}
+
+.contenedor-celeste{
+  background: #1F3E7D
+;
+}
+
+.card-celeste{
+  --background: #1F3E7D
+;
+  --color: white !important;
+  border-radius: 30px;
+}
+
+.contenedor-card{
+  --background: #3949ab;
+  --color: white !important;
 }
 
 .imagen-perfil{
@@ -76,4 +155,44 @@ ion-card{
 
 ion-fab{
   --background: rgba(128,222,234,1);
+}
+
+.contenedor-datos{
+  background:#ff5252;
+  height:9%;
+  width:100%;
+  display:flex;
+}
+
+.nombre-perfil{
+  height:100%;
+  width:35%;
+}
+
+.cupones-perfil{
+  height:100%;
+  width:35%;
+  display:flex;
+}
+
+.texto-perfil{
+  color:white;
+  align-text: center;
+  margin-top:3.5%;
+  margin-left:8%;
+  font-size:20px;
+}
+
+@media (max-width: 900px) {
+  .contenedor-datos{
+
+  }
+
+  .nombre-perfil{
+    width: 100% !important;
+  }
+
+  .cupones-perfil{
+    width: 100% !important;
+  }
 }
