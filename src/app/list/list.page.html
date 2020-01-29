@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let evaluacion of evaluaciones">
+    <ion-item *ngFor="let evaluacion of evaluaciones" (click)="verGrafico(evaluacion,evaluacion.estado)">
 
       <ion-chip>
         <ion-label>{{ evaluacion.fecha | date:'d - M - yyy'}}</ion-label>
@@ -21,6 +21,17 @@
       <div class="item-note" slot="end">
         <ion-badge color="light">{{evaluacion.instrumento.sigla}}</ion-badge>
       </div>
+      <div class="item-note" slot="end"  *ngIf="evaluacion.estado == 0">
+        <ion-badge color="light">
+          <ion-icon style="color:red" name="close-circle-outline"></ion-icon>
+        </ion-badge>
+      </div>
+      <div class="item-note" slot="end" *ngIf="evaluacion.estado > 0">
+          <ion-badge color="light">
+            <ion-icon style="color:green" name="checkmark-circle-outline"></ion-icon>
+          </ion-badge>
+      </div>
+
 
     </ion-item>
   </ion-list>
