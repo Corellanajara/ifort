@@ -36,10 +36,11 @@ import { InstrumentoPage } from './evaluaciones/instrumento/instrumento.page';
 import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.page';
 import { ResponderPage } from './encuesta/responder/responder.page';
 import { ListPage } from './list/list.page';
+import { GraficoPage } from './list/grafico/grafico.page';
 
 @NgModule({
-  declarations: [AppComponent,ResponderPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ CrudEncuestaPage,ListPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,ResponderPage,GraficoPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ CrudEncuestaPage,ListPage,GraficoPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,

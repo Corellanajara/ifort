@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
-
+import { ModalController } from '@ionic/angular';
+import { GraficoPage } from './grafico/grafico.page';
 @Component({
   selector: 'app-list',
   templateUrl: 'list.page.html',
@@ -22,7 +23,9 @@ export class ListPage implements OnInit {
   ];
   evaluaciones = [];
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor(private userService : UserService) {
+  constructor(
+    private modalCtrl : ModalController,
+    private userService : UserService) {
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
@@ -41,6 +44,21 @@ export class ListPage implements OnInit {
     })
   }
   ngOnInit() {
+  }
+  async verGrafico(evaluacion,estado) {
+    if(estado == 0){
+      return;
+    }
+    const modal = await this.modalCtrl.create({
+      component: GraficoPage,
+      cssClass: 'graficos',
+      componentProps: {
+      'evaluacion': evaluacion,
+      'noOcultar': false
+    }
+    });
+
+    return await modal.present();
   }
   // add back when alpha.4 is out
   // navigate(item) {

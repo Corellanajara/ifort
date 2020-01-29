@@ -23,7 +23,7 @@
   </div>
 
   <ion-card class="menu-home">
-      <ion-card-header class="header-card" style="background: #303f9f;">
+      <ion-card-header class="header-card" style="background: #1B1F3C;">
         <ion-item>
           <ion-label style="font-size:23px;">Explora</ion-label>
         <!--
@@ -36,7 +36,7 @@
         </ion-item>
     </ion-card-header>
 
-    <ion-card-content style="background: #303f9f;">
+    <ion-card-content style="background: #1B1F3C;">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -57,7 +57,7 @@
 
           <ion-col>
             <ion-buttons class="contenedor-boton">
-              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="canjeables">
                 <img src="https://image.flaticon.com/icons/svg/1170/1170576.svg">
               </ion-button>
             </ion-buttons>
@@ -95,30 +95,30 @@
 
       </ion-col>
       <ion-col>
-        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluaciones()">
+        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEncuestas()">
           <div class="contenedor-naranjo">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1170/1170616.png">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
           </div>
           <ion-card-header>
-            <ion-card-title color="blanco">Mis resultados</ion-card-title>
+            <ion-card-title color="blanco">Encuestas</ion-card-title>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
-            <b>{{ (personalResults|| "Sin datos") }}</b>
+            <b>{{ (usuario.encuestas.length|| "Sin datos") }}</b>
           </ion-card-content>
         </ion-card>
       </ion-col>
       <ion-col>
-        <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+        <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluaciones()">
           <div class="contenedor-celeste">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1572/1572268.png">
+            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1790/1790014.svg">
           </div>
           <ion-card-header>
-            <ion-card-title color="blanco">Mis resultados</ion-card-title>
+            <ion-card-title color="blanco">Evaluaciones</ion-card-title>
           </ion-card-header>
 
           <ion-card-content style="font-size:50px">
-            <b>{{ (personalResults|| "Sin datos") }}</b>
+            <b>{{ (usuario.evaluaciones.length|| "Sin datos") }}</b>
           </ion-card-content>
         </ion-card>
       </ion-col>

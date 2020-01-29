@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../_servicios/user.service';
+import { ModalController } from '@ionic/angular';
+import { ListPage } from '../list/list.page';
 
 @Component({
   selector: 'app-perfil',
@@ -6,10 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-
-  constructor() { }
+  usuario = {encuestas : [],evaluaciones : [],canjeables : []};
+  constructor(
+    private modalCtrl: ModalController ,
+    private userService : UserService
+  ) {
+    let userId = sessionStorage.getItem('userId');
+    userService.gathering(userId).subscribe( usuario => {
+      this.usuario = usuario;
+      console.log(usuario);
+    })
+  }
 
   ngOnInit() {
   }
+  async verEvaluaciones(){
+    const modal = await this.modalCtrl.create({
+      component: ListPage,
+      cssClass: 'modals'
+    });
 
+    return await modal.present();
+  }
+  verEncuestas(){
+
+  }
 }

@@ -17,6 +17,7 @@ export class HomePage implements OnInit {
   asignado : any = {name:'Aun no asignado'};
   valorPersonalResult = 0;
   total = 1;
+  usuario = {encuestas : [],evaluaciones : [],canjeables : []};
   personalResults : any;
   @ViewChild("barCanvas",{static: false}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",{static: false}) doughnutCanvas: ElementRef;
@@ -184,6 +185,7 @@ export class HomePage implements OnInit {
   ) {
     this.getPersonalResults();
     this.datosMultiples();
+    this.traerDatos();
   }
   graficarPersonalData(){
     let arr = [];
@@ -241,6 +243,8 @@ console.log(arr);
   traerDatos(evento){
     let userId = sessionStorage.getItem('userId');
     this.userService.gathering(userId).subscribe( datos => {
+      this.usuario = datos;
+      console.log(datos);
       sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
       this.getPersonalResults();
       if(evento){
