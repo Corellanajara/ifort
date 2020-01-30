@@ -67,10 +67,10 @@ export class DragPage{
       private loadingController:LoadingController,
       private empresaService: EmpresaService) {
       console.log("ON INIT");
-      console.log(sessionStorage.getItem('empresa'));      
+      console.log(sessionStorage.getItem('empresa'));
       this.myTree = JSON.parse(sessionStorage.getItem('jerarquia'));
       try {
-        this.myTree = JSON.parse(this.arbol);
+        this.myTree = JSON.parse(this.myTree);
       } catch (error) {
         console.log(error)
       }
