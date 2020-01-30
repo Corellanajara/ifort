@@ -40,7 +40,7 @@ export class GraficoPage implements OnInit {
   }
   public random_rgba() {
     var o = Math.round, r = Math.random, s = 200;
-    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
     return rgb;
   }
   ngOnInit(){
@@ -74,7 +74,16 @@ export class GraficoPage implements OnInit {
             borderColor: this.fondos,
           }
         ]
-      }
+      },
+      options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
     });
 
 

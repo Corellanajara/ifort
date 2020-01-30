@@ -67,7 +67,13 @@ export class DragPage{
       private loadingController:LoadingController,
       private empresaService: EmpresaService) {
       console.log("ON INIT");
-      console.log(sessionStorage.getItem('empresa'));
+      console.log(sessionStorage.getItem('empresa'));      
+      this.myTree = JSON.parse(sessionStorage.getItem('jerarquia'));
+      try {
+        this.myTree = JSON.parse(this.arbol);
+      } catch (error) {
+        console.log(error)
+      }
 /*
       this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
       this.config.rootTitle = this.Empresa.nombre;

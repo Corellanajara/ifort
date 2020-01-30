@@ -50,9 +50,11 @@ export class EvaluacionPage implements OnInit {
       console.log(sessionStorage);
       this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
       this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-      if(typeof(this.arbol != 'object') ){
+      try {
         this.arbol = JSON.parse(this.arbol);
-      }
+      } catch (error) {
+        console.log(error)
+      }      
       console.log(this.arbol);
       userService.listar().subscribe(usuarios=>{
         console.log(usuarios);

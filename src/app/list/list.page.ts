@@ -35,6 +35,9 @@ export class ListPage implements OnInit {
     }
     this.traerDatos();
   }
+  dismiss(){
+    this.modalCtrl.dismiss();
+  }
   traerDatos(){
     let userId = sessionStorage.getItem('userId');
     this.userService.gathering(userId).subscribe( datos => {
