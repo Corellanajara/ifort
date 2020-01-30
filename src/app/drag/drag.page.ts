@@ -66,16 +66,18 @@ export class DragPage{
     constructor(
       private loadingController:LoadingController,
       private empresaService: EmpresaService) {
-      console.log("ON INIT");
-      console.log(sessionStorage.getItem('empresa'));
-      this.myTree = JSON.parse(sessionStorage.getItem('jerarquia'));
+      console.log("ON INIT");      
+      this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
+      var arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+      console.log(arbol);
       try {
-        this.myTree = JSON.parse(this.myTree);
+        this.myTree = JSON.parse(arbol);
       } catch (error) {
+        this.myTree = arbol;
         console.log(error)
       }
 /*
-      this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
+
       this.config.rootTitle = this.Empresa.nombre;
       let arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
       if(arbol){
@@ -95,13 +97,13 @@ export class DragPage{
       this.config.enableDragging = false;
     }
     public saveTree(){
-      //this.Empresa.jerarquia = this.myTree;
+      this.Empresa.jerarquia = this.myTree;
       sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
       sessionStorage.setItem('config',JSON.stringify(this.config));
       console.log(this.Empresa);
-      //this.empresaService.actualizar(this.Empresa.id,this.Empresa).subscribe( act => {
-        //console.log(act);
-      //})
+      this.empresaService.actualizar(this.Empresa.id,this.Empresa).subscribe( act => {
+        console.log(act);
+      })
       sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
       sessionStorage.setItem('config',JSON.stringify(this.config));
     }
