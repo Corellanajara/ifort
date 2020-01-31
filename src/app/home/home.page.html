@@ -17,13 +17,21 @@
   <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-  <div class="contenedor-imagen">
-    <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
+   <!--
+  <div class="contenedor-imagen" style=' background : url("http://localhost:8100/assets/icon/fondo-azul.svg") no repeat'>
+    <img class="imagen-mancha" src="http://localhost:8100/assets/icon/mancha-verde-oscuro.svg">
+    <div class="contenedor-logo">
+      <img class="imagen-logo" src="http://localhost:8100/assets/icon/LOGO IFORT-02.svg">
+    </div>
   </div>
 
-  <ion-card class="menu-home">
-      <ion-card-header class="header-card" style="background: #1B1F3C;">
+  <!--<div class="contenedor-imagen">
+    <img class="imagen-home" src="assets/icon/LOGO IFORT-02.png">
+  </div>-->
+
+  <ion-card class="menu-home ">
+
+      <ion-card-header class="header-card" >
         <ion-item>
           <ion-label style="font-size:23px;">Explora</ion-label>
         <!--
@@ -36,7 +44,8 @@
         </ion-item>
     </ion-card-header>
 
-    <ion-card-content style="background: #1B1F3C;">
+    <ion-card-content >
+
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -67,7 +76,10 @@
     </ion-card-content>
   </ion-card>
 
-  <ion-grid class="grilla">
+  <ion-grid class="grilla contenedor-imagen" style=' background : url("http://localhost:8100/assets/icon/fondo-azul.svg") no repeat'>    
+    <div class="contenedor-logo">
+      <img class="imagen-logo" src="http://localhost:8100/assets/icon/LOGO IFORT-02.svg">
+    </div>
     <ion-row class="fila">
       <ion-col>
 

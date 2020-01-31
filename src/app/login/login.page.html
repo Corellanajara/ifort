@@ -46,7 +46,9 @@
 
 <ion-content class="ion-padding" *ngIf="tipo == 1">
 
-  <ion-title style="background:none; color:white;">Ifort Chile</ion-title>
+  <ion-title style="background:none; color:white;">
+    <img class="imagen-home" src="assets/icon/LOGO IFORT-02.png">
+  </ion-title>
 
   <div class="contenedor-inputs">
     <form style="margin-top:10%;" class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">

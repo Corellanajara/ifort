@@ -71,6 +71,14 @@ const routes: Routes = [
     path: 'grafico',
     loadChildren: () => import('./list/grafico/grafico.module').then( m => m.GraficoPageModule)
   },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'notificacion',
+    loadChildren: () => import('./notificacion/notificacion.module').then( m => m.NotificacionPageModule)
+  },
   
 ];
 
