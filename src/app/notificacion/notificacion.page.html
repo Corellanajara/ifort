@@ -49,14 +49,14 @@
     <br>
     <ion-item style="padding-top: 20px">
       <ion-label position="floating" style="font-size: 20px;color:black">Descripción</ion-label>
-      <ion-input [(ngModel)]="notificacion.descripcion" ></ion-input>
+      <ion-textarea [(ngModel)]="notificacion.descripcion" ></ion-textarea>
     </ion-item>
     <br>
     <ion-item-divider>
 
     </ion-item-divider>
-    <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" notificacion.titulo == '' ">Ver/Agregar preguntas/afirmaciones <span *ngIf="notificacion.preguntas"> ({{getPreguntas(notificacion.preguntas)}})</span></ion-button>
-    <ion-button class="ion-button" *ngIf="notificacion.id == '' " [disabled]=" notificacion.titulo == '' "  size="medium" (click)="confirmar()">Guardar</ion-button>
+
+    <ion-button class="ion-button" *ngIf="notificacion.id == '' " [disabled]=" notificacion.titulo == '' "  size="medium" (click)="confirmar();verAgregar = false;">Guardar</ion-button>
     <ion-button class="ion-button" *ngIf="notificacion.id != ''" [disabled]=" notificacion.titulo == '' "   size="medium" (click)="actualizarnotificacion();verAgregar = false">Actualizar</ion-button>
 
   </div>

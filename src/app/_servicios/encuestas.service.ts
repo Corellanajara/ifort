@@ -81,3 +81,41 @@ export class ProductoService {
     });
   }
 }
+
+export class NotificacionesService {
+
+  private url: string = "http://178.128.71.20:4120";
+
+  constructor(private http: HttpClient) { }
+
+  listar() {
+    let accessToken = sessionStorage.getItem('accessToken');
+    let id = sessionStorage.getItem('empresaId');
+    return this.http.get<any[]>(`${this.url}/notificaciones/${id}` , {
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization',`Bearer ${accessToken}`)
+    });
+  }
+  insertar(Evaluacion : any){
+    let id = sessionStorage.getItem('empresaId');
+    Evaluacion.empresaId = id;
+    console.log("al enviar",Evaluacion);
+    return this.http.post<any[]>(`${this.url}/notificaciones/`, Evaluacion ,{
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+  actualizar(id:string,Evaluacion : any){
+    let accessToken = sessionStorage.getItem('accessToken');
+    return this.http.patch<any[]>(`${this.url}/notificaciones/${id}`, Evaluacion ,{
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization',`Bearer ${accessToken}`)
+    });
+  }
+  borrar(id:string){
+    return this.http.delete<any[]>(`${this.url}/notificaciones/${id}` ,{
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+}

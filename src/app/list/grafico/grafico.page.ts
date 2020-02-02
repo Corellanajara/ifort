@@ -13,6 +13,8 @@ export class GraficoPage implements OnInit {
   indicadores = []
   titulo = "";
   tipo = undefined;
+  tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
+  tipoActual = "bar";
   titulos = []
   valores = []
   colores = []
@@ -21,7 +23,7 @@ export class GraficoPage implements OnInit {
   private chart: Chart;
 
   constructor(private navParams : NavParams) {
-    this.evaluacion = navParams.get('evaluacion');
+    this.evaluacion = navParams.get('instrumento');
     if(this.evaluacion.instrumento){
       this.titulo = this.evaluacion.instrumento.nombre
       if(this.evaluacion.instrumento.indicadores){
@@ -37,6 +39,17 @@ export class GraficoPage implements OnInit {
 
       }
     }
+    if(this.evaluacion.preguntas){
+      this.titulo = this.evaluacion.titulo;
+      for(let i = 0 ; i < this.evaluacion.preguntas.length;i++){
+        let pregunta = this.evaluacion.preguntas[i];
+        this.titulos.push(pregunta.titulo);
+        this.valores.push(this.evaluacion.resultados[i]);
+        this.colores.push(this.random_rgba());
+        this.fondos.push(this.random_rgba());
+      }
+    }
+
   }
   public random_rgba() {
     var o = Math.round, r = Math.random, s = 200;
@@ -46,23 +59,18 @@ export class GraficoPage implements OnInit {
   ngOnInit(){
   }
 
-  ngAfterViewInit(tipo) {
+  ngAfterViewInit() {
     console.log(this.fondos)
     console.log(this.colores)
     console.log(this.titulos);
     console.log(this.valores);
-    if(!tipo){
-      tipo = "bar";
-    }else{
-      this.tipo = tipo;
-      //this.chart.update();
-    }
-    if(this.tipo){
+
+    if(this.chart){
       this.chart.destroy();
     }
-    this.tipo = tipo;
+
     this.chart = new Chart(this.grafico.nativeElement,{
-      type: this.tipo,
+      type: this.tipoActual,
       data: {
 
         labels: this.titulos,

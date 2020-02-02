@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: NotificacionesPage
+  },
+  {
+    path: 'ver',
+    loadChildren: () => import('./ver/ver.module').then( m => m.VerPageModule)
   }
 ];
 

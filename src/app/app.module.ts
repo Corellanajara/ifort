@@ -26,6 +26,7 @@ import { EmpresaService } from './_servicios/empresas.service';
 import { EvaluacionesService } from './_servicios/evaluaciones.service';
 import { EncuestaService } from './_servicios/encuestas.service';
 import { ProductoService } from './_servicios/encuestas.service';
+import { NotificacionesService } from './_servicios/encuestas.service';
 
 import { PermisosPage } from './administrador/usuarios/permisos/permisos.page';
 import { AsignarPage } from './administrador/usuarios/asignar/asignar.page';
@@ -56,6 +57,7 @@ import { GraficoPage } from './list/grafico/grafico.page';
     //Push,
     MenusService,
     EncuestaService,
+    NotificacionesService,
     ProductoService,
     EvaluacionesService,
     EmpresaService,
