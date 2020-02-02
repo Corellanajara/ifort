@@ -17,7 +17,11 @@ export class HomePage implements OnInit {
   asignado : any = {name:'Aun no asignado'};
   valorPersonalResult = 0;
   total = 1;
-  usuario = {encuestas : [],evaluaciones : [],canjeables : []};
+  tipoActual = "bar";
+  usuarioActual = 0;
+  tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
+  usuario = {encuestas : [],evaluaciones : [],canjeables : [], permissionLevel : 5};
+  usuarios = [];
   personalResults : any;
   @ViewChild("barCanvas",{static: false}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",{static: false}) doughnutCanvas: ElementRef;
@@ -35,7 +39,7 @@ export class HomePage implements OnInit {
   private bubbleChart: Chart;
   public random_rgba() {
     var o = Math.round, r = Math.random, s = 200;
-    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
     console.log(rgb)
     return rgb;
   }
@@ -44,7 +48,9 @@ export class HomePage implements OnInit {
     console.log()
 
     this.graficarPersonalData();
-
+    if(this.lineChart){
+      this.lineChart.destroy();
+    }
     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       data: {
@@ -104,39 +110,6 @@ export class HomePage implements OnInit {
       }
   });
 
-  this.radarChart = new Chart(this.radarCanvas.nativeElement, {
-    type: "radar",
-    data: {
-
-      labels: ["A", "B", "C", "D","E"],
-      datasets: [
-        {
-          label: "Marzo",
-          data: [2,3,4,5,6],
-          backgroundColor:"rgb(75,190,190,0.2)",
-          borderColor: "rgb(75,190,190,1)",
-          pointBorderWidth: 3,
-          pointHoverRadius: 3
-        },
-        {
-          label: "Abril",
-          data: [6,5,4,3,2],
-          backgroundColor:"rgb(250,240,150,0.2)",
-          borderColor: "rgb(250,240,150,1)",
-          pointBorderWidth: 3,
-          pointHoverRadius: 3
-        },
-        {
-          label: "Mayo",
-          data: [1,2,5,2,2],
-          backgroundColor:"rgb(230,90,90,0.2)",
-          borderColor: "rgb(230,90,90,1)",
-          pointBorderWidth: 3,
-          pointHoverRadius: 3
-        }
-      ]
-    }
-  });
 
   this.polarChart = new Chart(this.polarCanvas.nativeElement,{
     type: "polarArea",
@@ -208,8 +181,6 @@ export class HomePage implements OnInit {
         }
       }
     }
-console.log(evaluaciones);
-console.log(arr);
 
     this.barChart = new Chart(this.barCanvas.nativeElement,{
         type:"bar",
@@ -242,8 +213,15 @@ console.log(arr);
 
   traerDatos(evento){
     let userId = sessionStorage.getItem('userId');
+    let self = this;
     this.userService.gathering(userId).subscribe( datos => {
       this.usuario = datos;
+      if(datos.permissionLevel > 4){
+        self.userService.listar().subscribe(usuarios =>{
+          this.usuarios = usuarios;
+          console.log(usuarios);
+        })
+      }
       console.log(datos);
       sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
       this.getPersonalResults();
@@ -359,7 +337,21 @@ console.log(arr);
   async verEvaluaciones(){
     const modal = await this.modalCtrl.create({
       component: ListPage,
-      cssClass: 'modals'
+      cssClass: 'modals',
+      componentProps:{
+        'tipo' : 'Evaluaciones'
+      }
+    });
+
+    return await modal.present();
+  }
+  async verEncuestas(){
+    const modal = await this.modalCtrl.create({
+      component: ListPage,
+      cssClass: 'modals',
+      componentProps:{
+        'tipo' : 'Encuestas'
+      }
     });
 
     return await modal.present();
@@ -392,7 +384,8 @@ console.log(arr);
           puntos += indicador.valor;
       }
     }
-    return puntos;
+
+    return puntos/instrumento.indicadores.length;
 
   }
   obtenDatos(){
@@ -429,6 +422,66 @@ console.log(arr);
       }
     }
 
+  }
+  cambiarTipo(){
+    this.tipo = !this.tipo;
+    this.dibujarGrafico();
+  }
+  dibujarGrafico(){
+    console.log(this.usuarioActual)
+    let arr = [];
+    let valores = [];
+    let labels = [];
+    let backgroundColors = [];
+    let bordesColors = [];
+    let background = ["rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 159, 64, 0.2)"];
+    let bordes = ["rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255, 159, 64, 1)"];
+
+    let evaluaciones = this.usuarios[this.usuarioActual].evaluaciones;
+    if(!evaluaciones){
+      return;
+    }
+    for(let i = evaluaciones.length; i > 0 ; i = i - 1){
+      if(evaluaciones[i - 1].estado > 0){
+        if(arr.length != 6){
+          labels.push(evaluaciones[i - 1].instrumento.sigla);
+          arr.push(evaluaciones[i - 1]);
+          valores.push(this.getPersonalResultsByEv(evaluaciones[i - 1]));
+          backgroundColors.push(background[backgroundColors.length]);
+          bordesColors.push(bordes[bordesColors.length]);
+        }
+      }
+    }
+    if(this.radarChart){
+      this.radarChart.destroy();
+    }
+
+    this.radarChart = new Chart(this.radarCanvas.nativeElement,{
+        type:this.tipoActual,
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Evaluaciones",
+              data: valores,
+              backgroundColor:backgroundColors,
+              borderColor: bordesColors,
+               borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true
+                  }
+              }
+            ]
+          }
+        }
+    });
   }
   exportar(id)
   {

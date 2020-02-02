@@ -17,57 +17,24 @@
   <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-  <div class="contenedor-imagen">
-    <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
+   <!--
+  <div class="contenedor-imagen" style=' background : url("http://localhost:8100/assets/icon/fondo-azul.svg") no repeat'>
+    <img class="imagen-mancha" src="http://localhost:8100/assets/icon/mancha-verde-oscuro.svg">
+    <div class="contenedor-logo">
+      <img class="imagen-logo" src="http://localhost:8100/assets/icon/LOGO IFORT-02.svg">
+    </div>
   </div>
 
-  <ion-card class="menu-home">
-      <ion-card-header class="header-card" style="background: #1B1F3C;">
-        <ion-item>
-          <ion-label style="font-size:23px;">Explora</ion-label>
-        <!--
-          <ion-buttons>
-            <ion-button slot="end" color="terciary">
-              <ion-icon slot="icon-only" name="cart"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-          -->
-        </ion-item>
-    </ion-card-header>
+  <!--<div class="contenedor-imagen">
+    <img class="imagen-home" src="assets/icon/LOGO IFORT-02.png">
+  </div>-->
 
-    <ion-card-content style="background: #1B1F3C;">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-buttons class="contenedor-boton">
-              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
-                <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
-              </ion-button>
-            </ion-buttons>
-          </ion-col>
 
-          <ion-col>
-            <ion-buttons class="contenedor-boton">
-              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
-                <img src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
-              </ion-button>
-            </ion-buttons>
-          </ion-col>
+  <ion-grid class="grilla contenedor-imagen" style=' background : url("http://localhost:8100/assets/icon/fondo1.svg") , #3E55A1'>
 
-          <ion-col>
-            <ion-buttons class="contenedor-boton">
-              <ion-button slot="end" class="boton" style="background: #fffff;" href="canjeables">
-                <img src="https://image.flaticon.com/icons/svg/1170/1170576.svg">
-              </ion-button>
-            </ion-buttons>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-grid class="grilla">
+    <div class="contenedor-logo">
+      <img class="imagen-logo" src="http://localhost:8100/assets/icon/LOGO IFORT-02.svg">
+    </div>
     <ion-row class="fila">
       <ion-col>
 
@@ -126,7 +93,52 @@
     </ion-row>
   </ion-grid>
 
+  <ion-card class="menu-home ">
 
+      <ion-card-header class="header-card" >
+        <ion-item>
+          <ion-label style="font-size:23px;">Explora</ion-label>
+        <!--
+          <ion-buttons>
+            <ion-button slot="end" color="terciary">
+              <ion-icon slot="icon-only" name="cart"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          -->
+        </ion-item>
+    </ion-card-header>
+
+    <ion-card-content >
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-buttons class="contenedor-boton">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+                <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+
+          <ion-col>
+            <ion-buttons class="contenedor-boton">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+                <img src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+
+          <ion-col>
+            <ion-buttons class="contenedor-boton">
+              <ion-button slot="end" class="boton" style="background: #fffff;" href="canjeables">
+                <img src="https://image.flaticon.com/icons/svg/1170/1170576.svg">
+              </ion-button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card class="grafico">
       <ion-card-header class="header-card">
@@ -191,24 +203,38 @@
 
 
 
-  <ion-card >
+  <ion-card *ngIf="usuario.permissionLevel > 4" >
       <ion-card-header class="header-card">
         <ion-item>
           <div class="contenedor-card">
             <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/386/386901.png">
           </div>
-          <ion-label>Actividades</ion-label>
-
+          <ion-item>
+           <ion-label>Por Usuario</ion-label>
+           <ion-select okText="OK" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="usuarioActual">
+             <ion-select-option value="{{i}}" *ngFor="let user of usuarios;index as i">{{user.firstName}} {{user.lastName}}</ion-select-option>
+           </ion-select>
+         </ion-item>
+         <ion-buttons>
+           <ion-label>Tipo grafico</ion-label>
+           <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
+             <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+           </ion-select>
+          </ion-buttons>
           <ion-buttons>
-            <ion-button slot="end">
+            <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
               <ion-icon name="cloud-download"></ion-icon>
             </ion-button>
           </ion-buttons>
+
         </ion-item>
     </ion-card-header>
 
     <ion-card-content>
-      <canvas #radarCanvas></canvas>
+
+      <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
+      <h2 *ngIf="!radarChart"> No se ha cargado grafico aun</h2>
+
     </ion-card-content>
   </ion-card>
 

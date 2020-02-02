@@ -5,8 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="ngAfterViewInit('horizontalBar')">Horizontal</ion-button>
-  <ion-button (click)="ngAfterViewInit('bar')">Vertical</ion-button>
 
   <ion-card >
       <ion-card-header class="header-card">
@@ -15,8 +13,14 @@
             <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/425/425067.png">
           </div>
           <ion-label>Evaluación</ion-label>
+         <ion-buttons>
+           <ion-label>Tipo grafico</ion-label>
+           <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="ngAfterViewInit()" [(ngModel)]="tipoActual">
+             <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+           </ion-select>
+          </ion-buttons>
           <ion-buttons>
-            <ion-button slot="end" (click)="exportar('evaluacion')">
+            <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
               <ion-icon name="cloud-download"></ion-icon>
             </ion-button>
           </ion-buttons>

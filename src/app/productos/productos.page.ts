@@ -62,7 +62,7 @@ export class ProductosPage implements OnInit {
     console.log(this.evaluacion);
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
-      message: 'Estas a punto de <br><strong>CREAR UNA ENCUESTA</strong>!!!',
+      message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
       buttons: [
         {
           text: 'Cancelar',

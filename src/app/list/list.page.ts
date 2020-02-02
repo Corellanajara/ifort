@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController,NavParams } from '@ionic/angular';
 import { GraficoPage } from './grafico/grafico.page';
 @Component({
   selector: 'app-list',
@@ -21,11 +21,13 @@ export class ListPage implements OnInit {
     'bluetooth',
     'build'
   ];
-  evaluaciones = [];
+  tipo = "";
+  datos = [];
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(
     private modalCtrl : ModalController,
-    private userService : UserService) {
+    private userService : UserService,
+    private navParams: NavParams) {
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
@@ -33,6 +35,7 @@ export class ListPage implements OnInit {
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
+    this.tipo = this.navParams.get("tipo");
     this.traerDatos();
   }
   dismiss(){
@@ -41,9 +44,9 @@ export class ListPage implements OnInit {
   traerDatos(){
     let userId = sessionStorage.getItem('userId');
     this.userService.gathering(userId).subscribe( datos => {
-      this.evaluaciones = datos.evaluaciones;
-      console.log(this.evaluaciones);
-
+      console.log(this.tipo.toLowerCase());
+      this.datos = datos[this.tipo.toLowerCase()];
+      console.log(this.datos);
     })
   }
   ngOnInit() {
@@ -56,7 +59,7 @@ export class ListPage implements OnInit {
       component: GraficoPage,
       cssClass: 'graficos',
       componentProps: {
-      'evaluacion': evaluacion,
+      'instrumento': evaluacion,
       'noOcultar': false
     }
     });
