@@ -19,8 +19,8 @@ import { FormControl, FormGroup,Validators } from '@angular/forms';
 export class UsuariosPage implements OnInit {
   usuarios = [];
   public formularioUsuario: FormGroup;
-  usuarioVacio = {id:'',firstName:'',lastName:'',email:'',password:''};
-  usuario = {id:'',firstName:'',lastName:'',email:'',password:''};
+  usuarioVacio = {id:'',firstName:'',lastName:'',email:'',password:'',rut:'',phone:'',empresaId : ''};
+  usuario = {id:'',firstName:'',lastName:'',email:'',password:'',rut:'',phone:'',empresaId : ''};
   public tipo = "password";
   public verAgregar = false;
 
@@ -52,7 +52,9 @@ export class UsuariosPage implements OnInit {
       firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lastName: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
-      password : new FormControl ('',Validators.required)
+      password : new FormControl ('',Validators.required),
+      rut : new FormControl('',Validators.required),
+      phone : new FormControl('',Validators.required)
     });
     this.traerUsuarios(false);
 
@@ -161,7 +163,7 @@ export class UsuariosPage implements OnInit {
       console.log("datos de asignacion de usuario",modal);
       if(modal.data){
         let id = sessionStorage.getItem('userId');
-        usuario.asignado = modal.data;                
+        usuario.asignado = modal.data;
         usuario.password = undefined;
         console.log("usuario a actualizar",usuario);
         this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
