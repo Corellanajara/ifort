@@ -223,6 +223,7 @@ export class EncuestasPage implements OnInit {
             this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
               console.log(usuario);
               this.mostrarToast();
+              this.encuesta = {titulo:'',preguntas : [],id:'',fecha:new Date()};
             })
           }
         }
