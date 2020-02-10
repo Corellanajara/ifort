@@ -18,7 +18,7 @@
   </div>
 
   <ion-fab vertical="top" horizontal="end" *ngIf="!verAgregar">
-    <ion-fab-button>
+    <ion-fab-button class="ion-fab">
       <ion-icon name="apps"></ion-icon>
     </ion-fab-button>
 
@@ -32,7 +32,7 @@
 
   </ion-fab>
   <ion-fab vertical="top" horizontal="end" *ngIf="verAgregar">
-    <ion-fab-button (click)="redefinirProducto();verAgregar = false;" >
+    <ion-fab-button class="ion-fab" (click)="redefinirProducto();verAgregar = false;" >
       <ion-icon name="remove" ></ion-icon>
     </ion-fab-button>
   </ion-fab>

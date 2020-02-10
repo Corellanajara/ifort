@@ -37,7 +37,6 @@
     </div>
     <ion-row class="fila">
       <ion-col>
-
         <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
           <ion-card-header>
             <ion-card-title color="blanco">Rendimiento actual </ion-card-title>
@@ -61,7 +60,8 @@
         </ion-card>
 
       </ion-col>
-      <ion-col>
+
+      <ion-col class="columna-naranjo">
         <ion-card class="card-naranjo" style="text-align:center;" (click)="verEncuestas()">
           <div class="contenedor-naranjo">
             <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
@@ -75,7 +75,8 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col>
+
+      <ion-col class="columna-celeste">
         <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluaciones()">
           <div class="contenedor-celeste">
             <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1790/1790014.svg">
@@ -160,7 +161,8 @@
       <canvas #lineCanvas id="lineCanvas"></canvas>
     </ion-card-content>
   </ion-card>
-  <ion-card >
+
+  <ion-card class="volteado">
       <ion-card-header class="header-card">
         <ion-item>
           <div class="contenedor-card">
@@ -177,7 +179,17 @@
     </ion-card-header>
 
     <ion-card-content>
-      <canvas #bubbleCanvas id="actividades"></canvas>
+      <div class="contenedor-canvas">
+        <canvas #bubbleCanvas id="actividades"></canvas>
+      </div>
+      <div class="contenedor-boton-2">
+        <ion-buttons class="contenedor-boton-canvas">
+          <ion-button slot="end" class="boton-canvas" style="background: #fffff;" href="perfil">
+            <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
+          </ion-button>
+        </ion-buttons>
+        <ion-label class="texto-grafico">Ver Gráfico</ion-label>
+      </div>
     </ion-card-content>
   </ion-card>
   <ion-card >

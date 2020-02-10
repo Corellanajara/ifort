@@ -78,6 +78,14 @@ ion-toolbar{
     margin-bottom: 10%;
   }
 
+  .ion-fab{
+    --background: #89a5c7;
+    --background-hover: #89a5c7;
+    --background-activated: #89a5c7;
+    --background-focused: #89a5c7;
+  }
+
+
   @media (max-width: 550px) {
 
     .seccion-secciones{

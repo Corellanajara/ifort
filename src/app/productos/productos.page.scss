@@ -68,6 +68,13 @@ ion-toolbar{
     --border-color: transparent;
   }
 
+  .ion-fab{
+    --background: #a5e2bd;
+    --background-hover: #a5e2bd;
+    --background-activated: #a5e2bd;
+    --background-focused: #a5e2bd;
+  }
+
   .ion-button{
     --background: #b5f7cf;
     --background-activated: #b5f7cf;
