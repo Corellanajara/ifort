@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   valorPersonalResult = 0;
   total = 1;
   tipoActual = "bar";
+  isAdmin = false;
   usuarioActual = 0;
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
   usuario = {encuestas : [],evaluaciones : [],canjeables : [], permissionLevel : 5};
@@ -212,6 +213,8 @@ export class HomePage implements OnInit {
   }
 
   traerDatos(evento){
+    var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    console.log("usuario",usuario);
     let userId = sessionStorage.getItem('userId');
     let self = this;
     this.userService.gathering(userId).subscribe( datos => {
@@ -219,12 +222,18 @@ export class HomePage implements OnInit {
       if(datos.permissionLevel > 4){
         self.userService.listar().subscribe(usuarios =>{
           this.usuarios = usuarios;
+          if(usuario.permissionLevel <= 4){
+            this.getPersonalResults();
+          }else{
+            this.isAdmin = true;
+            this.getGeneralData();
+          }
           console.log(usuarios);
         })
       }
       console.log(datos);
       sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
-      this.getPersonalResults();
+
       if(evento){
         evento.target.complete();
       }
@@ -386,7 +395,6 @@ export class HomePage implements OnInit {
     }
 
     return puntos/instrumento.indicadores.length;
-
   }
   obtenDatos(){
     var datos = this.personalResults/this.total;
@@ -421,7 +429,42 @@ export class HomePage implements OnInit {
         return puntos;
       }
     }
+  }
+  getGeneralResults(evaluaciones){
 
+    for(let i = evaluaciones.length; i > 0 ; i = i - 1){
+
+      if(evaluaciones[i - 1].estado > 0){
+        var instrumento = evaluaciones[i - 1].instrumento ;
+        var puntos = 0;
+        var cantidad = 0;
+        for(let indice = 0 ; indice < instrumento.indicadores.length;indice++){
+          let indicador = instrumento.indicadores[indice];
+          if(indicador.valor){
+              puntos += indicador.valor;
+              cantidad += 1;
+          }
+        }
+        return (puntos / cantidad).toFixed(1);;
+      }
+    }
+  }
+
+  getGeneralData(){
+    var evaluados = 0;
+    var puntaje = 0 ;
+    for(let i = 0 ; i < this.usuarios.length; i++){
+      var ev = this.usuarios[i].evaluaciones;
+      if(ev.length > 0){
+        evaluados ++;
+        var res = this.getGeneralResults(ev);
+        if(res>0){
+            puntaje += parseFloat(res);
+        };
+      }
+    }
+    this.personalResults = puntaje;
+    this.total = evaluados;
   }
   cambiarTipo(){
     this.tipo = !this.tipo;

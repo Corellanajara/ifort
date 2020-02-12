@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ModalController, NavParams } from '@ionic/angular';
+import { UserService } from '../../_servicios/user.service';
 import { Chart } from "chart.js";
 import * as jsPDF from 'jspdf';
 
@@ -22,8 +23,36 @@ export class GraficoPage implements OnInit {
   @ViewChild("graficoCanvas",{static: false}) grafico: ElementRef;
   private chart: Chart;
 
-  constructor(private navParams : NavParams) {
-    this.evaluacion = navParams.get('instrumento');
+  constructor(private userService:UserService,private navParams : NavParams) {
+    var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    if(usuario.permissionLevel > 4){
+        this.traerTodos();
+    }else{
+        this.traerDatos();
+    }
+
+  }
+  public random_rgba() {
+    var o = Math.round, r = Math.random, s = 200;
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
+    return rgb;
+  }
+  ngOnInit(){
+  }
+  traerTodos(){
+    this.userService.listar().subscribe(datos=>{
+      var usuarios = datos;
+      for(let i = 0 ; i < usuarios.length; i++){
+          let obj = usuarios[i][this.navParams.get("tipo").toLowerCase()];
+          if(obj){
+            console.log(obj);
+          }
+
+      }
+    })
+  }
+  traerDatos(){
+    this.evaluacion = this.navParams.get('instrumento');
     if(this.evaluacion.instrumento){
       this.titulo = this.evaluacion.instrumento.nombre
       if(this.evaluacion.instrumento.indicadores){
@@ -35,7 +64,6 @@ export class GraficoPage implements OnInit {
           this.colores.push(this.random_rgba());
           this.fondos.push(this.random_rgba());
         }
-
 
       }
     }
@@ -49,16 +77,7 @@ export class GraficoPage implements OnInit {
         this.fondos.push(this.random_rgba());
       }
     }
-
   }
-  public random_rgba() {
-    var o = Math.round, r = Math.random, s = 200;
-    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
-    return rgb;
-  }
-  ngOnInit(){
-  }
-
   ngAfterViewInit() {
     console.log(this.fondos)
     console.log(this.colores)

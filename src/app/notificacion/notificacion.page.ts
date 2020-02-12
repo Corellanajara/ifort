@@ -46,7 +46,7 @@ export class NotificacionPage implements OnInit {
       console.log(usuarios);
       this.usuarios = usuarios;
     })
-    this.traerDatos();
+    this.traerDatos(false);
   }
   traerDatos(evento){
     this.nService.listar().subscribe(datos=>{
@@ -88,7 +88,7 @@ export class NotificacionPage implements OnInit {
   guardarNotificacion(){
     this.nService.insertar(this.notificacion).subscribe(data=>{
       console.log(data);
-      this.traerDatos();
+      this.traerDatos(false);
       this.notificacion = {id:'',titulo : '',descripcion:''};
     })
   }
