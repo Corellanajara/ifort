@@ -106,4 +106,7 @@ export class EvaluacionesPage implements OnInit {
     });
     return await modal.present();
   }
+  abrirAyuda(){
+    alert("aqui se crean evaluaciones");
+  }
 }

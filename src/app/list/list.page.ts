@@ -3,6 +3,7 @@ import { UserService } from '../_servicios/user.service';
 import { ModalController,NavParams } from '@ionic/angular';
 import { GraficoPage } from './grafico/grafico.page';
 import { EncuestaService } from '../_servicios/encuestas.service';
+import { EvaluacionesService } from '../_servicios/evaluaciones.service';
 
 @Component({
   selector: 'app-list',
@@ -15,6 +16,7 @@ export class ListPage implements OnInit {
   datos = [];
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(
+    private evaluacionesService : EvaluacionesService,
     private encuestaService : EncuestaService,
     private modalCtrl : ModalController,
     private userService : UserService,
@@ -37,7 +39,10 @@ export class ListPage implements OnInit {
         this.datos = datos;
       })
     }else{
-
+      this.evaluacionesService.listar().subscribe(datos=>{
+        console.log(datos);
+        this.datos = datos;
+      })
     }
   }
   traerDatos(){

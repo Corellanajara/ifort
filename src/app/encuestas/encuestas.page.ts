@@ -56,6 +56,9 @@ export class EncuestasPage implements OnInit {
       this.usuarios = usuarios;
     })
   }
+  abrirAyuda(){
+    alert("Para listar encuestas selecciona ");
+  }
   visualizar(encuesta,slide){
     console.log(encuesta);
     this.encuesta = encuesta;

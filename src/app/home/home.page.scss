@@ -9,6 +9,7 @@
 .sc-ion-buttons-md-h {
   padding-left: 13%!important;
 }
+
 .imagen-mancha{
   width: 20%;
   margin-left: 40%;
@@ -25,6 +26,44 @@
   margin-top: 0%;
   margin-left: 40%;
 }
+
+/* cards */
+
+.contenedor-cards{
+  margin-top: -7%;
+  width: 100%;
+  display: flex;
+}
+
+.card-izquierda
+{
+  width: 50%;
+}
+
+.card-centro{
+  width: 50%;
+}
+
+.card-derecha{
+  width: 50%;
+}
+
+.ion-card-derecha{
+--background: #1f3e7d;
+--color: white;
+}
+
+.ion-card-centro{
+  --background: #5785c4;
+  --color: white !important;
+}
+
+.ion-card-izquierda{
+  --background: #97c2e8;
+  --color: white !important;
+}
+
+/* */
 
 ion-content{
   --background: #f5f5f5;
@@ -129,7 +168,7 @@ ion-toolbar{
 .grilla{
   background: #1B1F3C;
   height: 40%;
-  margin-bottom: 13%;
+  margin-bottom: auto;
 }
 
 .fila{
@@ -240,6 +279,22 @@ ion-fab-button{
   margin-left: 10%;
 }
 
+.contenedor-botones{
+  width: 100%;
+  display: flex;
+}
+
+.contenedor-boton{
+  width: 50%;
+  padding: 0%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.sc-ion-buttons-md-h {
+  padding-left: 0% !important;
+}
+
 .boton{
   width: 50px !important;
   height: 50px;
@@ -247,6 +302,7 @@ ion-fab-button{
   -webkit-box-shadow: 0px 0px 8px -2px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 8px -2px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 8px -2px rgba(0,0,0,0.75);
+  margin-left: calc((100% - 50px)/2);
 }
 
 .container-grid{
@@ -261,6 +317,10 @@ ion-fab-button{
 
   ion-header{
     display: none;
+  }
+
+  .contenedor-boton-2{
+    display: none !important;
   }
 }
 
@@ -278,24 +338,61 @@ ion-fab-button{
   }
 
   .menu-home{
-    margin-top: 25% !important;
+    margin-top: 0% !important;
+  }
+
+  .contenedor-cards{
+    width: 100%;
+    display: inline-block !important;
+    margin-top: 0% !important;
+  }
+
+  .card-izquierda
+  {
+    width: 100% !important;
+  }
+
+  .card-centro{
+    width: 100% !important;
+  }
+
+  .card-derecha{
+    width: 100% !important;
   }
 }
 
 @media (max-width: 900px) and (orientation: portrait){
+  .contenedor-cards{
+    width: 100%;
+    display: inline-block !important;
+    margin-top: 0% !important;
+  }
+
+  .card-izquierda
+  {
+    width: 100% !important;
+  }
+
+  .card-centro{
+    width: 100% !important;
+  }
+
+  .card-derecha{
+    width: 100% !important;
+  }
 
   .contenedor-canvas{
     display: none;
   }
 
   .menu-home{
-    margin-top: 10% !important;
+    margin-top: 0% !important;
   }
 
   .grilla{
     background: transparent;
     height: 20% !important;
-    margin-bottom: 85%;
+    margin-bottom: auto;
   }
 
   .fila{

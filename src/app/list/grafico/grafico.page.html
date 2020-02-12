@@ -12,7 +12,7 @@
           <div class="contenedor-card">
             <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/425/425067.png">
           </div>
-          <ion-label>Evaluación</ion-label>
+          <ion-label>{{navParams.get("tipo")}}</ion-label>
          <ion-buttons>
            <ion-label>Tipo grafico</ion-label>
            <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="ngAfterViewInit()" [(ngModel)]="tipoActual">

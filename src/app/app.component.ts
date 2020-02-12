@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from './_servicios/user.service';
+import { EmpresaService } from './_servicios/empresas.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
   public usuario = {nombre:'',apellido:''};
 
   constructor(
+    private empresaService : EmpresaService,
     private userService : UserService,
     private menuController : MenuController,
     private router : Router,
@@ -54,6 +56,15 @@ export class AppComponent {
         usuario = datos;
         this.usuario.nombre = usuario.firstName;
         this.usuario.apellido = usuario.lastName;
+        let empresaId = usuario.empresaId;
+
+        this.empresaService.listarById(empresaId).subscribe( empresa =>{
+          console.log(empresa);
+          var jerarquia = JSON.stringify(empresa.jerarquia);
+          sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+          sessionStorage.setItem('empresa', JSON.stringify(empresa) );
+        })
+
       })
     }
     if(menus){

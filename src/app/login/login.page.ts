@@ -25,7 +25,10 @@ export class LoginPage implements OnInit {
     private empresaService : EmpresaService,
     private router : Router,
     private loadingController: LoadingController,
-    private authService : AuthService) { }
+    private authService : AuthService) {
+      var menu = document.querySelector('ion-menu');
+      menu.hidden = true;
+    }
 
   ngOnInit() {
     if( sessionStorage.getItem('empresaId')){

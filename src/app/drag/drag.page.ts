@@ -66,16 +66,23 @@ export class DragPage{
     constructor(
       private loadingController:LoadingController,
       private empresaService: EmpresaService) {
-      console.log("ON INIT");      
+      console.log("ON INIT");
       this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
-      var arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-      console.log(arbol);
-      try {
-        this.myTree = JSON.parse(arbol);
-      } catch (error) {
-        this.myTree = arbol;
-        console.log(error)
-      }
+      this.empresaService.listarById(this.Empresa.id).subscribe( empresa =>{
+        var jerarquia = JSON.stringify(empresa.jerarquia);
+        sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+        sessionStorage.setItem('empresa', empresa);
+
+        var arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+        console.log(arbol);
+        try {
+          this.myTree = JSON.parse(arbol);
+        } catch (error) {
+          this.myTree = arbol;
+          console.log(error)
+        }
+      })
+
 /*
 
       this.config.rootTitle = this.Empresa.nombre;
