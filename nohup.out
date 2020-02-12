@@ -1,0 +1,56 @@
+> ng run app:serve --host=localhost --port=8100
+[ng] Browserslist: caniuse-lite is outdated. Please run next command `npm update`
+[ng] ℹ ｢wds｣: Project is running at http://localhost:8100/webpack-dev-server/
+[ng] ℹ ｢wds｣: webpack output is served from /
+[ng] ℹ ｢wds｣: 404s will fallback to //index.html
+[ng] chunk {administrador-administrador-module} administrador-administrador-module.js, administrador-administrador-module.js.map (administrador-administrador-module) 17.7 kB  [rendered]
+[ng] chunk {administrador-menus-menus-module} administrador-menus-menus-module.js, administrador-menus-menus-module.js.map (administrador-menus-menus-module) 13 kB  [rendered]
+[ng] chunk {administrador-usuarios-usuarios-module} administrador-usuarios-usuarios-module.js, administrador-usuarios-usuarios-module.js.map (administrador-usuarios-usuarios-module) 28.1 kB  [rendered]
+[ng] chunk {asignar-asignar-module} asignar-asignar-module.js, asignar-asignar-module.js.map (asignar-asignar-module) 4.32 kB  [rendered]
+[ng] chunk {canjeables-canjeables-module} canjeables-canjeables-module.js, canjeables-canjeables-module.js.map (canjeables-canjeables-module) 37.3 kB  [rendered]
+[ng] chunk {common} common.js, common.js.map (common) 24.8 kB  [rendered]
+[ng] chunk {core-js-js} core-js-js.js, core-js-js.js.map (core-js-js) 78.7 kB  [rendered]
+[ng] chunk {css-shim-206ea950-3169f23e-js} css-shim-206ea950-3169f23e-js.js, css-shim-206ea950-3169f23e-js.js.map (css-shim-206ea950-3169f23e-js) 21.9 kB  [rendered]
+[ng] chunk {dom-96781eef-a2fb04dd-js} dom-96781eef-a2fb04dd-js.js, dom-96781eef-a2fb04dd-js.js.map (dom-96781eef-a2fb04dd-js) 19.8 kB  [rendered]
+[ng] chunk {dom-js} dom-js.js, dom-js.js.map (dom-js) 20.2 kB  [rendered]
+[ng] chunk {drag-drag-module} drag-drag-module.js, drag-drag-module.js.map (drag-drag-module) 1.03 MB  [rendered]
+[ng] chunk {encuesta-encuesta-module} encuesta-encuesta-module.js, encuesta-encuesta-module.js.map (encuesta-encuesta-module) 8.14 kB  [rendered]
+[ng] chunk {evaluacion-evaluacion-module} evaluacion-evaluacion-module.js, evaluacion-evaluacion-module.js.map (evaluacion-evaluacion-module) 30.7 kB  [rendered]
+[ng] chunk {evaluaciones-evaluaciones-module} evaluaciones-evaluaciones-module.js, evaluaciones-evaluaciones-module.js.map (evaluaciones-evaluaciones-module) 17.5 kB  [rendered]
+[ng] chunk {focus-visible-70713a0c-js} focus-visible-70713a0c-js.js, focus-visible-70713a0c-js.js.map (focus-visible-70713a0c-js) 2.15 kB  [rendered]
+[ng] chunk {hardware-back-button-5afe3cb0-js} hardware-back-button-5afe3cb0-js.js, hardware-back-button-5afe3cb0-js.js.map (hardware-back-button-5afe3cb0-js) 2.06 kB  [rendered]
+[ng] chunk {home-home-module} home-home-module.js, home-home-module.js.map (home-home-module) 1.04 MB  [rendered]
+[ng] chunk {importar-importar-module} importar-importar-module.js, importar-importar-module.js.map (importar-importar-module) 4.37 kB  [rendered]
+[ng] chunk {index-69c37885-js} index-69c37885-js.js, index-69c37885-js.js.map (index-69c37885-js) 37.7 kB  [rendered]
+[ng] chunk {input-shims-a4fc53ac-js} input-shims-a4fc53ac-js.js, input-shims-a4fc53ac-js.js.map (input-shims-a4fc53ac-js) 13.5 kB  [rendered]
+[ng] chunk {instrumento-instrumento-module} instrumento-instrumento-module.js, instrumento-instrumento-module.js.map (instrumento-instrumento-module) 4.75 kB  [rendered]
+[ng] chunk {ios-transition-071bd421-js} ios-transition-071bd421-js.js, ios-transition-071bd421-js.js.map (ios-transition-071bd421-js) 26.4 kB  [rendered]
+[ng] chunk {list-list-module} list-list-module.js, list-list-module.js.map (list-list-module) 20.2 kB  [rendered]
+[ng] chunk {login-login-module} login-login-module.js, login-login-module.js.map (login-login-module) 40.3 kB  [rendered]
+[ng] chunk {main} main.js, main.js.map (main) 235 kB [initial] [rendered]
+[ng] chunk {md-transition-15a81b08-js} md-transition-15a81b08-js.js, md-transition-15a81b08-js.js.map (md-transition-15a81b08-js) 3.91 kB  [rendered]
+[ng] chunk {perfil-perfil-module} perfil-perfil-module.js, perfil-perfil-module.js.map (perfil-perfil-module) 13 kB  [rendered]
+[ng] chunk {polyfills} polyfills.js, polyfills.js.map (polyfills) 278 kB [initial] [rendered]
+[ng] chunk {registro-registro-module} registro-registro-module.js, registro-registro-module.js.map (registro-registro-module) 15.2 kB  [rendered]
+[ng] chunk {responder-responder-module} responder-responder-module.js, responder-responder-module.js.map (responder-responder-module) 4.27 kB  [rendered]
+[ng] chunk {respuesta-respuesta-module} respuesta-respuesta-module.js, respuesta-respuesta-module.js.map (respuesta-respuesta-module) 4.44 kB  [rendered]
+[ng] chunk {runtime} runtime.js, runtime.js.map (runtime) 10.7 kB [entry] [rendered]
+[ng] chunk {shadow-css-4889ae62-23996f3f-js} shadow-css-4889ae62-23996f3f-js.js, shadow-css-4889ae62-23996f3f-js.js.map (shadow-css-4889ae62-23996f3f-js) 14.8 kB  [rendered]
+[ng] chunk {status-tap-a0df8284-js} status-tap-a0df8284-js.js, status-tap-a0df8284-js.js.map (status-tap-a0df8284-js) 1.79 kB  [rendered]
+[ng] chunk {styles} styles.js, styles.js.map (styles) 74.4 kB [initial] [rendered]
+[ng] chunk {swipe-back-35ad8e37-js} swipe-back-35ad8e37-js.js, swipe-back-35ad8e37-js.js.map (swipe-back-35ad8e37-js) 2.68 kB  [rendered]
+[ng] chunk {swiper-bundle-ccdaac54-js} swiper-bundle-ccdaac54-js.js, swiper-bundle-ccdaac54-js.js.map (swiper-bundle-ccdaac54-js) 176 kB  [rendered]
+[ng] chunk {tap-click-ca00ce7f-js} tap-click-ca00ce7f-js.js, tap-click-ca00ce7f-js.js.map (tap-click-ca00ce7f-js) 6.37 kB  [rendered]
+[ng] chunk {vendor} vendor.js, vendor.js.map (vendor) 7.14 MB [initial] [rendered]
+[ng] Date: 2020-01-14T03:37:11.994Z - Hash: 3c15eaf97220c159a834 - Time: 22583ms
+
+[INFO] Development server running!
+       
+       Local: http://localhost:8100
+       
+       Use Ctrl+C to quit this process
+
+[INFO] Browser window opened to http://localhost:8100!
+
+[INFO] ... and 78 additional chunks
+[ng] ℹ ｢wdm｣: Compiled successfully.
