@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
 import { ModalController,NavParams } from '@ionic/angular';
 import { GraficoPage } from './grafico/grafico.page';
+import { EncuestaService } from '../_servicios/encuestas.service';
+
 @Component({
   selector: 'app-list',
   templateUrl: 'list.page.html',
@@ -9,39 +11,37 @@ import { GraficoPage } from './grafico/grafico.page';
 })
 export class ListPage implements OnInit {
   private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
   tipo = "";
   datos = [];
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(
+    private encuestaService : EncuestaService,
     private modalCtrl : ModalController,
     private userService : UserService,
     private navParams: NavParams) {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+    var usuario = JSON.parse(sessionStorage.getItem('usuario'));
     this.tipo = this.navParams.get("tipo");
-    this.traerDatos();
+    if(usuario.permissionLevel > 4){
+        this.traerTodos();
+    }else{
+        this.traerDatos();
+    }
+
   }
   dismiss(){
     this.modalCtrl.dismiss();
   }
+  traerTodos(){
+    if(this.tipo == "Encuestas"){
+      this.encuestaService.listar().subscribe(datos=>{
+        this.datos = datos;
+      })
+    }else{
+
+    }
+  }
   traerDatos(){
+
     let userId = sessionStorage.getItem('userId');
     this.userService.gathering(userId).subscribe( datos => {
       console.log(this.tipo.toLowerCase());
@@ -60,6 +60,7 @@ export class ListPage implements OnInit {
       cssClass: 'graficos',
       componentProps: {
       'instrumento': evaluacion,
+      'tipo' : this.tipo,
       'noOcultar': false
     }
     });

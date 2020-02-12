@@ -59,12 +59,21 @@
     </ion-item>
     <br>
     <ion-item style="padding-top: 20px">
+      <ion-label position="floating" style="font-size: 20px;color:black">Rut</ion-label>
+      <ion-input formControlName="rut" type="text" [(ngModel)]="usuario.rut"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item style="padding-top: 20px">
       <ion-label position="floating" style="font-size: 20px;color:black">Email</ion-label>
       <ion-input formControlName="email" type="email" [(ngModel)]="usuario.email"></ion-input>
     </ion-item>
     <br>
-      NO QUIERO MOSTRAR LA CLAVE, TEMAS DE SEGURIDAD HASHEOS ETC
     <ion-item style="padding-top: 20px">
+      <ion-label position="floating" style="font-size: 20px;color:black">Telefono</ion-label>
+      <ion-input formControlName="phone" type="text" [(ngModel)]="usuario.phone"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item style="padding-top: 20px" *ngIf="usuario.id == '' ">
 
       <ion-label position="floating" style="font-size: 20px;color:black">Clave</ion-label>
       <ion-input formControlName="password" type="{{tipo}}"  [(ngModel)]="usuario.password" ></ion-input>
