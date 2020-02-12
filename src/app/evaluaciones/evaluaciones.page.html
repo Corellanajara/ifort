@@ -24,13 +24,11 @@
 
     <ion-fab-list side="start">
 
-         <ion-fab-button (click)="abrirImportar();verAgregar = false;" >
-           <ion-icon name="document" ></ion-icon>
-         </ion-fab-button>
-
-         <ion-fab-button (click)="redifinirUsuario();verAgregar = true;" *ngIf="!verAgregar">
-           <ion-icon name="add" ></ion-icon>
-         </ion-fab-button>
+      <ion-fab-list side="start">
+           <ion-fab-button (click)="abrirAyuda()" *ngIf="!verAgregar">
+             <ion-icon name="help" ></ion-icon>
+           </ion-fab-button>
+      </ion-fab-list>
 
     </ion-fab-list>
 

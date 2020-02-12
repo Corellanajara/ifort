@@ -31,6 +31,10 @@ export class HomePage implements OnInit {
   @ViewChild("polarCanvas",{static: false}) polarCanvas: ElementRef;
   @ViewChild("bubbleCanvas",{static: false}) comparativeCanvas: ElementRef;
 
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };
 
   private barChart: Chart;
   private doughnutChart: Chart;
@@ -40,7 +44,7 @@ export class HomePage implements OnInit {
   private bubbleChart: Chart;
   public random_rgba() {
     var o = Math.round, r = Math.random, s = 200;
-    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 1) + ')';
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 10) + ')';
     console.log(rgb)
     return rgb;
   }
@@ -112,36 +116,6 @@ export class HomePage implements OnInit {
   });
 
 
-  this.polarChart = new Chart(this.polarCanvas.nativeElement,{
-    type: "polarArea",
-    data: {
-
-      labels: ["A", "B", "C", "D","E"],
-      datasets: [
-        {
-          label: "Marzo",
-          data: [2,3,4,5,6],
-          backgroundColor: [
-            "rgba(255, 99, 132,0.7)",
-            "rgba(54, 162, 235,0.7)",
-            "rgba(23, 210, 24,0.7)",
-            "rgba(75, 192, 192,0.7)",
-            "rgba(234, 84, 85,0.7)"
-          ],
-          borderColor: [
-            "rgba(255, 99, 132,1)",
-            "rgba(54, 162, 235,1)",
-            "rgba(23, 210, 24,1)",
-            "rgba(75, 192, 192,1)",
-            "rgba(234, 84, 85,1)"
-          ],
-        }
-      ]
-    }
-  });
-
-
-
   }
   ngOnInit() {
 
@@ -152,11 +126,14 @@ export class HomePage implements OnInit {
     }else{
       this.asignado = valorAsignado[0];
     }
+
   }
   constructor(
     private userService : UserService,
     private modalCtrl : ModalController,
   ) {
+    var menu = document.querySelector('ion-menu');
+    menu.hidden = false;
     this.getPersonalResults();
     this.datosMultiples();
     this.traerDatos();

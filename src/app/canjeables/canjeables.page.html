@@ -24,7 +24,7 @@
       <div class="bottom {{clicked[i]}}">
         <div class="left">
           <div class="details">
-            <h1>{{producto.titulo}}</h1>
+            <ion-label>{{producto.titulo}}</ion-label>
             <p>{{producto.puntos}} ptos</p>
           </div>
           <div class="buy" (click)="presentAlert(i,producto)" *ngIf="usuario.puntos >= producto.puntos">
@@ -37,11 +37,10 @@
         <div class="right">
           <div class="done"><ion-icon style="font-size:500%" name="checkmark"></ion-icon></div>
           <div class="details">
-            <h1>{{producto.titulo}}</h1>
+            <ion-label>{{producto.titulo}}</ion-label>
             <p>Solicitado!</p>
           </div>
           <div class="remove " ><ion-icon style="font-size:500%" name="happy"></ion-icon></div>
-
         </div>
       </div>
     </div>

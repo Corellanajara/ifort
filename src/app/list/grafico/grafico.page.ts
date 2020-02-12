@@ -25,8 +25,9 @@ export class GraficoPage implements OnInit {
 
   constructor(private userService:UserService,private navParams : NavParams) {
     var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    var instrumento = navParams.get('instrumento');
     if(usuario.permissionLevel > 4){
-        this.traerTodos();
+        this.traerTodos(instrumento);
     }else{
         this.traerDatos();
     }
@@ -39,16 +40,59 @@ export class GraficoPage implements OnInit {
   }
   ngOnInit(){
   }
-  traerTodos(){
+  calcular(instrumento){
+
+  }
+  traerTodos(instrumento){
     this.userService.listar().subscribe(datos=>{
       var usuarios = datos;
+      var objetos = [];
+      var labels = [];
       for(let i = 0 ; i < usuarios.length; i++){
-          let obj = usuarios[i][this.navParams.get("tipo").toLowerCase()];
-          if(obj){
-            console.log(obj);
+        var tipo = this.navParams.get("tipo").toLowerCase();
+        let obj = usuarios[i][tipo];
+        if(tipo == "encuestas" && obj){
+          for(let o of obj){
+            if(o.id == instrumento.id){
+                objetos.push(o);
+            }
           }
+        }
+        if(tipo == "evaluaciones" && obj){
+          for(let o of obj){
+            if(o.estado == 1){
+              if(o.sigla == instrumento.sigla){
+                  objetos.push(o);
+              }
+            }
 
+          }
+        }
       }
+      var valores = []
+      for(let i = 0 ; i < objetos.length;i++){
+        labels = [];
+        var preguntas = objetos[i].preguntas;
+        for(let p of preguntas){
+          labels.push(p.titulo);
+        }
+        var resultados = objetos[i].resultados;
+        for(let j = 0 ; j < resultados.length ; j++){
+          if(!valores[j]){
+            valores[j] = 0;
+          }
+          valores[j] += resultados[j];
+        }
+      }
+      this.titulos = labels;
+      for(let valor of valores){
+        this.valores.push( (valor/objetos.length) );
+        this.colores.push(this.random_rgba());
+        this.fondos.push(this.random_rgba());
+      }
+
+      console.log(objetos)
+      this.ngAfterViewInit();
     })
   }
   traerDatos(){
