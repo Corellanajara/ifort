@@ -64,8 +64,11 @@ export class UserService {
     });
   }
   borrar(id:string){
+    let accessToken = sessionStorage.getItem('accessToken');
     return this.http.delete<any[]>(`${this.url}/users/${id}` ,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+      headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization',`Bearer ${accessToken}`)
     });
   }
   gathering(id:string){

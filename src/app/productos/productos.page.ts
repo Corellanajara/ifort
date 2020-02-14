@@ -97,5 +97,40 @@ export class ProductosPage implements OnInit {
     this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date()};
     this.traerDatos();
   }
+  async alertBorrar(ev) {
+    console.log(this.evaluacion);
+    const alert = await this.alertController.create({
+      header: 'Favor confirmar!',
+      message: 'Estas a punto de <br><strong>BORRAR UN PRODUCTO</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.borrarProducto(ev);
+            this.verAgregar = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  eliminar(ev,slide){
+    this.alertBorrar(ev);
+    slide.close()
+  }
+  borrarProducto(ev){
+    this.productoService.borrar(ev.id).subscribe(dato=>{
+      console.log(dato);
+      this.ngOnInit();
+    })
+  }
 
 }

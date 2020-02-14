@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
     }
 
   ngOnInit() {
-    if( sessionStorage.getItem('empresaId')){
+    if( sessionStorage.getItem('empresaId')){      
       this.router.navigate(['home']);
     }
   }
@@ -59,6 +59,7 @@ export class LoginPage implements OnInit {
               self.router.navigate(['login']);
               return;
             }
+            console.log(empresa);
             sessionStorage.setItem('empresaId', empresaId);
             sessionStorage.setItem('usuario',JSON.stringify(datos));
             this.app.usuario.nombre = datos.firstName;
