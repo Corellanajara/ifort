@@ -17,7 +17,7 @@ import { EmpresaService } from './_servicios/empresas.service';
 export class AppComponent {
   public appPages = [];
   public usuario = {nombre:'',apellido:''};
-
+  empresa = {nombre:'Ifort'};
   constructor(
     private empresaService : EmpresaService,
     private userService : UserService,
@@ -34,9 +34,13 @@ export class AppComponent {
       console.log("Esta dentro del evento login",res);
       this.appPages = res;
     });
+
   }
   log(p){
     console.log(p);
+  }
+  navegar(ruta){
+    this.router.navigate([ruta]);
   }
   logout(){
     this.menuController.toggle();
@@ -49,6 +53,8 @@ export class AppComponent {
     let menus = JSON.parse(sessionStorage.getItem('menus'));
     let usuario = JSON.parse(sessionStorage.getItem('usuario'));
     if(usuario){
+      this.empresa = JSON.parse(sessionStorage.getItem('empresa'))
+      console.log("empresa",this.empresa);
       console.log("traigo al user");
       this.userService.gathering(usuario.id).subscribe( datos => {
         sessionStorage.setItem('usuario',JSON.stringify(datos));

@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
 import { ListPage } from '../list/list.page';
 import { UserService } from '../_servicios/user.service';
+import { Router } from '@angular/router';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import * as jsPDF from 'jspdf';
@@ -26,7 +27,6 @@ export class HomePage implements OnInit {
   personalResults : any;
   @ViewChild("barCanvas",{static: false}) barCanvas: ElementRef;
   @ViewChild("doughnutCanvas",{static: false}) doughnutCanvas: ElementRef;
-  @ViewChild("lineCanvas",{static: false}) lineCanvas: ElementRef;
   @ViewChild("radarCanvas",{static: false}) radarCanvas: ElementRef;
   @ViewChild("polarCanvas",{static: false}) polarCanvas: ElementRef;
   @ViewChild("bubbleCanvas",{static: false}) comparativeCanvas: ElementRef;
@@ -38,7 +38,6 @@ export class HomePage implements OnInit {
 
   private barChart: Chart;
   private doughnutChart: Chart;
-  private lineChart: Chart;
   private radarChart: Chart;
   private polarChart: Chart;
   private bubbleChart: Chart;
@@ -53,67 +52,7 @@ export class HomePage implements OnInit {
     console.log()
 
     this.graficarPersonalData();
-    if(this.lineChart){
-      this.lineChart.destroy();
-    }
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-      type: "line",
-      data: {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
-        datasets: [
-          {
-            label: "Datos a",
-            fill: false,
-            lineTension: 0.3,
 
-            backgroundColor: "#4bc0c0",
-
-            borderColor: "#4bc0c0",
-            borderCapStyle: "butt",
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: "miter",
-
-            pointBorderColor: "#4bc0c0",
-            pointBackgroundColor: "#4bc0c0",
-            pointBorderWidth: 6,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "#4bc0c0",
-            pointHoverBorderColor: "#4bc0c0",
-            pointHoverBorderWidth: 5,
-            pointRadius: 1,
-            pointHitRadius: 10,
-
-            data: [10, 4, 2, 30, 14, 23, 40],
-            spanGaps: false
-          },
-          {
-            label: "Datos b",
-            fill: false,
-            lineTension: 0.3,
-            backgroundColor: "#ff6384",
-            borderColor: "#ff6384",
-            borderCapStyle: "butt",
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: "miter",
-
-            pointBorderColor: "#ff6384",
-            pointBackgroundColor: "#fff",
-            pointBorderWidth: 6,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "#ff6384",
-            pointHoverBorderColor: "#ff6384",
-            pointHoverBorderWidth: 5,
-            pointRadius: 1,
-            pointHitRadius: 10,
-
-            data: [2, 3, 4, 8, 3, 7, 2],
-            spanGaps: false
-          }
-        ]
-      }
-  });
 
 
   }
@@ -128,7 +67,11 @@ export class HomePage implements OnInit {
     }
 
   }
+  navegar(ruta){
+    this.router.navigate([ruta]);
+  }
   constructor(
+    private router : Router,
     private userService : UserService,
     private modalCtrl : ModalController,
   ) {
@@ -282,29 +225,32 @@ export class HomePage implements OnInit {
           datasets: datasets
         };
       console.log(barChartData);
-      this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
-          type:"bar",
-          data: barChartData,
-          options: {
-  					title: {
-  						display: true,
-  						text: 'Comparativa entre los distintos usuarios'
-  					},
-  					tooltips: {
-  						mode: 'index',
-  						intersect: false
-  					},
-  					responsive: true,
-  					scales: {
-  						xAxes: [{
-  							stacked: true,
-  						}],
-  						yAxes: [{
-  							stacked: true
-  						}]
-  					}
-  				}
-      });
+      if(this.comparativeCanvas){
+        this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
+            type:"bar",
+            data: barChartData,
+            options: {
+              title: {
+                display: true,
+                text: 'Comparativa entre los distintos usuarios'
+              },
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              responsive: true,
+              scales: {
+                xAxes: [{
+                  stacked: true,
+                }],
+                yAxes: [{
+                  stacked: true
+                }]
+              }
+            }
+        });
+      }
+
 
     })
   }

@@ -14,6 +14,7 @@ export class ListPage implements OnInit {
   private selectedItem: any;
   tipo = "";
   datos = [];
+  usuario = {permissionLevel : 2}
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(
     private evaluacionesService : EvaluacionesService,
@@ -21,9 +22,9 @@ export class ListPage implements OnInit {
     private modalCtrl : ModalController,
     private userService : UserService,
     private navParams: NavParams) {
-    var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    this.usuario = JSON.parse(sessionStorage.getItem('usuario'));
     this.tipo = this.navParams.get("tipo");
-    if(usuario.permissionLevel > 4){
+    if(this.usuario.permissionLevel > 4){
         this.traerTodos();
     }else{
         this.traerDatos();

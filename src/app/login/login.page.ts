@@ -59,6 +59,7 @@ export class LoginPage implements OnInit {
               self.router.navigate(['login']);
               return;
             }
+            console.log(empresa);
             sessionStorage.setItem('empresaId', empresaId);
             sessionStorage.setItem('usuario',JSON.stringify(datos));
             this.app.usuario.nombre = datos.firstName;

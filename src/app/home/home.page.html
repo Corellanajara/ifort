@@ -38,7 +38,7 @@
     <ion-card class="ion-card-derecha" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
       <ion-card-header>
         <ion-card-title color="blanco" *ngIf="!isAdmin">Rendimiento actual personal </ion-card-title>
-        <ion-card-title color="blanco" *ngIf="isAdmin">Rendimiento actual General </ion-card-title>
+        <ion-card-title color="blanco" *ngIf="isAdmin">Promedio de rendimiento general</ion-card-title>
       </ion-card-header>
       <circle-progress
         [percent]=obtenDatos()
@@ -64,12 +64,12 @@
         <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
       </div>
       <ion-card-header>
-        <ion-card-title color="blanco">Encuestas</ion-card-title>
+        <ion-card-title color="blanco"  *ngIf="!isAdmin">Encuestas</ion-card-title>
       </ion-card-header>
 
       <ion-card-content style="font-size:50px">
         <b *ngIf="!isAdmin">{{ (usuario.encuestas.length|| "Sin datos") }}</b>
-        <b *ngIf="isAdmin">Datos</b>
+        <b *ngIf="isAdmin">Encuestas</b>
       </ion-card-content>
     </ion-card>
   </div>
@@ -79,11 +79,12 @@
         <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1790/1790014.svg">
       </div>
       <ion-card-header>
-        <ion-card-title color="blanco">Evaluaciones</ion-card-title>
+        <ion-card-title color="blanco"  *ngIf="!isAdmin">Evaluaciones</ion-card-title>
       </ion-card-header>
 
       <ion-card-content style="font-size:50px">
-        <b>{{ (usuario.evaluaciones.length|| "Sin datos") }}</b>
+        <b *ngIf="!isAdmin">{{ (usuario.evaluaciones.length|| "Sin datos") }}</b>
+        <b *ngIf="isAdmin">Evaluaciones</b>
       </ion-card-content>
     </ion-card>
   </div>
@@ -173,19 +174,19 @@
 
     <div class="contenedor-botones">
         <ion-buttons class="contenedor-boton">
-          <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+          <ion-button slot="end" class="boton" style="background: #fffff;"  (click)="navegar('home')">
             <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
           </ion-button>
         </ion-buttons>
 
         <ion-buttons class="contenedor-boton">
-          <ion-button slot="end" class="boton" style="background: #fffff;" href="perfil">
+          <ion-button slot="end" class="boton" style="background: #fffff;" (click)="navegar('perfil')">
             <img src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
           </ion-button>
         </ion-buttons>
 
         <ion-buttons class="contenedor-boton">
-          <ion-button slot="end" class="boton" style="background: #fffff;" href="canjeables">
+          <ion-button slot="end" class="boton" style="background: #fffff;" (click)="navegar('canjeables')">
             <img src="https://image.flaticon.com/icons/svg/1170/1170576.svg">
         </ion-button>
       </ion-buttons>
@@ -194,25 +195,42 @@
   </ion-card>
 
   <ion-slides pager="true" [options]="slideOpts" style="padding-bottom: 5%;">
-    <ion-slide style="height: auto;">
-      <ion-card class="grafico" style="width: 100%;height: 100%;" >
+    <ion-slide style="height: auto;" *ngIf="usuario.permissionLevel > 4" >
+      <ion-card *ngIf="usuario.permissionLevel > 4" class="grafico" style="width: 100%;height: 100%;" >
           <ion-card-header class="header-card">
-
             <ion-item>
               <div class="contenedor-card">
-                <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/1175/1175009.png">
+                <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/386/386901.png">
               </div>
-              <ion-label>Actividades</ion-label>
+              <ion-item>
+               <ion-label>Por Usuario</ion-label>
+               <ion-select okText="OK" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="usuarioActual">
+                 <ion-select-option value="{{i}}" *ngFor="let user of usuarios;index as i">{{user.firstName}} {{user.lastName}}</ion-select-option>
+               </ion-select>
+             </ion-item>
+             <ion-item>
+               <ion-buttons>
+                 <ion-label>Tipo grafico</ion-label>
+                 <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
+                   <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+                 </ion-select>
+                </ion-buttons>
+            </ion-item>
+
               <ion-buttons>
-                <ion-button slot="end">
+                <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
                   <ion-icon name="cloud-download"></ion-icon>
                 </ion-button>
               </ion-buttons>
+
             </ion-item>
         </ion-card-header>
 
         <ion-card-content>
-          <canvas #lineCanvas id="lineCanvas"></canvas>
+
+          <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
+          <h2 *ngIf="!radarChart"> No se ha cargado grafico aun</h2>
+
         </ion-card-content>
       </ion-card>
     </ion-slide>
@@ -279,40 +297,7 @@
 
 
 
-  <ion-card *ngIf="usuario.permissionLevel > 4" >
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/386/386901.png">
-          </div>
-          <ion-item>
-           <ion-label>Por Usuario</ion-label>
-           <ion-select okText="OK" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="usuarioActual">
-             <ion-select-option value="{{i}}" *ngFor="let user of usuarios;index as i">{{user.firstName}} {{user.lastName}}</ion-select-option>
-           </ion-select>
-         </ion-item>
-         <ion-buttons>
-           <ion-label>Tipo grafico</ion-label>
-           <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
-             <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
-           </ion-select>
-          </ion-buttons>
-          <ion-buttons>
-            <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
-              <ion-icon name="cloud-download"></ion-icon>
-            </ion-button>
-          </ion-buttons>
 
-        </ion-item>
-    </ion-card-header>
-
-    <ion-card-content>
-
-      <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
-      <h2 *ngIf="!radarChart"> No se ha cargado grafico aun</h2>
-
-    </ion-card-content>
-  </ion-card>
 
 
 

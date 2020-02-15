@@ -54,7 +54,7 @@ export class EvaluacionPage implements OnInit {
         this.arbol = JSON.parse(this.arbol);
       } catch (error) {
         console.log(error)
-      }      
+      }
       console.log(this.arbol);
       userService.listar().subscribe(usuarios=>{
         console.log(usuarios);
@@ -151,6 +151,41 @@ export class EvaluacionPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async alertBorrar(ev) {
+    console.log(this.evaluacion);
+    const alert = await this.alertController.create({
+      header: 'Favor confirmar!',
+      message: 'Estas a punto de <br><strong>BORRAR UNA EVALUACIÓN</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.borrarEvaluacion(ev);
+            this.verAgregar = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  eliminar(ev,slide){
+    this.alertBorrar(ev);
+    slide.close()
+  }
+  borrarEvaluacion(ev){
+    this.evaluacionesService.borrar(ev.id).subscribe(dato=>{
+      console.log(dato);
+      this.ngOnInit();
+    })
   }
   visualizar(evaluacion,slide){
     console.log(evaluacion);
