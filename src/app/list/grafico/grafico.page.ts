@@ -70,6 +70,7 @@ export class GraficoPage implements OnInit {
         }
       }
       var valores = []
+      var cantidadReal = 0;
       for(let i = 0 ; i < objetos.length;i++){
         labels = [];
         var preguntas = objetos[i].preguntas;
@@ -77,16 +78,19 @@ export class GraficoPage implements OnInit {
           labels.push(p.titulo);
         }
         var resultados = objetos[i].resultados;
-        for(let j = 0 ; j < resultados.length ; j++){
-          if(!valores[j]){
-            valores[j] = 0;
+        if(resultados){
+          cantidadReal ++;
+          for(let j = 0 ; j < resultados.length ; j++){
+            if(!valores[j]){
+              valores[j] = 0;
+            }
+            valores[j] += resultados[j];
           }
-          valores[j] += resultados[j];
         }
       }
       this.titulos = labels;
       for(let valor of valores){
-        this.valores.push( (valor/objetos.length) );
+        this.valores.push( (valor/cantidadReal) );
         this.colores.push(this.random_rgba());
         this.fondos.push(this.random_rgba());
       }
