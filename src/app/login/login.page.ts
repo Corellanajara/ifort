@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
     }
 
   ngOnInit() {
-    if( sessionStorage.getItem('empresaId')){      
+    if( sessionStorage.getItem('empresaId')){
       this.router.navigate(['home']);
     }
   }
