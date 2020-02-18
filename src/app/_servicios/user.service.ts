@@ -14,9 +14,14 @@ interface Usuario {
   menus : Array<Menu>;
   evaluaciones : Array<any>;
   asignado : Array<any>;
+  notificaciones : Array<any>;
+  encuestas : Array<any>;
+  canjeables : Array<any>;
   empresaId : string;
   puntos : number,
   _id : string;
+  jerarquia : string;
+  estado:boolean;
 }
 
 interface Menu {

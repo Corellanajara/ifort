@@ -24,7 +24,7 @@ export class ProductosPage implements OnInit {
     private alertController :AlertController,
     private productoService : ProductoService ) { }
 
-  public producto : Producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date()};
+  public producto : Producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date(),empresaId:''};
   public verAgregar = false;
   public activos = [];
   private usuarios = [];
@@ -56,10 +56,9 @@ export class ProductosPage implements OnInit {
     slide.close()
   }
   redefinirProducto(){
-    this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date()};
+    this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date(),empresaId:''};
   }
   async confirmar() {
-    console.log(this.evaluacion);
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>CREAR UN PRODUCTO</strong>!!!',
@@ -87,18 +86,17 @@ export class ProductosPage implements OnInit {
     this.productoService.insertar(this.producto).subscribe(data=>{
       console.log(data);
     })
-    this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date()};
+    this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date(),empresaId:''};
     this.traerDatos();
   }
   actualizarProducto(){
     this.productoService.actualizar(this.producto.id,this.producto).subscribe(data=>{
       console.log(data);
     })
-    this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date()};
+    this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date(),empresaId:''};
     this.traerDatos();
   }
-  async alertBorrar(ev) {
-    console.log(this.evaluacion);
+  async alertBorrar(ev) {    
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>BORRAR UN PRODUCTO</strong>!!!',

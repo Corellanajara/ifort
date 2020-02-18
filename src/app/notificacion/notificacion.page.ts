@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
-import { ImportarPageEvaluacion } from './importar/importar.page';
 import { NotificacionesService } from '../_servicios/encuestas.service';
 import { UserService } from '../_servicios/user.service';
 
@@ -33,12 +32,8 @@ export class NotificacionPage implements OnInit {
 
   ngOnInit() {
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
-    this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-    try {
-      this.arbol = JSON.parse(this.arbol);
-    } catch (error) {
-        console.log(error)
-    }
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+    this.arbol = JSON.parse(arbol);
 
     console.log(this.arbol);
 
@@ -83,7 +78,7 @@ export class NotificacionPage implements OnInit {
 
   }
   redefinirnotificacion(){
-    this.notificacion = {id:'',tiitulo : ''};
+    this.notificacion = {id:'',titulo : '',descripcion:''};
   }
   guardarNotificacion(){
     this.nService.insertar(this.notificacion).subscribe(data=>{
@@ -100,10 +95,8 @@ export class NotificacionPage implements OnInit {
     console.log(this.pasos);
     this.pasos.pop();
     console.log(this.pasos);
-    this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-    if(typeof(this.arbol != 'object') ){
-      this.arbol = JSON.parse(this.arbol);
-    }
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+    this.arbol = JSON.parse(arbol);
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }

@@ -60,7 +60,7 @@
     <br>
     <ion-item style="padding-top: 20px">
       <ion-label position="floating" style="font-size: 20px;color:black">Rut</ion-label>
-      <ion-input formControlName="rut" type="text" [(ngModel)]="usuario.rut"></ion-input>
+      <ion-input formControlName="rut" type="text" [(ngModel)]="usuario.rut" (change)="validar(usuario.rut)"></ion-input>
     </ion-item>
     <br>
     <ion-item style="padding-top: 20px">

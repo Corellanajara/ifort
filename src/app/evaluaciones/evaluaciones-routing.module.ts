@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'instrumento',
     loadChildren: () => import('./instrumento/instrumento.module').then( m => m.InstrumentoPageModule)
+  },
+  {
+    path: 'historial',
+    loadChildren: () => import('./historial/historial.module').then( m => m.HistorialPageModule)
   }
 ];
 

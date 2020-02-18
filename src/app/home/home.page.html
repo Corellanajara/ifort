@@ -90,73 +90,8 @@
   </div>
 </div>
 
-
-  <ion-grid class="grilla contenedor-imagen" style=' background : url("http://167.71.162.34/assets/icon/fondo1.svg") , #3E55A1'>
-
-    <div class="contenedor-logo">
-      <img class="imagen-logo" src="http://167.71.162.34/assets/icon/LOGO%20IFORT-02.svg">
-    </div>
-    <ion-row class="fila">
-      <ion-col>
-        <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
-          <ion-card-header>
-            <ion-card-title color="blanco" *ngIf="!isAdmin">Rendimiento actual personal </ion-card-title>
-            <ion-card-title color="blanco" *ngIf="isAdmin">Rendimiento actual General </ion-card-title>
-          </ion-card-header>
-          <circle-progress
-            [percent]=obtenDatos()
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [backgroundOpacity] = "0"
-            [space] = "11"
-            [showUnits] = true
-            [toFixed] = "1"
-            [maxPercent] = "320"
-            [innerStrokeColor] = "'#3a68e5'"
-            [titleFontSize] = "35"
-            [animationDuration] =  "800"
-            [showSubtitle] = false
-            [titleColor] = "'#ffffff'"
-          ></circle-progress>
-        </ion-card>
-
-      </ion-col>
-
-      <ion-col class="columna-naranjo">
-        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEncuestas()">
-          <div class="contenedor-naranjo">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
-          </div>
-          <ion-card-header>
-            <ion-card-title color="blanco">Encuestas</ion-card-title>
-          </ion-card-header>
-
-          <ion-card-content style="font-size:50px">
-            <b *ngIf="!isAdmin">{{ (usuario.encuestas.length|| "Sin datos") }}</b>
-            <b *ngIf="isAdmin">Datos generales</b>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-      <ion-col class="columna-celeste">
-        <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluaciones()">
-          <div class="contenedor-celeste">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1790/1790014.svg">
-          </div>
-          <ion-card-header>
-            <ion-card-title color="blanco">Evaluaciones</ion-card-title>
-          </ion-card-header>
-
-          <ion-card-content style="font-size:50px">
-            <b>{{ (usuario.evaluaciones.length|| "Sin datos") }}</b>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
   
+
   <ion-card class="menu-home ">
 
       <ion-card-header class="header-card" >

@@ -165,7 +165,7 @@ export class GraficoPage implements OnInit {
   }
   exportar(id)
   {
-      var canvas = document.querySelector('#'+id);
+      var canvas = document.querySelector('#'+id) as HTMLCanvasElement;;
       //creates image
       console.log(canvas);
       var canvasImg = canvas.toDataURL("image/png", 1.0);

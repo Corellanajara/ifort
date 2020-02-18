@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
 import { ModalController } from '@ionic/angular';
 import { InstrumentoPage } from './instrumento/instrumento.page';
+import { HistorialPage } from './historial/historial.page';
+
 interface Usuario {
   firstName: string;
   lastName: string;
@@ -41,6 +43,17 @@ export class EvaluacionesPage implements OnInit {
   }
   public dismiss(){
     this.modalCtrl.dismiss();
+  }
+  async mostrarHistorial(evaluaciones){
+    const modal = await this.modalCtrl.create({
+      component: HistorialPage,
+      cssClass: 'modals',
+      componentProps:{evaluaciones:evaluaciones},
+    });
+    modal.onDidDismiss().then(datos=>{
+      console.log(datos);
+    });
+    return await modal.present();
   }
   public traerUsuarios(evento){
     this.userService.listar().subscribe(usuarios => {

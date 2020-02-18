@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"  defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Historial
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list >
+    <ion-item *ngFor="let evaluacion of datos" (click)="verGrafico(evaluacion,evaluacion.estado)">
+
+      <ion-chip>
+        <ion-label>{{ evaluacion.porcentaje +"% -> "+evaluacion.puntos+ " ptos"}}</ion-label>        
+      </ion-chip>
+      <label>{{evaluacion.instrumento.nombre}}</label>
+
+      <div class="item-note" slot="end">
+        <ion-badge color="light">{{evaluacion.instrumento.sigla}}</ion-badge>
+      </div>
+      <div class="item-note" slot="end"  *ngIf="evaluacion.estado == 0">
+        <ion-badge color="light">
+          <ion-icon style="color:red" name="close-circle-outline"></ion-icon>
+        </ion-badge>
+      </div>
+      <div class="item-note" slot="end" *ngIf="evaluacion.estado > 0">
+          <ion-badge color="light">
+            <ion-icon style="color:green" name="checkmark-circle-outline"></ion-icon>
+          </ion-badge>
+      </div>
+
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

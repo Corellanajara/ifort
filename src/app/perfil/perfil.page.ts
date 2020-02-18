@@ -9,6 +9,7 @@ import { ListPage } from '../list/list.page';
   templateUrl: './perfil.page.html',
   styleUrls: ['./perfil.page.scss'],
 })
+
 export class PerfilPage implements OnInit {
   usuario = {encuestas : [],evaluaciones : [],canjeables : []};
   constructor(
@@ -19,7 +20,6 @@ export class PerfilPage implements OnInit {
     let userId = sessionStorage.getItem('userId');
     userService.gathering(userId).subscribe( usuario => {
       this.usuario = usuario;
-      console.log(usuario);
     })
   }
   navegar(ruta){
