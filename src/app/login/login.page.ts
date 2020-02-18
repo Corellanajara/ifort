@@ -13,7 +13,6 @@ import { AppComponent } from '../app.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  tipo=1;
 
   constructor(
     private app : AppComponent,
@@ -54,7 +53,7 @@ export class LoginPage implements OnInit {
             if(!empresa['estado']){
               self.router.navigate(['login']);
               return;
-            }            
+            }
             sessionStorage.setItem('empresaId', empresaId);
             sessionStorage.setItem('usuario',JSON.stringify(datos));
             this.app.usuario.nombre = datos.firstName;
