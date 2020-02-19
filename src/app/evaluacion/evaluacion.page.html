@@ -63,7 +63,7 @@
     </ion-item>
     <br>
     <br>
-    <ion-item-divider>
+    <ion-item-divider mode="md">
 
     </ion-item-divider>
     <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{getIndicadores(evaluacion.indicadores)}})</span></ion-button>
@@ -74,7 +74,7 @@
 
    <br>
 
-   <ion-item-divider style="text-align:center;font-size: 20px;">
+   <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
      <b>Lista de evaluaciones</b>
    </ion-item-divider>
 

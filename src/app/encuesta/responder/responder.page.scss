@@ -41,7 +41,7 @@ ion-toolbar{
   }
 
   .seccion-estrellas{
-    width: 30%;
+    width: 50%;
     ion-badge{
       margin-left: 1.5%;
       --background: transparent;
@@ -94,13 +94,18 @@ ion-toolbar{
 
     .seccion-estrellas{
       margin-top: 5%;
-      width: 50% !important;
-      margin-left: 25%;
-      ion-badge{
-        margin-left: 1.5%;
-        margin-left: 1.5%;
-        --background: transparent;
-        --color: #424242;
+      width: 100% !important;
+
+      .badges{
+        width: 100%;
+        margin-left: 0%;
+        ion-badge{
+          width: 10%;
+          margin-left: 2.5%;
+          margin-right: 2.5%;
+          --background: transparent;
+          --color: #424242;
+        }
       }
     }
   }
