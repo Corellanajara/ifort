@@ -69,9 +69,9 @@ export class DragPage{
       console.log("ON INIT");
       this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
       this.empresaService.listarById(this.Empresa.id).subscribe( empresa =>{
-        var jerarquia = JSON.stringify(empresa.jerarquia);
+        var jerarquia = JSON.stringify(empresa['jerarquia']);
         sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
-        sessionStorage.setItem('empresa', empresa);
+        sessionStorage.setItem('empresa', JSON.stringify(empresa) );
 
         var arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
         console.log(arbol);

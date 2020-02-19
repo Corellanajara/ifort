@@ -6,9 +6,6 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { AppComponent } from '../app.component';
-interface empresaBD {
-   jerarquia : Array<any>
-}
 
 @Component({
   selector: 'app-login',
@@ -16,7 +13,6 @@ interface empresaBD {
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  tipo=1;
 
   constructor(
     private app : AppComponent,
@@ -54,12 +50,10 @@ export class LoginPage implements OnInit {
           //menus.push({title: "Perfil",path: "perfil",icon: "person",_id:"askjdals"})
 
           self.empresaService.listarById(empresaId).subscribe( empresa =>{
-            console.log(empresa);
-            if(!empresa.estado){
+            if(!empresa['estado']){
               self.router.navigate(['login']);
               return;
             }
-            console.log(empresa);
             sessionStorage.setItem('empresaId', empresaId);
             sessionStorage.setItem('usuario',JSON.stringify(datos));
             this.app.usuario.nombre = datos.firstName;
@@ -69,7 +63,7 @@ export class LoginPage implements OnInit {
             sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
             this.events.publish('user:login', menus);
             sessionStorage.setItem('empresa', JSON.stringify(empresa));
-            var jerarquia = JSON.stringify(empresa.jerarquia);
+            var jerarquia = JSON.stringify(empresa['jerarquia']);
             sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
 
             self.router.navigate(['home']);

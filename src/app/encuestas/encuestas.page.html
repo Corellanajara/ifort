@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title>Encuestas</ion-title>
   </ion-toolbar>
@@ -55,7 +55,7 @@
     <ion-item-divider>
 
     </ion-item-divider>
-    <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" encuesta.titulo == '' ">Ver/Agregar preguntas/afirmaciones <span *ngIf="encuesta.preguntas"> ({{getPreguntas(encuesta.preguntas)}})</span></ion-button>
+    <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" encuesta.titulo == '' ">Ver/Agregar afirmaciones <span *ngIf="encuesta.preguntas"> ({{getPreguntas(encuesta.preguntas)}})</span></ion-button>
     <ion-button class="ion-button" *ngIf="encuesta.id == '' " [disabled]=" encuesta.titulo == '' "  size="medium" (click)="confirmar()">Guardar</ion-button>
     <ion-button class="ion-button" *ngIf="encuesta.id != ''" [disabled]=" encuesta.titulo == '' "   size="medium" (click)="actualizarEncuesta();verAgregar = false">Actualizar</ion-button>
 

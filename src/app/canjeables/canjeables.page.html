@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title>Canjeables</ion-title>
     <ion-buttons slot="end">
@@ -16,42 +16,74 @@
     <img class="imagen-canjeables" src="https://image.flaticon.com/icons/svg/679/679938.svg">
   </div>
 
-<div class="contenedor-tarjeta">
-  <div class="wrapper" *ngFor="let producto of productos;index as i">
+    <div class="contenedor-cards">
+        <ion-card class="card" *ngFor="let producto of productos;index as i">
+          <div class="imagen-card" [style.background-image]="imagenes[i]"></div>
+          <ion-card-header>
+            <ion-card-subtitle>Destination</ion-card-subtitle>
+            <ion-card-title>Madison, WI</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+          </ion-card-content>
+          <ion-fab vertical="center" horizontal="end" slot="fixed">
 
-    <div class="container">
-      <div class="top" [style.background-image]="imagenes[i]"></div>
-      <div class="bottom {{clicked[i]}}">
-        <div class="left">
-          <div class="details">
-            <ion-label>{{producto.titulo}}</ion-label>
-            <p>{{producto.puntos}} ptos</p>
-          </div>
-          <div class="buy" (click)="presentAlert(i,producto)" *ngIf="usuario.puntos >= producto.puntos">
-            <ion-icon style="font-size:500%" name="cart"></ion-icon>
-          </div>
-          <div class="buy"  *ngIf="usuario.puntos < producto.puntos">
-            <ion-icon style="font-size:500%;color:gray" name="cart"></ion-icon>
-          </div>
-        </div>
-        <div class="right">
-          <div class="done"><ion-icon style="font-size:500%" name="checkmark"></ion-icon></div>
-          <div class="details">
-            <ion-label>{{producto.titulo}}</ion-label>
-            <p>Solicitado!</p>
-          </div>
-          <div class="remove " ><ion-icon style="font-size:500%" name="happy"></ion-icon></div>
-        </div>
-      </div>
+            <ion-fab-button *ngIf="!bandera" class="ion-fab-button">
+              <ion-icon name="pricetag"></ion-icon>
+            </ion-fab-button>
+
+            <ion-fab-button *ngIf="bandera" class="ion-fab-button-comprado">
+              <ion-icon name="checkmark"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-card>
     </div>
 
-    <div class="inside">
-      <div class="icon"><ion-icon name="information-circle-outline"></ion-icon></div>
-      <div class="contents">
-        {{producto.descripcion}}
+<!--
+  <div class="contenedor-tarjeta">
+
+    <div class="wrapper" *ngFor="let producto of productos;index as i">
+
+      <div class="tarjeta">
+
+        <div class="container">
+            <div class="top" [style.background-image]="imagenes[i]"></div>
+
+            <div class="bottom {{clicked[i]}}">
+              <div class="left">
+                <div class="details">
+                  <ion-label>{{producto.titulo}}</ion-label>
+                  <p>{{producto.puntos}} ptos</p>
+                </div>
+                <div class="buy" (click)="presentAlert(i,producto)" *ngIf="usuario.puntos >= producto.puntos">
+                  <ion-icon style="font-size:500%" name="cart"></ion-icon>
+                </div>
+                <div class="buy"  *ngIf="usuario.puntos < producto.puntos">
+                  <ion-icon style="font-size:500%;color:gray" name="cart"></ion-icon>
+                </div>
+              </div>
+              <div class="right">
+                <div class="done"><ion-icon style="font-size:500%" name="checkmark"></ion-icon></div>
+                <div class="details">
+                  <ion-label>{{producto.titulo}}</ion-label>
+                  <p>Solicitado!</p>
+                </div>
+                <div class="remove " ><ion-icon style="font-size:500%" name="happy"></ion-icon></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      <div class="inside">
+        <div class="icon"><ion-icon name="information-circle-outline"></ion-icon></div>
+        <div class="contents">
+          {{producto.descripcion}}
+        </div>
       </div>
+
     </div>
   </div>
-</div>
-
+  -->
 </ion-content>

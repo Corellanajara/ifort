@@ -28,6 +28,7 @@ import { EncuestaService } from './_servicios/encuestas.service';
 import { ProductoService } from './_servicios/encuestas.service';
 import { NotificacionesService } from './_servicios/encuestas.service';
 
+import { HistorialPage } from './evaluaciones/historial/historial.page';
 import { PermisosPage } from './administrador/usuarios/permisos/permisos.page';
 import { AsignarPage } from './administrador/usuarios/asignar/asignar.page';
 import { ImportarPage } from './administrador/usuarios/importar/importar.page';
@@ -40,8 +41,8 @@ import { ListPage } from './list/list.page';
 import { GraficoPage } from './list/grafico/grafico.page';
 
 @NgModule({
-  declarations: [AppComponent,ResponderPage,GraficoPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ CrudEncuestaPage,ListPage,GraficoPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,ResponderPage,GraficoPage,HistorialPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ CrudEncuestaPage,ListPage,GraficoPage,HistorialPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,

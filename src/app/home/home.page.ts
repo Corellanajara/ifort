@@ -79,7 +79,7 @@ export class HomePage implements OnInit {
     menu.hidden = false;
     this.getPersonalResults();
     this.datosMultiples();
-    this.traerDatos();
+    this.traerDatos(false);
   }
   graficarPersonalData(){
     let arr = [];
@@ -96,7 +96,8 @@ export class HomePage implements OnInit {
         if(arr.length != 6){
           labels.push(evaluaciones[i - 1].instrumento.sigla);
           arr.push(evaluaciones[i - 1]);
-          valores.push(this.getPersonalResultsByEv(evaluaciones[i - 1]));
+          var valor = this.getPersonalResultsByEv(evaluaciones[i - 1]);
+          valores.push(Math.round(valor));
           backgroundColors.push(background[backgroundColors.length]);
           bordesColors.push(bordes[bordesColors.length]);
         }
@@ -138,11 +139,11 @@ export class HomePage implements OnInit {
     let userId = sessionStorage.getItem('userId');
     let self = this;
     this.userService.gathering(userId).subscribe( datos => {
-      this.usuario = datos;
-      if(datos.permissionLevel > 4){
+      usuario = datos;
+      if( parseInt(datos.permissionLevel) > 4){
         self.userService.listar().subscribe(usuarios =>{
           this.usuarios = usuarios;
-          if(usuario.permissionLevel <= 4){
+          if(parseInt(usuario.permissionLevel) <= 4){
             this.getPersonalResults();
           }else{
             this.isAdmin = true;
@@ -225,7 +226,8 @@ export class HomePage implements OnInit {
           datasets: datasets
         };
       console.log(barChartData);
-      if(this.comparativeCanvas){
+      if(this.doughnutChart){
+                
         this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
             type:"bar",
             data: barChartData,
@@ -381,7 +383,7 @@ export class HomePage implements OnInit {
       if(ev.length > 0){
         evaluados ++;
         var res = this.getGeneralResults(ev);
-        if(res>0){
+        if(parseInt(res)>0){
             puntaje += parseFloat(res);
         };
       }
@@ -389,10 +391,7 @@ export class HomePage implements OnInit {
     this.personalResults = puntaje;
     this.total = evaluados;
   }
-  cambiarTipo(){
-    this.tipo = !this.tipo;
-    this.dibujarGrafico();
-  }
+
   dibujarGrafico(){
     console.log(this.usuarioActual)
     let arr = [];
@@ -412,11 +411,14 @@ export class HomePage implements OnInit {
         if(arr.length != 6){
           labels.push(evaluaciones[i - 1].instrumento.sigla);
           arr.push(evaluaciones[i - 1]);
-          valores.push(this.getPersonalResultsByEv(evaluaciones[i - 1]));
+          valores.push(Math.round(this.getPersonalResultsByEv(evaluaciones[i - 1])) );
           backgroundColors.push(background[backgroundColors.length]);
           bordesColors.push(bordes[bordesColors.length]);
         }
       }
+    }
+    for(let valor of valores){
+      valor = Math.round(valor);
     }
     if(this.radarChart){
       this.radarChart.destroy();
@@ -451,7 +453,7 @@ export class HomePage implements OnInit {
   }
   exportar(id)
   {
-      var canvas = document.querySelector('#'+id);
+      var canvas = document.querySelector('#'+id) as HTMLCanvasElement;;
       //creates image
       console.log(canvas);
       var canvasImg = canvas.toDataURL("image/png", 1.0);

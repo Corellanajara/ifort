@@ -49,13 +49,9 @@ export class EvaluacionPage implements OnInit {
     ){
       console.log(sessionStorage);
       this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
-      this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-      try {
-        this.arbol = JSON.parse(this.arbol);
-      } catch (error) {
-        console.log(error)
-      }
-      console.log(this.arbol);
+      var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+      this.arbol = JSON.parse(arbol);
+
       userService.listar().subscribe(usuarios=>{
         console.log(usuarios);
         this.usuarios = usuarios;
@@ -251,10 +247,8 @@ export class EvaluacionPage implements OnInit {
     console.log(this.pasos);
     this.pasos.pop();
     console.log(this.pasos);
-    this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-    if(typeof(this.arbol != 'object') ){
-      this.arbol = JSON.parse(this.arbol);
-    }
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+    this.arbol = JSON.parse(arbol);
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }

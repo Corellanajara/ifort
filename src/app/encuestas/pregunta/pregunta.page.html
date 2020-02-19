@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion" color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ encuesta.titulo }} - Preguntas / Afirmaciones</ion-title>
+    <ion-title>{{ encuesta.titulo }} - Afirmaciones</ion-title>
     <ion-buttons slot="primary">
       <ion-button fill="solid" color="secondary" (click)="crearPreguntas();verAgregar = true;" >
         <ion-icon name="add" ></ion-icon>
@@ -32,7 +32,7 @@
       </ion-item-options>
     </ion-item-sliding>
     <ion-item *ngIf="encuesta.preguntas.length == 0">
-      <h2>No existen preguntas / afirmaciones para esta evaluación</h2>
+      <h2>No existen afirmaciones para esta evaluación</h2>
     </ion-item>
   </ion-list>
   <br><br>
