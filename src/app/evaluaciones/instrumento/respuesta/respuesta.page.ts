@@ -40,6 +40,9 @@ export class RespuestaPage implements OnInit {
     }
 
   }
+  dismiss(){
+    this.modalCtrl.dismiss();
+  }
   guardar(){
     this.modalCtrl.dismiss({valor:this.valor,obs:this.obs})
   }

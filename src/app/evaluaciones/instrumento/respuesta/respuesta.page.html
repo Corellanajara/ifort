@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button (click)="dismiss()"  defaultHref="home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Respuesta</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -29,7 +32,7 @@
     <ion-label>Observaciones </ion-label>
     <ion-textarea [(ngModel)]="obs" type="number" ></ion-textarea>
   </ion-list>
-  
+
   <ion-item *ngIf="!noOcultar">
     <p>{{(obs|| "Sin observaciones")}}</p>
   </ion-item>
