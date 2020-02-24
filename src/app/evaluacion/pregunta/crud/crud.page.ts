@@ -12,12 +12,27 @@ export class CrudPage implements OnInit {
   tipo = "";
   min : any;
   max : any;
-  constructor(private modalCtrl:ModalController) { }
+  editando = false;
+  constructor(private navParams : NavParams, private modalCtrl:ModalController) {
+    var indicador = navParams.get('pregunta');
+    var key = navParams.get('key');
+
+    if(indicador){
+      this.editando = true;      
+      this.tipo = indicador.tipo;
+      this.indicador = indicador.titulo;
+      this.categoria = key;
+    }
+  }
 
   ngOnInit() {
   }
   dismiss(){
     this.modalCtrl.dismiss();
+  }
+  actualizar(){
+    var indicador = {tipo:this.tipo,indicador : this.indicador};
+    this.modalCtrl.dismiss(indicador);
   }
   validarValores(min,max){
     if(min < 0){

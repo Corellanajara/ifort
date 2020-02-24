@@ -113,18 +113,23 @@
    <div class="" *ngIf="porcentaje == 100">
      <ion-toolbar class="toolbar">
        <ion-segment scrollable  color="secondary">
-         <ion-segment-button *ngIf="this.pasos.length > 0">
-           <ion-icon name="arrow-back" style="font-size:25px;"  (click)="volver()"></ion-icon>
+         <ion-segment-button *ngIf="this.pasos.length > 0" (click)="volver()">
+           <ion-icon name="arrow-back" style="font-size:25px;"  ></ion-icon>
          </ion-segment-button>
 
          <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)">
            <ion-label color="blanco">{{nodo.name}}</ion-label>
+         </ion-segment-button>
+
+         <ion-segment-button (click)="elegirPersonas()">
+           <ion-icon name="add-circle-outline"></ion-icon>
          </ion-segment-button>
        </ion-segment>
      </ion-toolbar>
    </div>
    <h3 class="mensaje">{{mensaje}}</h3>
 
-   <ion-button  class="ion-button" [disabled]="!nodo || revisarActivoVacio() " size="medium" (click)="enviarEvaluacion()">Enviar evaluación</ion-button>
+   <ion-button  class="ion-button" [disabled]="!nodo || revisarActivoVacio()" *ngIf=" usuariosAsignados.length == 0" size="medium" (click)="enviarEvaluacion()">Enviar evaluación</ion-button>
+   <ion-button  class="ion-button" [disabled]="revisarActivoVacio() " *ngIf=" usuariosAsignados.length > 0"  size="medium" (click)="enviarEvaluacionUsuarios()">Enviar evaluación a usuarios asignados</ion-button>
 
 </ion-content>

@@ -46,7 +46,29 @@ export class PreguntaPage implements OnInit {
     this.agrupar();
 
  }
+ async editarIndicador(indicador,key,indice){
+   const modal = await this.modalCtrl.create({
+     component: CrudPage,
+     cssClass: 'modals',
+     componentProps: {
+       'pregunta': indicador,
+       'key' : key
+     }
+   })
+   modal.onDidDismiss().then(modal=>{
+     if(modal.data){
+       this.categorias[key][indice] = modal.data;
+       console.log(this.categorias[key][indice]);
+     }
 
+   });
+   return await modal.present();
+ }
+ eliminarIndicador(indicador,key,indice){
+   console.log(indicador);
+   this.categorias[key].splice(indice, 1);
+   console.log(this.categorias);
+ }
   ngOnInit() {
   }
   dismiss(){
@@ -55,7 +77,8 @@ export class PreguntaPage implements OnInit {
   async crearIndicador() {
     const modal = await this.modalCtrl.create({
       component:  CrudPage,
-      cssClass: 'modals',
+      cssClass: 'modals'
+
     });
     modal.onDidDismiss().then(modal=>{
       if(modal.data){
@@ -94,7 +117,8 @@ export class PreguntaPage implements OnInit {
     return await modal.present();
   }
   guardarindicadores(){
-    this.agrupar();
+    //this.agrupar();
+    console.log("categorias",this.categorias)
     this.modalCtrl.dismiss(this.categorias);
   }
   getKeys(obj){

@@ -32,7 +32,13 @@ html, body{
   --color: white;
   transition: 2s;
 }
-
+.ion-fab-button-no-alcanza{
+  --background: gray !important;
+  --background-activated: gray !important;
+  --background-hover: gray !important;
+  --color: white;
+  transition: 2s;
+}
 .ion-fab-button-comprado{
   --background: #00c853 !important;
   --background-activated: #00c853!important;

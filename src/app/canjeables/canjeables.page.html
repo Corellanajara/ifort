@@ -20,19 +20,26 @@
         <ion-card class="card" *ngFor="let producto of productos;index as i">
           <div class="imagen-card" [style.background-image]="imagenes[i]"></div>
           <ion-card-header>
-            <ion-card-subtitle>Destination</ion-card-subtitle>
-            <ion-card-title>Madison, WI</ion-card-title>
+            <ion-card-subtitle>{{producto.puntos}} puntos</ion-card-subtitle>
+            <ion-card-title>{{producto.titulo}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
+            {{producto.descripcion}}
           </ion-card-content>
-          <ion-fab vertical="center" horizontal="end" slot="fixed">
+          <ion-fab vertical="center" horizontal="end" slot="fixed"  *ngIf="usuario.puntos < producto.puntos">
 
-            <ion-fab-button *ngIf="!bandera" class="ion-fab-button">
+            <ion-fab-button *ngIf="!estados[i]" class="ion-fab-button-no-alcanza" >
+              <ion-icon name="pricetag" ></ion-icon>
+            </ion-fab-button>
+
+          </ion-fab>
+          <ion-fab vertical="center" horizontal="end" slot="fixed"  *ngIf="usuario.puntos > producto.puntos">
+
+            <ion-fab-button *ngIf="!estados[i]" class="ion-fab-button" (click)="presentAlert(i,producto)">
               <ion-icon name="pricetag"></ion-icon>
             </ion-fab-button>
 
-            <ion-fab-button *ngIf="bandera" class="ion-fab-button-comprado">
+            <ion-fab-button *ngIf="estados[i]" class="ion-fab-button-comprado">
               <ion-icon name="checkmark"></ion-icon>
             </ion-fab-button>
           </ion-fab>

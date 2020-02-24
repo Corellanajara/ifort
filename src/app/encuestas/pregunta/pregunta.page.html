@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion" color="light"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="encuestas" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ encuesta.titulo }} - Afirmaciones</ion-title>
     <ion-buttons slot="primary">
@@ -22,13 +22,13 @@
     </div>
 
   <ion-list>
-    <ion-item-sliding  *ngFor="let pregunta of encuesta.preguntas">
+    <ion-item-sliding  *ngFor="let pregunta of encuesta.preguntas,index as indice">
       <ion-item>
         <ion-label>{{(pregunta.titulo )}}</ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option (click)="editarIndicador(prgunta)" class="boton-editar">Editar</ion-item-option>
-        <ion-item-option (click)="eliminarIndicador(prgunta)" class="boton-borrar">Borrar</ion-item-option>
+        <ion-item-option (click)="editarPregunta(pregunta,indice)" class="boton-editar">Editar</ion-item-option>
+        <ion-item-option (click)="eliminarPregunta(pregunta,indice)" class="boton-borrar">Borrar</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
     <ion-item *ngIf="encuesta.preguntas.length == 0">

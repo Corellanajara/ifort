@@ -30,6 +30,30 @@ export class PreguntaEncuestaPage implements OnInit {
     });
     return await modal.present();
   }
+  async editarPregunta(pregunta,indice){
+    const modal = await this.modalCtrl.create({
+      component: CrudEncuestaPage,
+      cssClass: 'modals',
+      componentProps: {
+        'pregunta': pregunta,
+      }
+    })
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+        this.encuesta.preguntas[indice] = modal.data;
+
+      }
+
+    });
+    return await modal.present();
+  }
+  dismiss(){
+    this.modalCtrl.dismiss();
+  }
+  eliminarPregunta(indicador,indice){
+    this.encuesta.preguntas.splice(indice, 1);
+    console.log(this.encuesta.preguntas);
+  }
   guardarPreguntas(){
     console.log(this.encuesta);
     this.modalCtrl.dismiss(this.encuesta);
