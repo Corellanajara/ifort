@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion" color="light"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="encuestas" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>Crear afirmación</ion-title>
   </ion-toolbar>
@@ -17,12 +17,14 @@
 
 
   <ion-item>
-    <ion-input type="text" [(ngModel)]="pregunta" placeholder="Ingresa titulo de la Afirmacion"></ion-input>
+    <ion-input type="text" [(ngModel)]="titulo" placeholder="Ingresa titulo de la Afirmación"></ion-input>
   </ion-item>
 
 
-  <ion-footer style="margin-top: 20%">
+  <ion-footer style="margin-top: 20%" *ngIf="!actualizando">
       <ion-button   [disabled]="pregunta == '' " size="medium" (click)="agregarPregunta()">Agregar</ion-button>
-
+  </ion-footer>
+  <ion-footer style="margin-top: 20%" *ngIf="actualizando">
+      <ion-button   [disabled]="pregunta == '' " size="medium" (click)="actualizarEncuesta()">Actualizar</ion-button>
   </ion-footer>
 </ion-content>

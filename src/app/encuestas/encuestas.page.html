@@ -105,12 +105,16 @@
           <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)">
             <ion-label color="blanco">{{nodo.name}}</ion-label>
           </ion-segment-button>
+          <ion-segment-button (click)="elegirPersonas()">
+            <ion-icon name="add-circle-outline"></ion-icon>
+          </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
       <h3 class="mensaje">{{mensaje}}</h3>
    </div>
 
 
-   <ion-button  class="ion-button" [disabled]="!nodo " size="medium" (click)="enviarEncuesta()">Enviar encuesta</ion-button>
+   <ion-button  class="ion-button" [disabled]="!nodo" *ngIf=" usuariosAsignados.length == 0" size="medium" (click)="enviarEncuesta()">Enviar encuesta</ion-button>
+   <ion-button  class="ion-button" *ngIf=" usuariosAsignados.length > 0" size="medium" (click)="enviarEncuestaAsignados()">Enviar encuesta a usuarios asignados</ion-button>
 
 </ion-content>

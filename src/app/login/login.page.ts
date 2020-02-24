@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Events } from '@ionic/angular';
 import { AppComponent } from '../app.component';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,7 +15,7 @@ import { AppComponent } from '../app.component';
 })
 export class LoginPage implements OnInit {
 
-  constructor(
+  constructor(    
     private app : AppComponent,
     private events : Events,
     private userService : UserService ,

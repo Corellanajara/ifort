@@ -135,6 +135,7 @@ export class HomePage implements OnInit {
 
   traerDatos(evento){
     var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+    this.usuario = usuario;
     console.log("usuario",usuario);
     let userId = sessionStorage.getItem('userId');
     let self = this;
@@ -227,7 +228,7 @@ export class HomePage implements OnInit {
         };
       console.log(barChartData);
       if(this.doughnutChart){
-                
+
         this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
             type:"bar",
             data: barChartData,

@@ -7,6 +7,7 @@ import { ImportarPage } from './importar/importar.page';
 import { Location } from '@angular/common';
 import { Events,ToastController } from '@ionic/angular';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { ProductosPage } from './productos/productos.page';
 
 // Definir modelo usuario
 
@@ -119,8 +120,24 @@ export class UsuariosPage implements OnInit {
       if(modal.data){
           console.log(modal)
       }
-
-
+    });
+    return await modal.present();
+  }
+  async abrirProductos(usuario,slide){
+    slide.close();
+    console.log(usuario);
+    const modal = await this.modalCtrl.create({
+      component : ProductosPage,
+      cssClass : 'modals',
+      componentProps: {
+        'productos': usuario.canjeables,
+        'usuario' : usuario.firstName +" "+usuario.lastName
+      }
+    })
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+          console.log(modal)
+      }
     });
     return await modal.present();
   }
@@ -158,7 +175,7 @@ export class UsuariosPage implements OnInit {
         }
           usuario.password = undefined;
           console.log("usuario a actualizar",usuario);
-          this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
+          this.userService.actualizar(usuario.id,usuario).subscribe(res=>{
             console.log(res);
           })
       }
@@ -166,6 +183,12 @@ export class UsuariosPage implements OnInit {
 
     });
     return await modal.present();
+  }
+  public actualizarUsuario(){
+    this.userService.actualizar(this.usuario.id,this.usuario).subscribe(res=>{
+      this.presentToast("Usuario actualizado satisfactoriamente");
+      this.usuario = this.usuarioVacio;
+    })
   }
   public guardarUsuario(){
     this.usuario.id = ""+(this.usuarios.length + 1 );
@@ -215,7 +238,7 @@ export class UsuariosPage implements OnInit {
         usuario.asignado = modal.data;
         usuario.password = undefined;
         console.log("usuario a actualizar",usuario);
-        this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
+        this.userService.actualizar(usuario.id,usuario).subscribe(res=>{
           console.log(res);
         })
       }

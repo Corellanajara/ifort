@@ -57,8 +57,13 @@
 
   </ion-list>
 
-  <ion-footer style="margin-top: 20%">
+  <ion-footer style="margin-top: 20%" *ngIf="!editando">
       <ion-button  *ngIf="tipo == 'Rango' " [disabled]=" indicador == '' || !min || !max " size="medium" (click)="agregarIndicador()">Agregar</ion-button>
       <ion-button *ngIf="tipo != 'Rango' && tipo != '' " [disabled]=" indicador == '' " size="medium" (click)="agregarIndicador()">Agregar</ion-button>
+  </ion-footer>
+
+  <ion-footer style="margin-top: 20%" *ngIf="editando">
+      <ion-button   [disabled]=" indicador == ''" size="medium" (click)="actualizar()">Actualizar</ion-button>
+
   </ion-footer>
 </ion-content>

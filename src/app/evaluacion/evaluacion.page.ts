@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 import { PreguntaPage } from './pregunta/pregunta.page';
 import { ImportarPageEvaluacion } from './importar/importar.page';
+import { EscojerPage } from './escojer/escojer.page';
 import {  EvaluacionesService } from '../_servicios/evaluaciones.service';
 import { UserService } from '../_servicios/user.service';
 
@@ -40,6 +41,7 @@ export class EvaluacionPage implements OnInit {
   arbol = [];
   nodo : any;
   count : number = 0;
+  usuariosAsignados = [];
   constructor(
     private toastController : ToastController,
     private userService : UserService,
@@ -74,6 +76,7 @@ export class EvaluacionPage implements OnInit {
     }
     this.porcentaje = total;
   }
+
   public cantidadInputs(cantidad){
     let dif = cantidad.length - this.inputs.length;
     for(let i = 0 ; i < dif ; i++){
@@ -197,13 +200,29 @@ export class EvaluacionPage implements OnInit {
       }
     });
   }
+  async elegirPersonas(){
+    const modal = await this.modalCtrl.create({
+      component: EscojerPage,
+      cssClass: 'modals',
+      componentProps: {
+        'usuarios': this.usuarios,
+      }
+    });
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+        console.log(modal.data);
+        this.usuariosAsignados = modal.data;
+      }
+    });
+    return await modal.present();
+  }
   async abrirImportar(){
     const modal = await this.modalCtrl.create({
       component: ImportarPageEvaluacion,
       cssClass: 'modals',
       componentProps: {
-      'evaluacion': this.evaluacion,
-    }
+        'evaluacion': this.evaluacion,
+      }
     });
     var self = this;
     modal.onDidDismiss().then(modal=>{
@@ -369,6 +388,31 @@ export class EvaluacionPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+  enviarEvaluacionUsuarios(){
+    var evaluaciones = []
+
+    let timestamp  = new Date().getTime();
+    for(let activo = 0 ; activo < this.activos.length;activo++){
+      if(this.activos[activo]){
+        let puntos = (this.puntos * this.inputs[activo] )/ 100;
+        let ifortEv = {instrumento:this.evaluaciones[activo],porcentaje:this.inputs[activo],puntos:puntos,estado:0,fecha:timestamp}
+        evaluaciones.push(ifortEv);
+      }
+    }
+    var self = this;
+    for(let indice = 0 ; indice < evaluaciones.length; indice++){
+      for(var usuario of this.usuariosAsignados){
+        usuario.evaluaciones.push(evaluaciones[indice]);
+      }
+    }
+    for(usuario of this.usuariosAsignados){
+      usuario.password = undefined;
+      self.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+        console.log(usuario);
+        this.mostrarToast();
+      })
+    }
   }
   enviarEvaluacion(){
     var evaluaciones = []

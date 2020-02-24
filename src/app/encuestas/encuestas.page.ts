@@ -3,6 +3,7 @@ import { ModalController ,ToastController,AlertController} from '@ionic/angular'
 import { PreguntaEncuestaPage } from './pregunta/pregunta.page';
 import { EncuestaService } from '../_servicios/encuestas.service';
 import { UserService } from '../_servicios/user.service';
+import { EscojerEncuestasPage } from './escojer/escojer.page';
 
 interface Encuesta {
   titulo:string,
@@ -41,7 +42,7 @@ export class EncuestasPage implements OnInit {
   arbol = [];
   nodo : any;
   count : number = 0;
-
+  usuariosAsignados = [];
 
   ngOnInit() {
     this.traerDatos(false);
@@ -54,6 +55,22 @@ export class EncuestasPage implements OnInit {
       console.log(usuarios);
       this.usuarios = usuarios;
     })
+  }
+  async elegirPersonas(){
+    const modal = await this.modalCtrl.create({
+      component: EscojerEncuestasPage,
+      cssClass: 'modals',
+      componentProps: {
+        'usuarios': this.usuarios,
+      }
+    });
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+        console.log(modal.data);
+        this.usuariosAsignados = modal.data;
+      }
+    });
+    return await modal.present();
   }
   abrirAyuda(){
     alert("Para listar encuestas selecciona ");
@@ -230,7 +247,20 @@ export class EncuestasPage implements OnInit {
       console.log(usuariosCambiados);
 
     }
-
+    enviarEncuestaAsignados(){
+      for(var usuario of this.usuariosAsignados){
+        if(!usuario.encuestas){
+          usuario.encuestas = [];
+        }
+        usuario.encuestas.push(this.encuesta);
+        usuario.password = undefined;
+        this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+          console.log(usuario);
+          this.mostrarToast();
+          this.encuesta = {titulo:'',preguntas : [],id:'',fecha:new Date()};
+        })
+      }
+    }
     encontrarEnNodo(asignado,nodo){
       var quedanHijos = true;
       if(!nodo.childrens){
