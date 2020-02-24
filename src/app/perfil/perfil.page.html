@@ -16,16 +16,16 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-card class="card-naranjo" style="text-align:center;" >
-          <div class="contenedor-naranjo">
+      <ion-col (click)="navegar('canjeables')">
+        <ion-card class="card-naranjo" style="text-align:center;" (click)="navegar('canjeables')">
+          <div class="contenedor-naranjo" (click)="navegar('canjeables')">
             <img class="imagen-home" src="https://image.flaticon.com/icons/svg/679/679938.svg">
           </div>
-          <ion-card-header>
+          <ion-card-header (click)="navegar('canjeables')">
             <ion-card-title color="blanco">Tus puntos</ion-card-title>
           </ion-card-header>
 
-          <ion-card-content style="font-size:50px">
+          <ion-card-content style="font-size:50px" (click)="navegar('canjeables')">
             <b>{{ (usuario.puntos|| "0") }}</b>
           </ion-card-content>
         </ion-card>
@@ -64,3 +64,4 @@
   </ion-grid>
 
 </ion-content>
+

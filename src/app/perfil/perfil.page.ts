@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { ListPage } from '../list/list.page';
 
 @Component({
@@ -11,6 +12,7 @@ import { ListPage } from '../list/list.page';
 export class PerfilPage implements OnInit {
   usuario = {encuestas : [],evaluaciones : [],canjeables : []};
   constructor(
+    private router:Router,
     private modalCtrl: ModalController ,
     private userService : UserService
   ) {
@@ -20,7 +22,10 @@ export class PerfilPage implements OnInit {
       console.log(usuario);
     })
   }
-
+  navegar(ruta){
+    console.log("navega a "+ruta);
+    this.router.navigate([ruta]);
+  }
   ngOnInit() {
   }
   async verEvaluaciones(){
@@ -35,3 +40,4 @@ export class PerfilPage implements OnInit {
 
   }
 }
+
