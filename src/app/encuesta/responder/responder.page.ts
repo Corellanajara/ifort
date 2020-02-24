@@ -8,7 +8,7 @@ import { NavParams,ModalController } from '@ionic/angular';
 })
 export class ResponderPage implements OnInit {
 
-  encuesta = {titulo:'',descripcion:'',preguntas:[]};
+  encuesta = {titulo:'',descripcion:'',preguntas:[],resultados:[],revisado:false};
   estrellas = [];
   revisados = [];
   constructor(private modalCtrl:ModalController,private navParams : NavParams) {

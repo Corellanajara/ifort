@@ -1,7 +1,7 @@
 <ion-header style="text-aling:center;">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="encuesta"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="encuesta" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>{{encuesta.titulo}}</ion-title>
   </ion-toolbar>
@@ -17,7 +17,7 @@
         <ion-label class="descripcion">{{encuesta.descripcion}}</ion-label>
     </div>
 
-    <ion-item-divider style="text-align:center;font-size: 20px;">
+    <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
       <b>Preguntas</b>
     </ion-item-divider>
 
@@ -27,13 +27,17 @@
           <ion-label class="pregunta">{{pregunta.titulo}}</ion-label>
         </div>
         <div class="seccion-estrellas" *ngIf="!encuesta.resultados">
-          <ion-badge (click)="cambiarColor(indice,i)" *ngFor="let estrella of estrellas[indice];index as i" class="{{estrella.class}}"><ion-icon class="icono" name="star"></ion-icon></ion-badge>
+          <div class="badges">
+            <ion-badge mode="ios" (click)="cambiarColor(indice,i)" *ngFor="let estrella of estrellas[indice];index as i" class="{{estrella.class}}"><ion-icon class="icono" name="star"></ion-icon></ion-badge>
+          </div>
         </div>
         <div class="seccion-estrellas" *ngIf="encuesta.resultados">
-          <ion-badge  *ngFor="let estrella of estrellas[indice];index as i" class="{{estrella.class}}"><ion-icon class="icono" name="star"></ion-icon></ion-badge>
+          <div class="badges">
+            <ion-badge  mode="ios" *ngFor="let estrella of estrellas[indice];index as i" class="{{estrella.class}}"><ion-icon class="icono" name="star"></ion-icon></ion-badge>
+          </div>
         </div>
       </div>
-      <ion-item-divider>
+      <ion-item-divider mode="md">
       </ion-item-divider>
     </ion-list>
 

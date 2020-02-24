@@ -7,6 +7,7 @@ import { ImportarPage } from './importar/importar.page';
 import { Location } from '@angular/common';
 import { Events,ToastController } from '@ionic/angular';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { ProductosPage } from './productos/productos.page';
 
 // Definir modelo usuario
 
@@ -41,7 +42,56 @@ export class UsuariosPage implements OnInit {
     });
     toast.present();
   }
+  validar(rut) {
+      // Despejar Puntos
+      var valor = rut.replace('.','');
+      while(valor.indexOf('.') != -1){
+        valor = valor.replace('.','');
+      }
+      // Despejar Guión
+      valor = valor.replace('-','');
 
+      // Aislar Cuerpo y Dígito Verificador
+      var cuerpo = valor.slice(0,-1);
+      var dv = valor.slice(-1).toUpperCase();
+
+      // Formatear RUN
+      rut = cuerpo + '-'+ dv
+
+      // Si no cumple con el mínimo ej. (n.nnn.nnn)
+      if(cuerpo.length < 7) { alert("Rut incompleto");}
+
+      // Calcular Dígito Verificador
+      var suma = 0;
+      var multiplo = 2;
+
+      // Para cada dígito del Cuerpo
+      for(let i=1;i<=cuerpo.length;i++) {
+
+          // Obtener su Producto con el Múltiplo Correspondiente
+          var index = multiplo * valor.charAt(cuerpo.length - i);
+
+          // Sumar al Contador General
+          suma = suma + index;
+
+          // Consolidar Múltiplo dentro del rango [2,7]
+          if(multiplo < 7) { multiplo = multiplo + 1; } else { multiplo = 2; }
+
+      }
+
+      // Calcular Dígito Verificador en base al Módulo 11
+      var dvEsperado = 11 - (suma % 11);
+
+      // Casos Especiales (0 y K)
+      dv = (dv == 'K')?10:dv;
+      dv = (dv == 0)?11:dv;
+
+      // Validar que el Cuerpo coincide con su Dígito Verificador
+      if(dvEsperado != dv) {
+        alert("RUT Inválido");
+      }
+
+  }
 /*
 <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
 <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
@@ -70,8 +120,24 @@ export class UsuariosPage implements OnInit {
       if(modal.data){
           console.log(modal)
       }
-
-
+    });
+    return await modal.present();
+  }
+  async abrirProductos(usuario,slide){
+    slide.close();
+    console.log(usuario);
+    const modal = await this.modalCtrl.create({
+      component : ProductosPage,
+      cssClass : 'modals',
+      componentProps: {
+        'productos': usuario.canjeables,
+        'usuario' : usuario.firstName +" "+usuario.lastName
+      }
+    })
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+          console.log(modal)
+      }
     });
     return await modal.present();
   }
@@ -109,7 +175,7 @@ export class UsuariosPage implements OnInit {
         }
           usuario.password = undefined;
           console.log("usuario a actualizar",usuario);
-          this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
+          this.userService.actualizar(usuario.id,usuario).subscribe(res=>{
             console.log(res);
           })
       }
@@ -117,6 +183,12 @@ export class UsuariosPage implements OnInit {
 
     });
     return await modal.present();
+  }
+  public actualizarUsuario(){
+    this.userService.actualizar(this.usuario.id,this.usuario).subscribe(res=>{
+      this.presentToast("Usuario actualizado satisfactoriamente");
+      this.usuario = this.usuarioVacio;
+    })
   }
   public guardarUsuario(){
     this.usuario.id = ""+(this.usuarios.length + 1 );
@@ -166,7 +238,7 @@ export class UsuariosPage implements OnInit {
         usuario.asignado = modal.data;
         usuario.password = undefined;
         console.log("usuario a actualizar",usuario);
-        this.userService.actualizar(usuario._id,usuario).subscribe(res=>{
+        this.userService.actualizar(usuario.id,usuario).subscribe(res=>{
           console.log(res);
         })
       }

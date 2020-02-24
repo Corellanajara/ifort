@@ -7,12 +7,28 @@ import { NavParams,ModalController } from '@ionic/angular';
   styleUrls: ['./crud-encuesta.page.scss'],
 })
 export class CrudEncuestaPage implements OnInit {
-  pregunta = "";
-  constructor(private modalCtrl : ModalController) { }
+  titulo = "";
+  actualizando = false;
+  constructor(private navParams : NavParams,private modalCtrl : ModalController) {
+    var pregunta = navParams.get('pregunta');
+
+    if(pregunta){
+        this.actualizando = true;
+        console.log(pregunta);
+        this.titulo = pregunta.titulo;
+    }
+
+  }
 
   ngOnInit() {
   }
+  dismiss(){
+    this.modalCtrl.dismiss();
+  }
+  actualizarEncuesta(){
+    this.modalCtrl.dismiss({titulo:this.titulo});
+  }
   agregarPregunta(){
-    this.modalCtrl.dismiss({titulo:this.pregunta});
+    this.modalCtrl.dismiss({titulo:this.titulo});
   }
 }

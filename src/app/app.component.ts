@@ -66,7 +66,7 @@ export class AppComponent {
 
         this.empresaService.listarById(empresaId).subscribe( empresa =>{
           console.log(empresa);
-          var jerarquia = JSON.stringify(empresa.jerarquia);
+          var jerarquia = JSON.stringify(empresa['jerarquia']);
           sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
           sessionStorage.setItem('empresa', JSON.stringify(empresa) );
         })

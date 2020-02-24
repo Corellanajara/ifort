@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 import { PreguntaEncuestaPage } from './pregunta/pregunta.page';
-import { ImportarPageEvaluacion } from './importar/importar.page';
 import { EncuestaService } from '../_servicios/encuestas.service';
 import { UserService } from '../_servicios/user.service';
+import { EscojerEncuestasPage } from './escojer/escojer.page';
 
 interface Encuesta {
   titulo:string,
@@ -42,19 +42,35 @@ export class EncuestasPage implements OnInit {
   arbol = [];
   nodo : any;
   count : number = 0;
+  usuariosAsignados = [];
 
   ngOnInit() {
-    this.traerDatos();
+    this.traerDatos(false);
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
-    this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-    if(typeof(this.arbol != 'object') ){
-      this.arbol = JSON.parse(this.arbol);
-    }
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+    this.arbol = JSON.parse(arbol);
+
     console.log(this.arbol);
     this.userService.listar().subscribe(usuarios=>{
       console.log(usuarios);
       this.usuarios = usuarios;
     })
+  }
+  async elegirPersonas(){
+    const modal = await this.modalCtrl.create({
+      component: EscojerEncuestasPage,
+      cssClass: 'modals',
+      componentProps: {
+        'usuarios': this.usuarios,
+      }
+    });
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+        console.log(modal.data);
+        this.usuariosAsignados = modal.data;
+      }
+    });
+    return await modal.present();
   }
   abrirAyuda(){
     alert("Para listar encuestas selecciona ");
@@ -107,7 +123,6 @@ export class EncuestasPage implements OnInit {
 
   }
   async confirmar() {
-    console.log(this.evaluacion);
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>CREAR UNA ENCUESTA</strong>!!!',
@@ -137,7 +152,7 @@ export class EncuestasPage implements OnInit {
       console.log(data);
     })
     this.encuesta = {titulo:'',preguntas : [],id:"",fecha:new Date()};
-    this.traerDatos();
+    this.traerDatos(false);
   }
   public actualizarEncuesta(){
     this.eService.actualizar(this.encuesta.id,this.encuesta).subscribe(data=>{
@@ -149,10 +164,8 @@ export class EncuestasPage implements OnInit {
     console.log(this.pasos);
     this.pasos.pop();
     console.log(this.pasos);
-    this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-    if(typeof(this.arbol != 'object') ){
-      this.arbol = JSON.parse(this.arbol);
-    }
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+    this.arbol = JSON.parse(arbol);
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
@@ -234,7 +247,20 @@ export class EncuestasPage implements OnInit {
       console.log(usuariosCambiados);
 
     }
-
+    enviarEncuestaAsignados(){
+      for(var usuario of this.usuariosAsignados){
+        if(!usuario.encuestas){
+          usuario.encuestas = [];
+        }
+        usuario.encuestas.push(this.encuesta);
+        usuario.password = undefined;
+        this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+          console.log(usuario);
+          this.mostrarToast();
+          this.encuesta = {titulo:'',preguntas : [],id:'',fecha:new Date()};
+        })
+      }
+    }
     encontrarEnNodo(asignado,nodo){
       var quedanHijos = true;
       if(!nodo.childrens){

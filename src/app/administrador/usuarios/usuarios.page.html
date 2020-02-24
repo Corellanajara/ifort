@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="usuarios"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="usuarios" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>Usuarios</ion-title>
   </ion-toolbar>
@@ -60,7 +60,7 @@
     <br>
     <ion-item style="padding-top: 20px">
       <ion-label position="floating" style="font-size: 20px;color:black">Rut</ion-label>
-      <ion-input formControlName="rut" type="text" [(ngModel)]="usuario.rut"></ion-input>
+      <ion-input formControlName="rut" type="text" [(ngModel)]="usuario.rut" (change)="validar(usuario.rut)"></ion-input>
     </ion-item>
     <br>
     <ion-item style="padding-top: 20px">
@@ -82,7 +82,7 @@
     </ion-item>
 
     <br>
-    <ion-item-divider>
+    <ion-item-divider mode="md">
 
     </ion-item-divider>
 
@@ -93,7 +93,7 @@
 
   <br>
 
-  <ion-item-divider style="text-align:center;font-size: 20px;">
+  <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
     <b>Lista de usuarios</b>
   </ion-item-divider>
 
@@ -115,6 +115,8 @@
     <ion-item-options side="end" >
       <ion-item-option (click)="abrirPermisos(usuario,slidingItem)" color="warning">Menú</ion-item-option>
       <ion-item-option (click)="asignar(usuario,slidingItem)" color="primary">Asignar</ion-item-option>
+      <ion-item-option (click)="abrirProductos(usuario,slidingItem)" color="tertiary">Productos</ion-item-option>
+
     </ion-item-options>
   </ion-item-sliding>
 

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
 import { ModalController } from '@ionic/angular';
-import { GraficoPage } from './grafico/grafico.page';
-import { VerPAge } from './ver/ver.page';
+import { VerPage } from './ver/ver.page';
 
 @Component({
   selector: 'app-notificaciones',
