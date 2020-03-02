@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
   asignado : any = {name:'Aun no asignado'};
   valorPersonalResult = 0;
   total = 1;
-  tipoActual = "bar";
+  tipoActual = "horizontalBar";
   isAdmin = false;
   usuarioActual = 0;
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
@@ -105,7 +105,7 @@ export class HomePage implements OnInit {
     }
 
     this.barChart = new Chart(this.barCanvas.nativeElement,{
-        type:"bar",
+        type:"horizontalBar",
         data: {
           labels: labels,
           datasets: [
@@ -229,8 +229,10 @@ export class HomePage implements OnInit {
       console.log(barChartData);
       if(this.doughnutChart){
 
+      }else{
+
         this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
-            type:"bar",
+            type:"horizontalBar",
             data: barChartData,
             options: {
               title: {

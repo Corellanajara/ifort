@@ -47,8 +47,12 @@ export class EncuestasPage implements OnInit {
   ngOnInit() {
     this.traerDatos(false);
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
-    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
-    this.arbol = JSON.parse(arbol);
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();    
+    try {
+        this.arbol = JSON.parse(arbol);
+    } catch (error) {
+        this.arbol = arbol;
+    }
 
     console.log(this.arbol);
     this.userService.listar().subscribe(usuarios=>{

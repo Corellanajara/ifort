@@ -15,7 +15,7 @@ export class GraficoPage implements OnInit {
   titulo = "";
   tipo = undefined;
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
-  tipoActual = "bar";
+  tipoActual = "horizontalBar";
   titulos = []
   valores = []
   colores = []

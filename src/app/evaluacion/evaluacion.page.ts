@@ -52,7 +52,20 @@ export class EvaluacionPage implements OnInit {
       console.log(sessionStorage);
       this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
       var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
-      this.arbol = JSON.parse(arbol);
+      try {
+          this.arbol = JSON.parse(arbol);
+      } catch (error) {
+          this.arbol = arbol;
+      }
+
+
+      /*
+      this.jerarquia = JSON.stringify(empresa['jerarquia']);
+      sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+      sessionStorage.setItem('empresa', JSON.stringify(empresa) );
+      this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+      console.log(arbol);
+      */
 
       userService.listar().subscribe(usuarios=>{
         console.log(usuarios);
