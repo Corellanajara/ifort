@@ -18,7 +18,7 @@ export class CrudPage implements OnInit {
     var key = navParams.get('key');
 
     if(indicador){
-      this.editando = true;      
+      this.editando = true;
       this.tipo = indicador.tipo;
       this.indicador = indicador.titulo;
       this.categoria = key;
@@ -31,7 +31,7 @@ export class CrudPage implements OnInit {
     this.modalCtrl.dismiss();
   }
   actualizar(){
-    var indicador = {tipo:this.tipo,indicador : this.indicador};
+    var indicador = {tipo:this.tipo,titulo : this.indicador};
     this.modalCtrl.dismiss(indicador);
   }
   validarValores(min,max){

@@ -109,6 +109,7 @@ export class UsuariosPage implements OnInit {
     this.traerUsuarios(false);
 
   }
+
   async abrirImportar(){
 
     const modal = await this.modalCtrl.create({
@@ -210,7 +211,7 @@ export class UsuariosPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarUsuario();
             this.verAgregar = false;
@@ -220,6 +221,35 @@ export class UsuariosPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async borrar(usuario) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Elminación!',
+      message: 'Estas a punto de <br><strong>BORRAR UN USUARIO</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.borrarUsuario(usuario);
+            this.verAgregar = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  borrarUsuario(usuario){
+    this.userService.borrar(usuario.id).subscribe(res=>{
+      this.traerUsuarios(false);
+    })
   }
   async asignar(usuario,slide){
     slide.close();

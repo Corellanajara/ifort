@@ -71,7 +71,7 @@ export class ProductosPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarProducto();
             this.verAgregar = false;

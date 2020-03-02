@@ -7,17 +7,17 @@
     <form class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
       <p class="login-text">
       </p>
-        <ion-item>
+        <ion-item class="redondeado">
           <ion-label></ion-label>
           <ion-input type="email" ngModel name="email" autofocus="true" required="true" placeholder="Email" autocomplete="off"></ion-input>
         </ion-item>
 
-        <ion-item>
+        <ion-item class="redondeado">
           <ion-label></ion-label>
           <ion-input type="password" ngModel name="password" required="true" placeholder="Clave" autocomplete="off" ></ion-input>
         </ion-item>
 
-        <ion-button class="boton-login" expand="block" color="light" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>        
+        <ion-button class="boton-login" expand="block" color="light" type="submit" [disabled]="form.invalid"  name="Login" value="Iniciar Sesión">Iniciar Sesión</ion-button>
 
     </form>
   </div>
