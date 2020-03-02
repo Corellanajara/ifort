@@ -109,7 +109,7 @@ export class UsuariosPage implements OnInit {
     this.traerUsuarios(false);
 
   }
-  
+
   async abrirImportar(){
 
     const modal = await this.modalCtrl.create({
@@ -211,7 +211,7 @@ export class UsuariosPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarUsuario();
             this.verAgregar = false;
@@ -235,7 +235,7 @@ export class UsuariosPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.borrarUsuario(usuario);
             this.verAgregar = false;

@@ -153,7 +153,7 @@ export class EvaluacionPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarEvaluacion();
             this.verAgregar = false;

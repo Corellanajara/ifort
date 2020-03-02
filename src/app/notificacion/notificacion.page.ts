@@ -65,7 +65,7 @@ export class NotificacionPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarNotificacion();
             this.verAgregar = false;

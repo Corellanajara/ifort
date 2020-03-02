@@ -47,7 +47,7 @@ export class EncuestasPage implements OnInit {
   ngOnInit() {
     this.traerDatos(false);
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
-    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();    
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
     try {
         this.arbol = JSON.parse(arbol);
     } catch (error) {
@@ -139,7 +139,7 @@ export class EncuestasPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarEncuesta();
             this.verAgregar = false;
