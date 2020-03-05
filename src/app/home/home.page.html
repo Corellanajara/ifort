@@ -173,30 +173,28 @@
       <ion-card class="volteado" style="width: 100%;height: 100%;">
           <ion-card-header class="header-card">
             <ion-item>
-              <div class="contenedor-card">
-                <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554719.png">
+              <div (click)="cambiarMes()">
+                <img class="imagen-card" src="https://image.flaticon.com/icons/svg/455/455759.svg">
               </div>
-              <ion-label>Actividades</ion-label>
-
+              <ion-item>
+                <ion-buttons >
+                  <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="traerDatosFiltrados(false)" [(ngModel)]="tipoActual">
+                    <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+                  </ion-select>
+                 </ion-buttons>
+                </ion-item>
               <ion-buttons>
                 <ion-button slot="end" (click)="exportar('actividades')">
                   <ion-icon color="light" name="cloud-download"></ion-icon>
                 </ion-button>
               </ion-buttons>
+
             </ion-item>
         </ion-card-header>
 
         <ion-card-content>
-          <div class="contenedor-canvas">
+          <div >
             <canvas #bubbleCanvas id="actividades"></canvas>
-          </div>
-          <div class="contenedor-boton-2">
-            <ion-buttons class="contenedor-boton-canvas">
-              <ion-button slot="end" class="boton-canvas" style="background: #fffff;" href="perfil">
-                <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
-              </ion-button>
-            </ion-buttons>
-            <ion-label class="texto-grafico">Ver Gráfico</ion-label>
           </div>
         </ion-card-content>
       </ion-card>

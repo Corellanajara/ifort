@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from "chart.js";
-import { ModalController } from '@ionic/angular';
+import { ModalController,PickerController } from '@ionic/angular';
 import { InstrumentoPage } from '../evaluaciones/instrumento/instrumento.page';
 import { ListPage } from '../list/list.page';
 import { UserService } from '../_servicios/user.service';
@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   asignado : any = {name:'Aun no asignado'};
   valorPersonalResult = 0;
   total = 1;
+  fechas = {Meses: new Date().getMonth(),Años:new Date().getFullYear()};
   tipoActual = "horizontalBar";
   isAdmin = false;
   usuarioActual = 0;
@@ -43,17 +44,14 @@ export class HomePage implements OnInit {
   private bubbleChart: Chart;
   public random_rgba() {
     var o = Math.round, r = Math.random, s = 200;
-    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (r().toFixed(1) + 10) + ')';
+    var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + (parseFloat(r().toFixed(1) ) * 10 ) + ')';
     console.log(rgb)
     return rgb;
   }
 
   ngAfterViewInit(){
-    console.log()
 
     this.graficarPersonalData();
-
-
 
   }
   ngOnInit() {
@@ -67,6 +65,154 @@ export class HomePage implements OnInit {
     }
 
   }
+  async cambiarMes() {
+    var meses = [{text:'Enero',value:1},{text:'Febrero',value:2},{text:'Marzo',value:3},{text:'Abril',value:4},{text:'Mayo',value:5},{text:'Junio',value:6},{text:'Julio',value:7},{text:'Agosto',value:7},{text:'Septiembre',value:8},{text:'Octubre',value:9},{text:'Noviembre',value:11},{text:'Diciembre',value:12}]
+    var years = [{text:"2020",value:"2020"},{text:"2019",value:"2019"}]
+    const picker = await this.pickerCtrl.create({
+      buttons: [{
+        text: 'Listo',
+        handler: (fechas) => {
+          this.traerDatosFiltrados(fechas);
+        }
+      }],
+      columns: [
+        {
+          name: 'Meses',
+          options: meses
+        },
+        {
+          name: 'Años',
+          options: years
+        },
+      ]
+    });
+
+    await picker.present();
+
+}
+  traerDatosFiltrados(fechas){
+    if(fechas){
+        this.fechas = fechas;
+    }else{
+      fechas = this.fechas;
+    }
+
+    let background = ["rgba(255, 99, 132, 0.2)","rgba(54, 162, 235, 0.2)","rgba(255, 206, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(153, 102, 255, 0.2)","rgba(255, 159, 64, 0.2)"];
+    let bordes = ["rgba(255,99,132,1)","rgba(54, 162, 235, 1)","rgba(255, 206, 86, 1)","rgba(75, 192, 192, 1)","rgba(153, 102, 255, 1)","rgba(255, 159, 64, 1)"];
+    var evaluaciones = [];
+    var instrumentos = [];
+    var labels = [];
+    var conjuntos = [];
+    var users = this.usuarios;
+    console.log(users);
+    console.log(fechas)
+    var usuarios = users.filter(function(usuario){
+      return usuario.evaluaciones.length > 0
+    });
+    var y = fechas.Años.value;
+    var m = fechas.Meses.value;
+    var fecha = new Date(y+"/"+m);
+    console.log(fecha);
+    for(var usuario of usuarios){
+      var nombre = usuario.firstName +" "+usuario.lastName;
+      evaluaciones[nombre] = [];
+      conjuntos[nombre] = [];
+      var datos = usuario.evaluaciones.filter(function(ev){
+        var fechaEv = new Date(ev.fecha);
+        var year = fechaEv.getFullYear();
+        var month = fechaEv.getMonth() + 1;
+        return (year == y && month == m && ev.estado === 1)
+      })
+      console.log(datos);
+      for(var ev of datos){
+        let por  = this.getPersonalResultsByEv(ev);
+        ev.por = por;
+        ev.sigla = ev.instrumento.sigla;
+        evaluaciones[nombre].push(ev);
+        labels.indexOf(nombre) === -1 ? labels.push(nombre) : '';
+        conjuntos[nombre][ev.sigla] = (por);
+      }
+    }
+
+    for(var key in evaluaciones){
+        for(var instrumento of evaluaciones[key]){
+            var sigla =  instrumento.instrumento.sigla;
+            instrumentos.indexOf(sigla) === -1 ? instrumentos.push(sigla) : '';
+        }
+    }
+    for(var key in evaluaciones){
+      for(var sigla of instrumentos){
+        if(!conjuntos[key][sigla]){
+          conjuntos[key][sigla] = 0;
+        }
+      }
+    }
+    console.log(labels);
+    console.log(instrumentos);
+    console.log(conjuntos);
+
+    var datasets = [];
+    var i = 0;
+    for(let key in conjuntos){
+      var evaluacion = conjuntos[key];
+      let info = {
+        label: key,
+        data: this.aproximar(Object.values(evaluacion)),
+        backgroundColor:background[i],
+        borderColor: bordes[i],
+        borderWidth: 2
+      }
+      datasets.push(info);
+      i++;
+    }
+    var barChartData = {
+        labels: instrumentos,
+        datasets: datasets
+      };
+    console.log(barChartData);
+
+    if(this.doughnutChart){
+      this.doughnutChart.destroy();
+    }
+
+      this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
+          type:this.tipoActual,
+          data: barChartData,
+          options: {
+            title: {
+              display: true,
+              text: 'Comparativa entre los distintos usuarios'
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false
+            },
+            responsive: true,
+            scales: {
+              xAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true
+                }
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  beginAtZero: true
+                  }
+              }]
+            }
+          }
+      });
+
+  }
+  aproximar(datos){
+    var data = [];
+    for(let i = 0 ; i < datos.length;i++){
+      data.push(Math.round(datos[i]));
+    }
+    return data;
+  }
   navegar(ruta){
     this.router.navigate([ruta]);
   }
@@ -74,7 +220,8 @@ export class HomePage implements OnInit {
     private router : Router,
     private userService : UserService,
     private modalCtrl : ModalController,
-  ) {
+    public pickerCtrl: PickerController
+  ){
     var menu = document.querySelector('ion-menu');
     menu.hidden = false;
     this.getPersonalResults();
@@ -105,7 +252,7 @@ export class HomePage implements OnInit {
     }
 
     this.barChart = new Chart(this.barCanvas.nativeElement,{
-        type:"horizontalBar",
+        type:"bar",
         data: {
           labels: labels,
           datasets: [
@@ -194,7 +341,8 @@ export class HomePage implements OnInit {
               agrupadosPorFecha[fecha][key] = [];
               agrupadosPorFecha[fecha][key].push(percent);
             }
-            labels.indexOf(ev.instrumento.sigla) === -1 ? labels.push(ev.instrumento.sigla) : console.log("This item already exists");
+            //labels.indexOf(ev.instrumento.sigla) === -1 ? labels.push(ev.instrumento.sigla) : console.log("This item already exists");
+            labels.push(ev.instrumento.sigla);
             if(usuariosEvaluados.indexOf(key) === -1 ) usuariosEvaluados.push(key) ;
           }
         }
@@ -226,10 +374,12 @@ export class HomePage implements OnInit {
           labels: usuariosEvaluados,
           datasets: datasets
         };
-      console.log(barChartData);
-      if(this.doughnutChart){
 
-      }else{
+      console.log(barChartData);
+
+      if(this.doughnutChart){
+        this.doughnutChart.destroy();
+      }
 
         this.doughnutChart = new Chart(this.comparativeCanvas.nativeElement,{
             type:"horizontalBar",
@@ -254,7 +404,7 @@ export class HomePage implements OnInit {
               }
             }
         });
-      }
+
 
 
     })
@@ -393,6 +543,7 @@ export class HomePage implements OnInit {
     }
     this.personalResults = puntaje;
     this.total = evaluados;
+    this.traerDatosFiltrados(false);
   }
 
   dibujarGrafico(){
