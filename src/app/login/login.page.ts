@@ -15,7 +15,7 @@ import { AppComponent } from '../app.component';
 })
 export class LoginPage implements OnInit {
 
-  constructor(    
+  constructor(
     private app : AppComponent,
     private events : Events,
     private userService : UserService ,
@@ -30,6 +30,12 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     if( sessionStorage.getItem('empresaId')){
       this.router.navigate(['home']);
+    }
+  }
+  keyDownFunction(event,form) {
+    if(event.keyCode == 13) {
+      this.login(form);
+      // rest of your code
     }
   }
   login(form){

@@ -10,11 +10,16 @@
 
       <ion-content>
         <ion-list class="margin-list" *ngIf="usuario.nombre != ''">
-          <ion-item clasS="item-menu-perfil" (click)='navegar("perfil")'>
-            <div class="contenedor-imagen">
-              <img class="imagen-menu" src="https://s3-eu-west-1.amazonaws.com/eflanguagesblog/wp-content/uploads/2019/04/09093804/Useful-phrases-for-a-job-interview_568x464.jpg">
+          <ion-item clasS="item-menu-perfil" >
+            <div class="contenedor-imagen"  *ngIf="!usuario.img">
+              <input type="file" id="imgupload" style="display:none" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)"/>
+              <label for='imgupload'> <img  class="imagen-menu" src="https://i.ya-webdesign.com/images/add-image-icon-png-6.png"></label>
             </div>
-            <div class="contenedor-texto">
+            <div class="contenedor-imagen"  *ngIf="usuario.img">
+              <input type="file" id="imgupload" style="display:none" accept="image/*" (change)="subirArchivo($event);leerArchivo($event)"/>
+              <label for='imgupload'> <img  class="imagen-menu" [src]="usuario.img"></label>
+            </div>
+            <div class="contenedor-texto" (click)='navegar("perfil")'>
               <h1 class="texto-menu">{{usuario.nombre}} {{usuario.apellido}}</h1>
             </div>
           </ion-item>

@@ -9,7 +9,9 @@
 .sc-ion-buttons-md-h {
   padding-left: 13%!important;
 }
-
+.boton-derecha{
+  margin-left: 50%;
+}
 .imagen-mancha{
   width: 20%;
   margin-left: 40%;
@@ -258,6 +260,15 @@ ion-card{
   --color: white;
   --border-color: transparent;
   }
+}
+.header-card-flex{
+  --background: #3949ab;
+  ion-item{
+  --background: transparent;
+  --color: white;
+  --border-color: transparent;
+  }
+  display: flex!important;
 }
 
 .card-gradiente{

@@ -7,6 +7,7 @@ import { TreeModule } from 'angular-tree-component';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 //import { Push } from '@ionic-native/push/ngx';
 import { HttpClientModule } from '@angular/common/http';
@@ -59,6 +60,7 @@ import { GraficoPage } from './list/grafico/grafico.page';
     StatusBar,
     LocalNotifications,
     AuthService,
+    ScreenOrientation,
     //Push,
     MenusService,
     CorreosService,

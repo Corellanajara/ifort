@@ -278,6 +278,7 @@ export class UsuariosPage implements OnInit {
     return await modal.present();
   }
   public visualizar(usuario,slide){
+    usuario.password = undefined;
     this.usuario = usuario;
     slide.close();
   }

@@ -79,6 +79,10 @@ const routes: Routes = [
     path: 'notificacion',
     loadChildren: () => import('./notificacion/notificacion.module').then( m => m.NotificacionPageModule)
   },
+  {
+    path: 'historial',
+    loadChildren: () => import('./home/historial/historial.module').then( m => m.HistorialPageModule)
+  },
   
 ];
 

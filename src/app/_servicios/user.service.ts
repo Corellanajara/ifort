@@ -37,7 +37,13 @@ export class UserService {
   private url: string = "http://178.128.71.20:4120";
 
   constructor(private http: HttpClient) { }
-
+  guardarImagen(form){
+    //console.log(form);    
+    this.http.post("http://178.128.71.20:4120/api/archivos", form, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+            //console.log(event);
+        });
+  }
   listar() {
     let accessToken = sessionStorage.getItem('accessToken');
     let id = sessionStorage.getItem('empresaId');

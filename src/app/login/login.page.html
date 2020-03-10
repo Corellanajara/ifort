@@ -4,7 +4,7 @@
       <img class="logo-ifort" src="/assets/icon/LOGO IFORT-01.png">
     </div>
 
-    <form class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off">
+    <form class="login-form" #form="ngForm" (ngSubmit)="login(form)" autocomplete="off" (keydown)="keyDownFunction($event,form)">
       <p class="login-text">
       </p>
         <ion-item class="redondeado">
