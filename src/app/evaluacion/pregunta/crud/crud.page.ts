@@ -9,6 +9,7 @@ import { NavParams,ModalController } from '@ionic/angular';
 export class CrudPage implements OnInit {
   indicador = "";
   categoria = "";
+  cantidad = 0;
   tipo = "";
   min : any;
   max : any;

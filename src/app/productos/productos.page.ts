@@ -96,7 +96,7 @@ export class ProductosPage implements OnInit {
     this.producto = {titulo:'',descripcion:'',url:'',puntos:0,id:'',fecha:new Date(),empresaId:''};
     this.traerDatos();
   }
-  async alertBorrar(ev) {    
+  async alertBorrar(ev) {
     const alert = await this.alertController.create({
       header: 'Favor confirmar!',
       message: 'Estas a punto de <br><strong>BORRAR UN PRODUCTO</strong>!!!',

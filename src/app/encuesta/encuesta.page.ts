@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController ,ToastController,AlertController} from '@ionic/angular';
+import { ModalController ,ToastController} from '@ionic/angular';
 import { ResponderPage } from './responder/responder.page';
 import { UserService } from '../_servicios/user.service';
 
@@ -10,6 +10,7 @@ import { UserService } from '../_servicios/user.service';
 })
 export class EncuestaPage implements OnInit {
   encuestas = [];
+  verAgregar = false;
   usuario  = undefined;
   constructor(private userService : UserService,private modalCtrl : ModalController) { }
 

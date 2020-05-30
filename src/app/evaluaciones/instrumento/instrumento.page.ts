@@ -24,7 +24,7 @@ export class InstrumentoPage implements OnInit {
   dismiss(){
     this.modalCtrl.dismiss();
   }
-  async responderConAlerta(indicador) {
+  async responderConalerta(indicador) {
     const alert = await this.alertController.create({
       header: 'Evaluar indicador!',
       subHeader: indicador.titulo,

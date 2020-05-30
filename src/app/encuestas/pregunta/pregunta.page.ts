@@ -13,8 +13,12 @@ export class PreguntaEncuestaPage implements OnInit {
     this.encuesta = navParams.get('encuesta');
   }
   encuesta : any;
+  verAgregar = false;
   preguntas  = [];
   ngOnInit() {
+  }
+  abrirImportar(){
+    
   }
   async crearPreguntas(){
     const modal = await this.modalCtrl.create({

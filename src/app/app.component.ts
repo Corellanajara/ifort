@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthService } from './_servicios/auth.service';
 import { Events } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 import { UserService } from './_servicios/user.service';
 import { EmpresaService } from './_servicios/empresas.service';
 import { Idle } from 'idlejs/dist';
@@ -25,26 +28,26 @@ export class AppComponent {
     private empresaService : EmpresaService,
     private userService : UserService,
     private menuController : MenuController,
-    private router : Router,
+    private storage : Storage,
     private events: Events,
     private platform: Platform,
     private splashScreen: SplashScreen,
+    private router : Router,
+    private loadingController: LoadingController,
+    private authService : AuthService,
     private statusBar: StatusBar
+
   ) {
     this.initializeApp();
     //this.pushNotifications();
     events.subscribe('user:login', (res) => {
       console.log("Esta dentro del evento login",res);
+      var menu = document.querySelector('ion-menu')
+      menu.hidden = false;
+      console.log("acabo de mostrar el menu");
       this.initializeApp();
       this.appPages = res;
     });
-    const idle = new Idle()
-      .whenNotInteractive()
-      .within(8)
-      .do(() => {
-        this.logout();
-      })
-      .start();
   }
   log(p){
     console.log(p);
@@ -53,7 +56,6 @@ export class AppComponent {
     this.router.navigate([ruta]);
   }
   logout(){
-    this.menuController.toggle();
     sessionStorage.clear();
     this.usuario = {nombre:'',apellido:'',img:undefined};
     this.router.navigate(['login']);
@@ -121,8 +123,73 @@ export class AppComponent {
       });
     }
   }
+  login(form){
+    let self = this;
+    this.cargando();
+    try{
+      this.authService.login(form).subscribe((res)=>{
+  //      console.log(res);
+        let accessToken = res.accessToken;
+        let refreshToken = res.refreshToken;
+        let userId = res.userId;
+        sessionStorage.setItem('accessToken', accessToken);
+        this.storage.set('accessToken',accessToken);
+        sessionStorage.setItem('refreshToken', refreshToken);
+        sessionStorage.setItem('userId', userId);
+        this.storage.set('userId',userId);
+        self.userService.gathering(userId).subscribe( datos => {
+          let empresaId = datos.empresaId;
+          let asignado = datos.asignado;
+          let menus = datos.menus;
+          //menus.push({title: "Perfil",path: "perfil",icon: "person",_id:"askjdals"})
+
+          self.empresaService.listarById(empresaId).subscribe( empresa =>{
+            if(!empresa['estado']){
+              self.router.navigate(['login']);
+              return;
+            }
+            sessionStorage.setItem('empresaId', empresaId);
+            sessionStorage.setItem('usuario',JSON.stringify(datos));
+            this.storage.set('empresaId',empresaId)
+            this.storage.set('usuario',datos);
+            this.usuario.nombre = datos.firstName;
+            this.usuario.apellido = datos.lastName;
+            sessionStorage.setItem('menus',JSON.stringify(datos.menus));
+            this.storage.set('menus',datos.menus);
+            sessionStorage.setItem('asignado',JSON.stringify(asignado));
+            this.storage.set('asignado',asignado);
+            sessionStorage.setItem('evaluaciones',JSON.stringify(datos.evaluaciones));
+            this.storage.set('evaluaciones',datos.evaluaciones)
+            this.events.publish('user:login', menus);
+            sessionStorage.setItem('empresa', JSON.stringify(empresa));
+            this.storage.set('empresa',empresa);
+            var jerarquia = JSON.stringify(empresa['jerarquia']);
+            sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+            this.storage.set('jerarquia',jerarquia);
+
+            self.router.navigate(['home']);
+          });
+
+        })
+
+      });
+    }catch(err){
+      console.log(err);
+    }
+  }
+  async cargando() {
+    const loading = await this.loadingController.create({
+      spinner: null,
+      duration: 3000,
+      message: 'Iniciando sesión<ion-spinner></ion-spinner>',
+      translucent: true,
+      cssClass: 'custom-class custom-loading'
+    });
+    return await loading.present();
+  }
   initializeApp() {
     console.log("inicializo");
+    var self = this;
     let menus = JSON.parse(sessionStorage.getItem('menus'));
     let usuario = JSON.parse(sessionStorage.getItem('usuario'));
     if(usuario){
@@ -157,6 +224,18 @@ export class AppComponent {
         })
 
       })
+    }else{
+      this.storage.get('form')
+        .then(
+          form => {
+            //alert("entre al form")
+          //  console.log(form);
+
+            if(form){
+                self.login(form);
+            }
+          }
+        );
     }
     if(menus){
         console.log(menus);

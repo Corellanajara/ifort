@@ -11,6 +11,7 @@ import { CrudPage } from './crud/crud.page';
 
 export class PreguntaPage implements OnInit {
   public evaluacion : any;
+  public verAgregar = false;
   public indicadores = [];
   public categorias = [];
   public tipos = ["porcentaje","numerico","rango"];

@@ -29,40 +29,7 @@ export class DragPage{
         setFontSize: 32,
         setIconSize: 16
     };
-    myTree = [
-      {
-        name: 'Sucursal Talca',
-        id: 1,
-        options: {
-            hidden: false,
-            position: 1,
-            href: 'https://github.com/Zicrael/ngx-tree-dnd'
-          },
-        childrens: [
-          {
-            name: 'Area Informatica',
-            id: 2,
-            childrens: []
-          },
-          {
-            name: 'Area Comercial',
-            id: 3,
-            childrens: []
-          }
-        ]
-      },
-      {
-        name: 'Sucursal Linares',
-        id: 4,
-        childrens: [
-          {
-            name: 'Area comercial',
-            id: 5,
-            childrens: []
-          }
-        ]
-      }
-    ];
+    myTree = [];
     constructor(
       private loadingController:LoadingController,
       private empresaService: EmpresaService) {

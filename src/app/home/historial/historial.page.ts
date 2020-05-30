@@ -51,7 +51,7 @@ export class HistorialPage implements OnInit {
           mesesG.push(meses);
         }
         let data = this.datos[usuario][meses];
-        datas.push(data)
+        datas.push(Math.round(data) );
       }
       let info = {
         label: usuario,

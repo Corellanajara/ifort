@@ -13,7 +13,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
-
+import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PreguntaPage } from './evaluacion/pregunta/pregunta.page';
@@ -54,6 +54,7 @@ import { GraficoPage } from './list/grafico/grafico.page';
     TreeModule.forRoot(),
     IonicModule.forRoot(),
     AppRoutingModule,
+    IonicStorageModule.forRoot(),
     HttpClientModule
   ],
   providers: [

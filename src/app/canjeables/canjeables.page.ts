@@ -33,7 +33,7 @@ export class CanjeablesPage implements OnInit {
     console.log(this.usuario);
    }
 
-  async presentAlert(i,prod) {
+  async presentalert(i,prod) {
     const alert = await this.alertController.create({
       header: '¿Deseas canjear?',
       subHeader: 'Estas a punto de canjear este producto',
@@ -58,8 +58,6 @@ export class CanjeablesPage implements OnInit {
             }
             this.usuario.canjeables.push(prod);
             this.userService.actualizar(this.usuario.id,this.usuario).subscribe(datos=>{
-              console.log(datos);
-              sessionStorage.setItem('usuario',JSON.stringify(datos));
               this.enviarCorreo(prod);
             })
           }

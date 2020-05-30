@@ -41,6 +41,10 @@ export class ImportarPage implements OnInit {
     this.file= event.target.files[0];
   }
   public importar(){
+    this.usuarios.map(usuario=>{
+      this.mandarCorreo(usuario);
+    })
+    this.dismiss();
     console.log(this.usuarios);
   }
   public mandarCorreo(usuario){
@@ -81,15 +85,15 @@ export class ImportarPage implements OnInit {
               let data  = datos[i] as UsuarioImportado;
 
               let password = (data.Clave || "claveTemporal");
-              let usuario = {firstName:data.Nombre,lastName:data.Apellido,rut:data.Rut,phone:data.Telefono,email:data.Correo,cargo:data.Cargo,password:password};
+              let usuario = {firstName:data.Nombre,lastName:data.Apellido,rut:data.Rut,phone:data.Telefono,email:data.Correo,cargo:data.Cargo,password:password.toString()};
+              console.log(usuario);
+
               self.usuarios.push(usuario);
-              self.mandarCorreo(usuario);
             }
             console.log(self.usuarios);
         }
         fileReader.readAsArrayBuffer(this.file);
   }
-
 }
 
 

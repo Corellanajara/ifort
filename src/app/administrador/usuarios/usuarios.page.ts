@@ -265,15 +265,23 @@ export class UsuariosPage implements OnInit {
       console.log("datos de asignacion de usuario",modal);
       if(modal.data){
         let id = sessionStorage.getItem('userId');
-        usuario.asignado = modal.data;
-        usuario.password = undefined;
-        console.log("usuario a actualizar",usuario);
-        this.userService.actualizar(usuario.id,usuario).subscribe(res=>{
-          console.log(res);
-        })
+        //usuario.asignado = modal.data;
+        var d = modal.data;
+        var encontrado = false;
+        usuario.asignado.map(asignado=>{
+          if(asignado.id == d.id && asignado.name == d.name ){
+            encontrado = true;
+          }
+        });
+        if(!encontrado){
+          usuario.asignado.push(modal.data);
+          usuario.password = undefined;
+          console.log("usuario a actualizar",usuario);
+          this.userService.actualizar(usuario.id,usuario).subscribe(res=>{
+            console.log(res);
+          })
+        }
       }
-
-
     });
     return await modal.present();
   }

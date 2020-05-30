@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="home" color="light"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluaciones" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>
       Historial
@@ -15,7 +15,7 @@
     <ion-item *ngFor="let evaluacion of datos" (click)="verGrafico(evaluacion,evaluacion.estado)">
 
       <ion-chip>
-        <ion-label>{{ evaluacion.porcentaje +"% -> "+evaluacion.puntos+ " ptos"}}</ion-label>        
+        <ion-label>{{ evaluacion.porcentaje +"% -> "+evaluacion.puntos+ " ptos"}}</ion-label>
       </ion-chip>
       <label>{{evaluacion.instrumento.nombre}}</label>
 

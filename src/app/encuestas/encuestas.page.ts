@@ -295,4 +295,38 @@ export class EncuestasPage implements OnInit {
       });
       toast.present();
     }
+    async alertBorrar(ev) {
+      const alert = await this.alertController.create({
+        header: 'Favor confirmar!',
+        message: 'Estas a punto de <br><strong>BORRAR UNA ENCUESTA</strong>!!!',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Cancelado');
+            }
+          }, {
+            text: 'Confirmar',
+            handler: () => {
+              this.borrarEncuesta(ev);
+              this.verAgregar = false;
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    }
+    eliminar(ev,slide){
+      this.alertBorrar(ev);
+      slide.close()
+    }
+    borrarEncuesta(ev){
+      this.eService.borrar(ev.id).subscribe(dato=>{
+        console.log(dato);
+        this.ngOnInit();
+      })
+    }
 }

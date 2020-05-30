@@ -38,7 +38,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   guardarImagen(form){
-    //console.log(form);    
+    //console.log(form);
     this.http.post("http://178.128.71.20:4120/api/archivos", form, {reportProgress: true, observe: 'events'})
       .subscribe(event => {
             //console.log(event);
@@ -84,11 +84,16 @@ export class UserService {
   }
   gathering(id:string){
     let accessToken = sessionStorage.getItem('accessToken');
-    return this.http.get<Usuario>(`${this.url}/users/${id}` , {
-      headers: new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization',`Bearer ${accessToken}`)
-    });
+    try {
+      return this.http.get<Usuario>(`${this.url}/users/${id}` , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization',`Bearer ${accessToken}`)
+      });
+    } catch (error) {
+      console.log(error)      
+    }
+
   }
   listarByEmpresa(id:string){
     let accessToken = sessionStorage.getItem('accessToken');

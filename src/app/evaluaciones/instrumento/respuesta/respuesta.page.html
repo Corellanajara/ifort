@@ -21,7 +21,7 @@
       <ion-input [(ngModel)]="valor" type="number" placeholder="escribe tu respuesta"></ion-input>
     </ion-item>
     <ion-item *ngIf="tipo == 'Porcentaje'">
-      <ion-input [(ngModel)]="valor" min="1" max="100" type="number" placeholder="pon tu respuesta en rango de 1 a 100"></ion-input>
+      <ion-input [(ngModel)]="valor" min="1" max="100" type="number" placeholder="Escribe tu respuesta en rango de 1 a 100"></ion-input>
     </ion-item>
     <ion-item *ngIf="tipo == 'Rango'">
       <ion-range color="danger" pin="true" [disabled]="!noOcultar" min="{{min}}" max="{{max}}" step="1" [(ngModel)]="valor" snaps="true"></ion-range>

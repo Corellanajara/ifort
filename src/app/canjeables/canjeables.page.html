@@ -35,7 +35,7 @@
           </ion-fab>
           <ion-fab vertical="center" horizontal="end" slot="fixed"  *ngIf="usuario.puntos > producto.puntos">
 
-            <ion-fab-button *ngIf="!estados[i]" class="ion-fab-button" (click)="presentAlert(i,producto)">
+            <ion-fab-button *ngIf="!estados[i]" class="ion-fab-button" (click)="presentalert(i,producto)">
               <ion-icon name="pricetag"></ion-icon>
             </ion-fab-button>
 
@@ -62,7 +62,7 @@
                   <ion-label>{{producto.titulo}}</ion-label>
                   <p>{{producto.puntos}} ptos</p>
                 </div>
-                <div class="buy" (click)="presentAlert(i,producto)" *ngIf="usuario.puntos >= producto.puntos">
+                <div class="buy" (click)="presentalert(i,producto)" *ngIf="usuario.puntos >= producto.puntos">
                   <ion-icon style="font-size:500%" name="cart"></ion-icon>
                 </div>
                 <div class="buy"  *ngIf="usuario.puntos < producto.puntos">

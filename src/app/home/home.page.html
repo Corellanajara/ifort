@@ -20,7 +20,7 @@
 
   <div class="grilla contenedor-imagen" style=' background : url("/assets/icon/fondo1.svg") , #3E55A1'>
     <div class="contenedor-logo">
-      <img class="imagen-logo" src="assets/icon/LOGO IFORT-02.svg">
+      <img class="imagen-logo" src="assets/icon/LOGO IFORT-02.png">
     </div>
   </div>
 <div class="contenedor-cards">
@@ -162,6 +162,32 @@
     <ion-slide style="height: auto;">
       <ion-card class="volteado" style="width: 100%;height: 100%;">
           <ion-card-header class="header-card-flex">
+
+              <ion-item style="width: -webkit-fill-available;">
+                <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="traerDatosFiltrados(false)" [(ngModel)]="tipoActual">
+                  <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+                </ion-select>
+                 <ion-buttons class="boton-derecha">
+                   <ion-button slot="end" (click)="exportar('actividades')">
+                     <ion-icon color="light" name="cloud-download"></ion-icon>
+                   </ion-button>
+                 </ion-buttons>
+              </ion-item>
+
+
+
+        </ion-card-header>
+
+        <ion-card-content>
+          <div >
+            <canvas #bubbleCanvas id="actividades2"></canvas>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide style="height: auto;">
+      <ion-card class="volteado" style="width: 100%;height: 100%;">
+          <ion-card-header class="header-card-flex">
               <div (click)="cambiarMes()">
                 <img class="imagen-card" src="https://image.flaticon.com/icons/svg/455/455759.svg">
               </div>
@@ -182,7 +208,7 @@
 
         <ion-card-content>
           <div >
-            <canvas #bubbleCanvas id="actividades"></canvas>
+            <canvas #webCanvas id="actividades"></canvas>
           </div>
         </ion-card-content>
       </ion-card>
