@@ -9,7 +9,13 @@ ion-toolbar{
   font-family: 'Roboto';
 	text-align: center;
 }
-
+.contenedor-buscar{
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 1%;
+  background: #c6efeb;
+  border-radius: 9px;
+}
 .contenedor-imagen{
   background: #21ada1;
 	margin-bottom: 5%;
@@ -21,7 +27,14 @@ ion-toolbar{
   margin-top: 5%;
   margin-bottom: 5%;
 }
-
+.barra-buscar{
+  background: white;
+  width: 15%;
+  margin-left: 2%;
+  border-radius: 9px;
+  color: #252526;
+  display: flex
+}
 .contenedor-card{
   --background: #3949ab;
   --color: white !important;
@@ -84,4 +97,13 @@ ion-button{
   --background-hover:  #20d1c2 !important;
   width: 60% !important;
   margin-left: 20% !important;
+}
+@media (max-width: 900px){
+  contenedor-buscar{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 1%;
+    background: #c6efeb;
+    border-radius: 9px;
+  }
 }

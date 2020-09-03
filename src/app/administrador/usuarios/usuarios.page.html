@@ -91,12 +91,16 @@
   </form>
 
   <br>
-
+  <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
+    <div id="barra" class="contenedor-buscar" [ngClass]="{'barraLarga': banderaGrande}">
+      <ion-input  #buscarInput placeholder="Filtrar" (keyup)="filtrarUsuarios();" [(ngModel)]="buscar"></ion-input>
+    </div>
+  </ion-item-divider>
   <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
     <b>Lista de usuarios</b>
   </ion-item-divider>
 
-  <ion-item-sliding #slidingItem *ngFor="let usuario of usuarios">
+  <ion-item-sliding #slidingItem *ngFor="let usuario of usuariosFiltrados">
 
     <ion-item-options side="start">
       <ion-item-option color="danger" expandable (click)="borrar(usuario)" >
@@ -109,6 +113,7 @@
         <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554846.png">
       </div>
       <ion-label >{{usuario.firstName}} {{usuario.lastName}}</ion-label>
+      <ion-badge color="tertiary" slot="end" *ngFor="let asignado of usuario.asignado">{{asignado.name}}</ion-badge>
     </ion-item>
 
     <ion-item-options side="end" >

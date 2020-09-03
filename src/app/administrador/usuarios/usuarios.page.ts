@@ -19,12 +19,13 @@ import { ProductosPage } from './productos/productos.page';
 })
 export class UsuariosPage implements OnInit {
   usuarios = [];
+  usuariosFiltrados = []
   public formularioUsuario: FormGroup;
   usuarioVacio = {id:'',firstName:'',lastName:'',email:'',password:'',rut:'',phone:'',empresaId : ''};
   usuario = {id:'',firstName:'',lastName:'',email:'',password:'',rut:'',phone:'',empresaId : ''};
   public tipo = "password";
   public verAgregar = false;
-
+  buscar : string ;
   constructor(
     public toastController: ToastController,
     private alertController : AlertController,
@@ -34,6 +35,32 @@ export class UsuariosPage implements OnInit {
     private userService : UserService) { }
   log(){
     console.log(this.formularioUsuario);
+  }
+  filtrarUsuarios(){
+    this.usuariosFiltrados = [];
+    this.usuarios.map(usuario=>{
+      for(var indice in usuario){
+        var encontrado = false;
+        if(typeof(usuario[indice]) == "string" && !encontrado){
+          if(usuario[indice].toLowerCase().includes(this.buscar.toLowerCase())){
+            this.usuariosFiltrados.push(usuario);
+            encontrado = true;
+            break;
+          }
+        }
+        if(indice=="asignado" && !encontrado){
+          var asignados = usuario[indice];
+          for(var asignado of asignados){
+            if(asignado.name.toLowerCase().includes(this.buscar.toLowerCase())){
+              this.usuariosFiltrados.push(usuario);
+              encontrado = true;
+              break;
+            }
+          }
+        }
+
+      }
+    })
   }
   async presentToast(Mensaje) {
     const toast = await this.toastController.create({
@@ -149,6 +176,7 @@ export class UsuariosPage implements OnInit {
     this.userService.listar().subscribe(usuarios => {
       console.log(usuarios);
       this.usuarios = usuarios;
+      this.usuariosFiltrados = usuarios;
       if(evento){
         evento.target.complete();
       }
