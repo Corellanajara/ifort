@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController ,ToastController,AlertController} from '@ionic/angular';
 import { PreguntaPage } from './pregunta/pregunta.page';
 import { ImportarPageEvaluacion } from './importar/importar.page';
+import { EscojerPage } from './escojer/escojer.page';
 import {  EvaluacionesService } from '../_servicios/evaluaciones.service';
 import { UserService } from '../_servicios/user.service';
 
@@ -31,6 +32,7 @@ export class EvaluacionPage implements OnInit {
   mensaje = "";
   sucursal = "";
   indice = 0;
+  puntos = 0;
   pasos = [];
   evaluaciones = [];
   inputs = [];
@@ -39,6 +41,7 @@ export class EvaluacionPage implements OnInit {
   arbol = [];
   nodo : any;
   count : number = 0;
+  usuariosAsignados = [];
   constructor(
     private toastController : ToastController,
     private userService : UserService,
@@ -46,9 +49,24 @@ export class EvaluacionPage implements OnInit {
     private alertController :AlertController,
     private modalCtrl : ModalController
     ){
+      console.log(sessionStorage);
       this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
+      var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+      try {
+          this.arbol = JSON.parse(arbol);
+      } catch (error) {
+          this.arbol = arbol;
+      }
+
+
+      /*
+      this.jerarquia = JSON.stringify(empresa['jerarquia']);
+      sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+      sessionStorage.setItem('empresa', JSON.stringify(empresa) );
       this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-      console.log(this.arbol);
+      console.log(arbol);
+      */
+
       userService.listar().subscribe(usuarios=>{
         console.log(usuarios);
         this.usuarios = usuarios;
@@ -71,6 +89,7 @@ export class EvaluacionPage implements OnInit {
     }
     this.porcentaje = total;
   }
+
   public cantidadInputs(cantidad){
     let dif = cantidad.length - this.inputs.length;
     for(let i = 0 ; i < dif ; i++){
@@ -134,7 +153,7 @@ export class EvaluacionPage implements OnInit {
             console.log('Cancelado');
           }
         }, {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
             this.guardarEvaluacion();
             this.verAgregar = false;
@@ -144,6 +163,41 @@ export class EvaluacionPage implements OnInit {
     });
 
     await alert.present();
+  }
+  async alertBorrar(ev) {
+    console.log(this.evaluacion);
+    const alert = await this.alertController.create({
+      header: 'Favor confirmar!',
+      message: 'Estas a punto de <br><strong>BORRAR UNA EVALUACIÓN</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.borrarEvaluacion(ev);
+            this.verAgregar = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  eliminar(ev,slide){
+    this.alertBorrar(ev);
+    slide.close()
+  }
+  borrarEvaluacion(ev){
+    this.evaluacionesService.borrar(ev.id).subscribe(dato=>{
+      console.log(dato);
+      this.ngOnInit();
+    })
   }
   visualizar(evaluacion,slide){
     console.log(evaluacion);
@@ -159,13 +213,29 @@ export class EvaluacionPage implements OnInit {
       }
     });
   }
+  async elegirPersonas(){
+    const modal = await this.modalCtrl.create({
+      component: EscojerPage,
+      cssClass: 'modals',
+      componentProps: {
+        'usuarios': this.usuarios,
+      }
+    });
+    modal.onDidDismiss().then(modal=>{
+      if(modal.data){
+        console.log(modal.data);
+        this.usuariosAsignados = modal.data;
+      }
+    });
+    return await modal.present();
+  }
   async abrirImportar(){
     const modal = await this.modalCtrl.create({
       component: ImportarPageEvaluacion,
       cssClass: 'modals',
       componentProps: {
-      'evaluacion': this.evaluacion,
-    }
+        'evaluacion': this.evaluacion,
+      }
     });
     var self = this;
     modal.onDidDismiss().then(modal=>{
@@ -209,7 +279,8 @@ export class EvaluacionPage implements OnInit {
     console.log(this.pasos);
     this.pasos.pop();
     console.log(this.pasos);
-    this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+    var arbol = JSON.parse(sessionStorage.getItem('jerarquia')).toString();
+    this.arbol = JSON.parse(arbol);
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
@@ -263,21 +334,66 @@ export class EvaluacionPage implements OnInit {
     return false;
   }
   asignarEvaluacion(evaluaciones){
+    console.log(evaluaciones);
     for(let indice = 0 ; indice < evaluaciones.length; indice++){
-          for(let i = 0 ; i < this.usuarios.length; i++){
-            let usuario = this.usuarios[i];
-            usuario.evaluaciones.push(evaluaciones[indice]);
+      for(let i = 0 ; i < this.usuarios.length; i++){
+        let usuario = this.usuarios[i];
+        var asignado = undefined;
+        if(usuario.asignado && usuario.asignado.length > 0){
+          asignado = usuario.asignado[0];
+          if(this.encontrarEnNodo(asignado,this.nodo)){
+            console.log("este usuario existe en el nodo o subsecuentes",usuario);
             usuario.password = undefined;
+            usuario.evaluaciones.push(evaluaciones[indice]);
+
           }
+        }
+      }
     }
-    for(let i = 0 ; i < this.usuarios.length; i++){
+    var usuariosCambiados = [];
+    for(let  i = 0 ; i < this.usuarios.length; i++){
       let usuario = this.usuarios[i];
-      usuario.password = undefined;
-      this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
-        console.log(data);
-        this.mostrarToast();
-      })
+
+      var asignado = undefined;
+      if(usuario.asignado && usuario.asignado.length > 0){
+        asignado = usuario.asignado[0];
+        if(this.encontrarEnNodo(asignado,this.nodo)){
+          usuariosCambiados.push(usuario);
+          this.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+            console.log(usuario);
+            this.mostrarToast();
+          })
+        }
+      }
     }
+    console.log(usuariosCambiados);
+
+
+
+  }
+  encontrarEnNodo(asignado,nodo){
+    var quedanHijos = true;
+    if(!nodo.childrens){
+      quedanHijos = false;
+    }
+    if(JSON.stringify(asignado)==JSON.stringify(nodo)){
+      return true;
+    }else{
+      console.log(nodo);
+      if(!quedanHijos){
+        return false;
+      }else{
+          for(let i = 0 ; i < nodo.childrens.length;i++){
+            let nuevoNodo = nodo.childrens[i];
+            if(JSON.stringify(asignado)==JSON.stringify(nuevoNodo)){
+              return true;
+            }
+          }
+      }
+      return false;
+
+    }
+
   }
   async mostrarToast() {
     const toast = await this.toastController.create({
@@ -286,13 +402,40 @@ export class EvaluacionPage implements OnInit {
     });
     toast.present();
   }
-  enviarEvaluacion(){
+  enviarEvaluacionUsuarios(){
     var evaluaciones = []
+
     let timestamp  = new Date().getTime();
     for(let activo = 0 ; activo < this.activos.length;activo++){
       if(this.activos[activo]){
-        let ifortEv = {instrumento:this.evaluaciones[activo],porcentaje:this.inputs[activo],estado:0,fecha:timestamp}
-        console.log(ifortEv);
+        let puntos = (this.puntos * this.inputs[activo] )/ 100;
+        let ifortEv = {instrumento:this.evaluaciones[activo],porcentaje:this.inputs[activo],puntos:puntos,estado:0,fecha:timestamp}
+        evaluaciones.push(ifortEv);
+      }
+    }
+    var self = this;
+    for(let indice = 0 ; indice < evaluaciones.length; indice++){
+      for(var usuario of this.usuariosAsignados){
+        usuario.evaluaciones.push(evaluaciones[indice]);
+      }
+    }
+    for(usuario of this.usuariosAsignados){
+      usuario.password = undefined;
+      self.userService.actualizar(usuario.id,usuario).subscribe(data=>{
+        console.log(usuario);
+        this.mostrarToast();
+      })
+    }
+  }
+  enviarEvaluacion(){
+    var evaluaciones = []
+
+    let timestamp  = new Date().getTime();
+    for(let activo = 0 ; activo < this.activos.length;activo++){
+      if(this.activos[activo]){
+        let puntos = (this.puntos * this.inputs[activo] )/ 100;
+        let ifortEv = {instrumento:this.evaluaciones[activo],porcentaje:this.inputs[activo],puntos:puntos,estado:0,fecha:timestamp}
+
         evaluaciones.push(ifortEv);
       }
     }

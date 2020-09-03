@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title>Jerarquia</ion-title>
   </ion-toolbar>
@@ -32,10 +32,13 @@
         [config]='config'>
         </lib-ngx-tree-component>
         <!-- =================================== -->
-        <div class='event' >Event: <span>{{currentEvent}}</span>
+        <div class='event' >Evento : <span>{{currentEvent}}</span>
       </div>
     </div>
 
+  </div>
+  <div class="" *ngIf="!myTree">
+    No existen datos
   </div>
 
   <ion-button  size="medium" (click)="saveTree();cargando()">Guardar</ion-button>

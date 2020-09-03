@@ -58,7 +58,32 @@ const routes: Routes = [
   {
     path: 'encuesta',
     loadChildren: () => import('./encuesta/encuesta.module').then( m => m.EncuestaPageModule)
-  }
+  },
+  {
+    path: 'encuestas',
+    loadChildren: () => import('./encuestas/encuestas.module').then( m => m.EncuestasPageModule)
+  },
+  {
+    path: 'productos',
+    loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule)
+  },
+  {
+    path: 'grafico',
+    loadChildren: () => import('./list/grafico/grafico.module').then( m => m.GraficoPageModule)
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'notificacion',
+    loadChildren: () => import('./notificacion/notificacion.module').then( m => m.NotificacionPageModule)
+  },
+  {
+    path: 'historial',
+    loadChildren: () => import('./home/historial/historial.module').then( m => m.HistorialPageModule)
+  },
+  
 ];
 
 @NgModule({

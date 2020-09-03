@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Escojer usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let usuario of usuarios">
+      <ion-label>{{usuario.firstName}} {{usuario.lastName}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="usuario.isChecked" color="secondary"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-button  size="block"  (click)="guardarPermisos()">Listo!</ion-button>
+</ion-content>

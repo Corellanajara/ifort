@@ -1,221 +1,251 @@
+
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title color="blanco">
-      Home - {{(asignado.name || "Aun sin asignar")}}
-    </ion-title>
+   <ion-buttons slot="start">
+     <ion-menu-button color="light"></ion-menu-button>
+   </ion-buttons>
+   <ion-title color="blanco">
+     Home - {{(asignado.name || "Aun sin asignar")}}
+   </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
 
+
   <ion-refresher slot="fixed" (ionRefresh)="traerDatos($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div class="contenedor-imagen">
-    <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1055/1055648.png">
+
+  <div class="grilla contenedor-imagen" style=' background : url("/assets/icon/fondo1.svg") , #3E55A1'>
+    <div class="contenedor-logo">
+      <img class="imagen-logo" src="assets/icon/LOGO IFORT-02.png">
+    </div>
   </div>
+<div class="contenedor-cards">
+  <div class="card-derecha">
+    <ion-card class="ion-card-derecha" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
+      <ion-card-header>
+        <ion-card-title color="blanco" *ngIf="!isAdmin">Rendimiento actual personal </ion-card-title>
+        <ion-card-title color="blanco" *ngIf="isAdmin">Promedio de rendimiento general</ion-card-title>
+      </ion-card-header>
+      <circle-progress
+        [percent]=obtenDatos()
+        [radius]="100"
+        [outerStrokeWidth]="16"
+        [innerStrokeWidth]="8"
+        [backgroundOpacity] = "0"
+        [space] = "11"
+        [showUnits] = true
+        [toFixed] = "1"
+        [maxPercent] = "320"
+        [innerStrokeColor] = "'#3a68e5'"
+        [titleFontSize] = "35"
+        [animationDuration] =  "800"
+        [showSubtitle] = false
+        [titleColor] = "'#ffffff'"
+      ></circle-progress>
+    </ion-card>
+  </div>
+  <div class="card-centro">
+    <ion-card class="ion-card-centro" style="text-align:center;" (click)="verEncuestas()">
+      <div class="contenedor-naranjo">
+        <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
+      </div>
+      <ion-card-header>
+        <ion-card-title class="texto-encuestas" color="blanco" *ngIf="!isAdmin">Encuestas</ion-card-title>
+      </ion-card-header>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
+      <ion-card-content style="font-size:50px">
+        <b *ngIf="!isAdmin">{{ (usuario.encuestas.length|| "Sin datos") }}</b>
+        <b class="texto-encuestas" *ngIf="isAdmin">Encuestas</b>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="card-izquierda">
+    <ion-card class="ion-card-izquierda" style="text-align:center;" (click)="verEvaluaciones()">
+      <div class="contenedor-celeste">
+        <img class="imagen-home" src="https://image.flaticon.com/icons/svg/1790/1790014.svg">
+      </div>
+      <ion-card-header>
+        <ion-card-title color="blanco" *ngIf="!isAdmin">Evaluaciones</ion-card-title>
+      </ion-card-header>
 
-        <ion-card class="card-azul" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
-          <ion-card-header>
-            <ion-card-title color="blanco">Rendimiento actual {{valorPersonalResult}}</ion-card-title>
-          </ion-card-header>
-          <circle-progress
-            [percent]=obtenDatos()
-            [radius]="100"
-            [outerStrokeWidth]="16"
-            [innerStrokeWidth]="8"
-            [backgroundOpacity] = "0"
-            [space] = "11"
-            [toFixed] = "3"
-            [maxPercent] = "320"
-            [innerStrokeColor] = "'#3a68e5'"
-            [titleFontSize] = "35"
-            [animationDuration] =  "800"
-            [showSubtitle] = false
-            [titleColor] = "'#ffffff'"
-          ></circle-progress>
-<!--
-          <div class="contenedor-azul">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/2257/2257295.png">
-          </div>
-          <ion-card-header>
-            <ion-card-title color="blanco">Mis resultados</ion-card-title>
-            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-card-content style="font-size:50px">
-            <b>{{ ( (personalResults/total).toFixed(1) + " % " || "Sin datos") }}</b>
-          </ion-card-content> -->
-        </ion-card>
-
-      </ion-col>
-      <ion-col>
-        <ion-card class="card-naranjo" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
-          <div class="contenedor-naranjo">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1170/1170616.png">
-          </div>
-          <ion-card-header>
-            <ion-card-title color="blanco">Mis resultados</ion-card-title>
-            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-card-content style="font-size:50px">
-            <b>{{ (personalResults|| "Sin datos") }}</b>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col>
-        <ion-card class="card-celeste" style="text-align:center;" (click)="verEvaluacion(getPersonalEvaluation())">
-          <div class="contenedor-celeste">
-            <img class="imagen-home" src="https://image.flaticon.com/icons/png/512/1572/1572268.png">
-          </div>
-          <ion-card-header>
-            <ion-card-title color="blanco">Mis resultados</ion-card-title>
-            <ion-card-subtitle color="blanco">De la última evaluación</ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-card-content style="font-size:50px">
-            <b>{{ (personalResults|| "Sin datos") }}</b>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
+      <ion-card-content style="font-size:50px">
+        <b *ngIf="!isAdmin">{{ (usuario.evaluaciones.length|| "Sin datos") }}</b>
+        <b class="texto-encuestas" *ngIf="isAdmin">Evaluaciones</b>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>
 
 
 
-  <ion-card >
-      <ion-card-header class="header-card">
+  <ion-card class="menu-home ">
 
+      <ion-card-header class="header-card" >
         <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/1175/1175009.png">
-          </div>
-          <ion-label>Actividades</ion-label>
+          <ion-label style="font-size:23px;">Explora</ion-label>
+        <!--
           <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
+            <ion-button slot="end" color="terciary">
+              <ion-icon slot="icon-only" name="cart"></ion-icon>
             </ion-button>
           </ion-buttons>
+          -->
         </ion-item>
     </ion-card-header>
 
-    <ion-card-content>
-      <canvas #lineCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card >
-    <ion-card-header class="header-card">
-      <ion-item>
-        <div class="contenedor-card">
-          <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/906/906188.png">
-        </div>
-        <ion-label>Rendimiento Personal</ion-label>
-
-        <ion-buttons>
-          <ion-button slot="end">
-            <ion-icon slot="icon-only" name="more"></ion-icon>
+    <div class="contenedor-botones">
+        <ion-buttons class="contenedor-boton">
+          <ion-button slot="end" class="boton" style="background: #fffff;"  (click)="navegar('historial')">
+            <img src="https://image.flaticon.com/icons/svg/747/747240.svg">
           </ion-button>
         </ion-buttons>
-      </ion-item>
-  </ion-card-header>
 
-  <ion-card-content>
-    <canvas #barCanvas></canvas>
-  </ion-card-content>
+        <ion-buttons class="contenedor-boton">
+          <ion-button slot="end" class="boton" style="background: #fffff;" (click)="navegar('perfil')">
+            <img src="https://image.flaticon.com/icons/svg/1475/1475107.svg">
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons class="contenedor-boton">
+          <ion-button slot="end" class="boton" style="background: #fffff;" (click)="navegar('canjeables')">
+            <img src="https://image.flaticon.com/icons/svg/1170/1170576.svg">
+        </ion-button>
+      </ion-buttons>
+    </div>
+
   </ion-card>
 
-  <ion-card>
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/321/321743.png">
+  <ion-slides pager="true" [options]="slideOpts" style="padding-bottom: 5%;">
+    <ion-slide style="height: auto;" *ngIf="usuario.permissionLevel > 4" >
+      <ion-card *ngIf="usuario.permissionLevel > 4" class="grafico" style="width: 100%;height: 100%;" >
+          <ion-card-header class="header-card">
+            <ion-item>
+              <div class="contenedor-card">
+                <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/386/386901.png">
+              </div>
+              <ion-item>
+               <ion-label>Por Usuario</ion-label>
+               <ion-select okText="OK" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="usuarioActual">
+                 <ion-select-option value="{{i}}" *ngFor="let user of usuarios;index as i">{{user.firstName}} {{user.lastName}}</ion-select-option>
+               </ion-select>
+             </ion-item>
+             <ion-item>
+               <ion-buttons >
+                 <ion-label>Tipo grafico</ion-label>
+                 <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
+                   <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+                 </ion-select>
+                </ion-buttons>
+            </ion-item>
+
+              <ion-buttons>
+                <ion-button slot="end" (click)="exportar('rendimiento-por-persona')">
+                  <ion-icon color="light" name="cloud-download"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+
+            </ion-item>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <canvas #radarCanvas id="rendimiento-por-persona"></canvas>
+          <h2 *ngIf="!radarChart"> No se ha cargado grafico aun</h2>
+
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide style="height: auto;">
+      <ion-card class="volteado" style="width: 100%;height: 100%;">
+          <ion-card-header class="header-card-flex">
+
+              <ion-item style="width: -webkit-fill-available;">
+                <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="traerDatosFiltrados(false)" [(ngModel)]="tipoActual">
+                  <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+                </ion-select>
+                 <ion-buttons class="boton-derecha">
+                   <ion-button slot="end" (click)="exportar('actividades')">
+                     <ion-icon color="light" name="cloud-download"></ion-icon>
+                   </ion-button>
+                 </ion-buttons>
+              </ion-item>
+
+
+
+        </ion-card-header>
+
+        <ion-card-content>
+          <div >
+            <canvas #bubbleCanvas id="actividades2"></canvas>
           </div>
-          <ion-label>Estadisticas</ion-label>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide style="height: auto;">
+      <ion-card class="volteado" style="width: 100%;height: 100%;">
+          <ion-card-header class="header-card-flex">
+              <div (click)="cambiarMes()">
+                <img class="imagen-card" src="https://image.flaticon.com/icons/svg/455/455759.svg">
+              </div>
+              <ion-item style="width: -webkit-fill-available;">
+                <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="traerDatosFiltrados(false)" [(ngModel)]="tipoActual">
+                  <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+                </ion-select>
+                 <ion-buttons class="boton-derecha">
+                   <ion-button slot="end" (click)="exportar('actividades')">
+                     <ion-icon color="light" name="cloud-download"></ion-icon>
+                   </ion-button>
+                 </ion-buttons>
+              </ion-item>
 
-          <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-    </ion-card-header>
 
-    <ion-card-content>
-      <canvas #doughnutCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card >
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/386/386901.png">
+        </ion-card-header>
+
+        <ion-card-content>
+          <div >
+            <canvas #webCanvas id="actividades"></canvas>
           </div>
-          <ion-label>Actividades</ion-label>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide style="height: auto;">
+      <ion-card style="width: 100%;height: 100%;" >
+        <ion-card-header class="header-card">
+          <ion-item>
+            <div class="contenedor-card">
+              <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/906/906188.png">
+            </div>
+            <ion-label>Rendimiento Personal</ion-label>
 
-          <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-    </ion-card-header>
+            <ion-buttons>
+              <ion-button slot="end" (click)="exportar('rendimiento-personal')">
+                <ion-icon color="light" name="cloud-download"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+      </ion-card-header>
 
-    <ion-card-content>
-      <canvas #radarCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
+      <ion-card-content>
+        <canvas style="background: #fff !important;" #barCanvas id="rendimiento-personal"></canvas>
+      </ion-card-content>
+      </ion-card>
 
-  <ion-card >
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/425/425067.png">
-          </div>
-          <ion-label>Actividades</ion-label>
+    </ion-slide>
+  </ion-slides>
 
-          <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-    </ion-card-header>
 
-    <ion-card-content>
-      <canvas #polarCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
 
-  <ion-card >
-      <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/554/554719.png">
-          </div>
-          <ion-label>Actividades</ion-label>
 
-          <ion-buttons>
-            <ion-button slot="end">
-              <ion-icon slot="icon-only" name="more"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-    </ion-card-header>
 
-    <ion-card-content>
-      <canvas #bubbleCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
+
+
+
+
+
 
 </ion-content>

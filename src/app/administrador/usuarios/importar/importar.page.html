@@ -1,14 +1,16 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="usuarios"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="usuarios" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>Importar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="contenedor-imagen">
+    <img class="imagen-importar" src="https://image.flaticon.com/icons/png/512/1570/1570582.png">
+  </div>
   <div class="button-wrapper">
     <span class="label" *ngIf="!file">
       Subir archivo
@@ -57,5 +59,5 @@
   </ion-grid>
   <br>
 
-  <ion-button [disabled]="!file" size="medium" (click)="Upload()">Importar</ion-button>
+  <ion-button [disabled]="!file" size="medium" (click)="importar()">Importar</ion-button>
 </ion-content>

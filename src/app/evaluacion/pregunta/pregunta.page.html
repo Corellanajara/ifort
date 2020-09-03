@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion"></ion-back-button>
+      <ion-back-button (click)="dismiss()"  defaultHref="evaluacion" color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ evaluacion.nombre }} - Indicadores</ion-title>
     <ion-buttons slot="primary">
@@ -25,7 +25,7 @@
     <ion-list-header>
       <ion-label>{{key}}</ion-label>
     </ion-list-header>
-    <ion-item-sliding *ngFor="let indicador of categorias[key]">
+    <ion-item-sliding *ngFor="let indicador of categorias[key];index as indice">
       <ion-item>
         <ion-label>{{(indicador.titulo || indicador.indicador)}}</ion-label>
         <ion-button slot="end" color="secondary">
@@ -33,8 +33,8 @@
         </ion-button>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option (click)="editarIndicador(prgunta)" class="boton-editar">Editar</ion-item-option>
-        <ion-item-option (click)="eliminarIndicador(prgunta)" class="boton-borrar">Borrar</ion-item-option>
+        <ion-item-option (click)="editarIndicador(indicador,key,indice)" class="boton-editar">Editar</ion-item-option>
+        <ion-item-option (click)="eliminarIndicador(indicador,key,indice)" class="boton-borrar">Borrar</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
     <ion-item *ngIf="indicadores.length == 0">

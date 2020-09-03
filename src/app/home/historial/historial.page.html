@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-buttons >
+        <ion-back-button (click)="dismiss()"  defaultHref="home" ></ion-back-button>
+        <ion-label>Tipo grafico</ion-label>
+        <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="dibujarGrafico()" [(ngModel)]="tipoActual">
+          <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
+        </ion-select>
+      </ion-buttons>
+   </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <canvas style="background: #fff !important;" #barCanvas id="rendimiento-personal"></canvas>
+</ion-content>

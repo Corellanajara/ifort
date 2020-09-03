@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, AlertController } from '@ionic/angular';
+import { UserService } from '../../../_servicios/user.service';
 
 @Component({
   selector: 'app-asignar',
@@ -17,12 +18,18 @@ export class AsignarPage implements OnInit {
   nodo : any;
   count : number = 0;
   constructor(
+    private userService : UserService,
     private navParams : NavParams,
+    private alertController : AlertController,
     private modalCtrl:ModalController) {
     this.usuario = navParams.get('usuario');
+    console.log(this.usuario);
     this.jerarquia = JSON.parse(sessionStorage.getItem('jerarquia'));
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
-    console.log(this.jerarquia);
+    if(typeof(this.arbol) != 'object' ){
+      this.arbol = JSON.parse(this.arbol);
+    }
+    //console.log(this.jerarquia);
   }
   dismiss(){
     this.modalCtrl.dismiss();
@@ -35,6 +42,9 @@ export class AsignarPage implements OnInit {
     this.pasos.pop();
     console.log(this.pasos);
     this.arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+    if(typeof(this.arbol ) != 'object' ){
+      this.arbol = JSON.parse(this.arbol);
+    }
     for(let i = 0 ; i < this.pasos.length;i++){
       this.navegaNodo(this.arbol[this.pasos[i]],this.pasos[i] ,false);
     }
@@ -73,6 +83,46 @@ export class AsignarPage implements OnInit {
     }else{
       this.seleccionaNodo(nodo,indice);
     }
+  }
+  async borrar(elemento) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Elminación!',
+      message: 'Estas a punto de <br><strong>BORRAR UN ELEMENTO</strong>!!!',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Cancelado');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.borrarAsignar(elemento);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  borrarAsignar(elemento){
+    console.log(elemento);
+    var el = this.usuario.asignado.indexOf(elemento);
+    if(el != -1){
+        this.usuario.asignado.splice(el, 1);
+        this.usuario.password = undefined;
+        this.userService.actualizar(this.usuario.id,this.usuario).subscribe(res=>{
+          console.log(res);
+        })
+    }
+
+
+
+    //this.userService.borrar(usuario.id).subscribe(res=>{
+      //this.traerUsuarios(false);
+    //})
   }
 
 }

@@ -14,8 +14,14 @@ interface Usuario {
   menus : Array<Menu>;
   evaluaciones : Array<any>;
   asignado : Array<any>;
+  notificaciones : Array<any>;
+  encuestas : Array<any>;
+  canjeables : Array<any>;
   empresaId : string;
+  puntos : number,
   _id : string;
+  jerarquia : string;
+  estado:boolean;
 }
 
 interface Menu {
@@ -31,7 +37,13 @@ export class UserService {
   private url: string = "http://178.128.71.20:4120";
 
   constructor(private http: HttpClient) { }
-
+  guardarImagen(form){
+    //console.log(form);
+    this.http.post("http://178.128.71.20:4120/api/archivos", form, {reportProgress: true, observe: 'events'})
+      .subscribe(event => {
+            //console.log(event);
+        });
+  }
   listar() {
     let accessToken = sessionStorage.getItem('accessToken');
     let id = sessionStorage.getItem('empresaId');
@@ -63,17 +75,25 @@ export class UserService {
     });
   }
   borrar(id:string){
-    return this.http.delete<any[]>(`${this.url}/users/${id}` ,{
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-  gathering(id:string){
     let accessToken = sessionStorage.getItem('accessToken');
-    return this.http.get<Usuario>(`${this.url}/users/${id}` , {
+    return this.http.delete<any[]>(`${this.url}/users/${id}` ,{
       headers: new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Authorization',`Bearer ${accessToken}`)
     });
+  }
+  gathering(id:string){
+    let accessToken = sessionStorage.getItem('accessToken');
+    try {
+      return this.http.get<Usuario>(`${this.url}/users/${id}` , {
+        headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Authorization',`Bearer ${accessToken}`)
+      });
+    } catch (error) {
+      console.log(error)      
+    }
+
   }
   listarByEmpresa(id:string){
     let accessToken = sessionStorage.getItem('accessToken');

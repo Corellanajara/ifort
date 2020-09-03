@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar class="toolbar">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Evaluación</ion-title>
+    <ion-title>Instrumento</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -63,7 +63,7 @@
     </ion-item>
     <br>
     <br>
-    <ion-item-divider>
+    <ion-item-divider mode="md">
 
     </ion-item-divider>
     <ion-button class="ion-button-indicador" (click)="abrirPreguntas()" size="medium" [disabled]=" evaluacion.nombre == '' ">Ver/Agregar indicador <span *ngIf="evaluacion.indicadores"> ({{getIndicadores(evaluacion.indicadores)}})</span></ion-button>
@@ -73,8 +73,12 @@
   </div>
 
    <br>
-
-   <ion-item-divider style="text-align:center;font-size: 20px;">
+   <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
+     <div id="barra" class="barra-buscar" [ngClass]="{'barraLarga': banderaGrande}">
+       <ion-input  #buscarInput placeholder="Filtrar" (keyup)="filtrarInstrumentos();" [(ngModel)]="buscar"></ion-input>
+     </div>
+   </ion-item-divider>
+   <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
      <b>Lista de evaluaciones</b>
    </ion-item-divider>
 
@@ -82,7 +86,7 @@
 
      <ion-item-sliding  *ngFor="let ev of cantidadInputs(evaluaciones);index as i" #slidingItem  >
       <ion-item-options side="start">
-        <ion-item-option color="danger" expandable (click)="eliminar(ev)">
+        <ion-item-option color="danger" expandable (click)="eliminar(ev,slidingItem)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
@@ -102,22 +106,34 @@
 
     <h3 *ngIf="evaluaciones.length == 0">No hay evaluaciones disponibles</h3>
     <p *ngIf="porcentaje>100" style="color:red">{{porcentaje}}%</p>
-    <p *ngIf="porcentaje==100" style="color:green">{{porcentaje}}%</p>
+    <ion-item *ngIf="porcentaje==100" style="color:green">
+      <ion-icon name="grid" slot="start"></ion-icon>
+      <ion-label>Equivale a (Puntos)</ion-label>
+      <ion-input slot="end" type="number" placeholder="puntos" [(ngModel)]="puntos" name="puntos"></ion-input>
+    </ion-item>
     <p *ngIf="porcentaje<100" style="color:blue">{{porcentaje}}%</p>
    </ion-list>
 
    <div class="" *ngIf="porcentaje == 100">
-     <ion-icon name="arrow-back" color="primary" style="font-size:25px;" *ngIf="this.pasos.length > 0" (click)="volver()">Atras</ion-icon>
-     <ion-toolbar>
-       <ion-segment scrollable>
-         <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,index)" (dblclick)="navegaNodo(nodo,index,true)">
-           <ion-label color="primary">{{nodo.name}}</ion-label>
+     <ion-toolbar class="toolbar">
+       <ion-segment scrollable  color="secondary">
+         <ion-segment-button *ngIf="this.pasos.length > 0" (click)="volver()">
+           <ion-icon name="arrow-back" style="font-size:25px;"  ></ion-icon>
+         </ion-segment-button>
+
+         <ion-segment-button value="{{nodo.name}}" *ngFor="let nodo of arbol;index as index" (click)="seleccionaNodo(nodo,indice)" (dblclick)="navegaNodo(nodo,index,true)">
+           <ion-label color="blanco">{{nodo.name}}</ion-label>
+         </ion-segment-button>
+
+         <ion-segment-button (click)="elegirPersonas()">
+           <ion-icon name="add-circle-outline"></ion-icon>
          </ion-segment-button>
        </ion-segment>
      </ion-toolbar>
    </div>
    <h3 class="mensaje">{{mensaje}}</h3>
 
-   <ion-button  class="ion-button" [disabled]="!nodo || revisarActivoVacio() " size="medium" (click)="enviarEvaluacion()">Enviar evaluación</ion-button>
+   <ion-button  class="ion-button" [disabled]="!nodo || revisarActivoVacio()" *ngIf=" usuariosAsignados.length == 0" size="medium" (click)="enviarEvaluacion()">Enviar evaluación</ion-button>
+   <ion-button  class="ion-button" [disabled]="revisarActivoVacio() " *ngIf=" usuariosAsignados.length > 0"  size="medium" (click)="enviarEvaluacionUsuarios()">Enviar evaluación a usuarios asignados</ion-button>
 
 </ion-content>

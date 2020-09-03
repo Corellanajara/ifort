@@ -29,47 +29,29 @@ export class DragPage{
         setFontSize: 32,
         setIconSize: 16
     };
-    myTree = [
-      {
-        name: 'Sucursal Talca',
-        id: 1,
-        options: {
-            hidden: false,
-            position: 1,
-            href: 'https://github.com/Zicrael/ngx-tree-dnd'
-          },
-        childrens: [
-          {
-            name: 'Area Informatica',
-            id: 2,
-            childrens: []
-          },
-          {
-            name: 'Area Comercial',
-            id: 3,
-            childrens: []
-          }
-        ]
-      },
-      {
-        name: 'Sucursal Linares',
-        id: 4,
-        childrens: [
-          {
-            name: 'Area comercial',
-            id: 5,
-            childrens: []
-          }
-        ]
-      }
-    ];
+    myTree = [];
     constructor(
       private loadingController:LoadingController,
       private empresaService: EmpresaService) {
       console.log("ON INIT");
-      console.log(sessionStorage.getItem('empresa'));
-
       this.Empresa = JSON.parse(sessionStorage.getItem('empresa'));
+      this.empresaService.listarById(this.Empresa.id).subscribe( empresa =>{
+        var jerarquia = JSON.stringify(empresa['jerarquia']);
+        sessionStorage.setItem('jerarquia', JSON.stringify(jerarquia));
+        sessionStorage.setItem('empresa', JSON.stringify(empresa) );
+
+        var arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
+        console.log(arbol);
+        try {
+          this.myTree = JSON.parse(arbol);
+        } catch (error) {
+          this.myTree = arbol;
+          console.log(error)
+        }
+      })
+
+/*
+
       this.config.rootTitle = this.Empresa.nombre;
       let arbol = JSON.parse(sessionStorage.getItem('jerarquia'));
       if(arbol){
@@ -77,7 +59,7 @@ export class DragPage{
           console.log(JSON.parse(sessionStorage.getItem('config')));
           this.config = JSON.parse(sessionStorage.getItem('config'));
       }
-
+*/
     }
     public disableAll(){
       this.config.showActionButtons = false;
@@ -90,6 +72,8 @@ export class DragPage{
     }
     public saveTree(){
       this.Empresa.jerarquia = this.myTree;
+      sessionStorage.setItem('jerarquia',JSON.stringify(this.myTree));
+      sessionStorage.setItem('config',JSON.stringify(this.config));
       console.log(this.Empresa);
       this.empresaService.actualizar(this.Empresa.id,this.Empresa).subscribe( act => {
         console.log(act);
