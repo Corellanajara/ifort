@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   valorPersonalResult = 0;
   total = 1;
   fechas = {Meses: new Date().getMonth(),Años:new Date().getFullYear()};
-  tipoActual = "horizontalBar";
+  tipoActual = "bar";
   isAdmin = false;
   usuarioActual = 0;
   tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
@@ -536,7 +536,7 @@ export class HomePage implements OnInit {
       }
 
         this.char = new Chart(this.comparativeCanvas.nativeElement,{
-            type:"horizontalBar",
+            type:"bar",
             data: barChartData,
             options: {
               title: {

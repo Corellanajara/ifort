@@ -72,19 +72,20 @@
 
   </div>
 
-   <br>
-   <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
-     <div id="barra" class="barra-buscar" [ngClass]="{'barraLarga': banderaGrande}">
-       <ion-input  #buscarInput placeholder="Filtrar" (keyup)="filtrarInstrumentos();" [(ngModel)]="buscar"></ion-input>
-     </div>
-   </ion-item-divider>
+   <br> 
+    <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
+      <div id="barra" class="contenedor-buscar" [ngClass]="{'barraLarga': banderaGrande}">
+        <ion-input  #buscarInput placeholder="Filtrar" (keyup)="filtrarInstrumentos();" [(ngModel)]="buscar"></ion-input>
+      </div>
+    </ion-item-divider>
+    <br>
    <ion-item-divider mode="md" style="text-align:center;font-size: 20px;">
      <b>Lista de evaluaciones</b>
    </ion-item-divider>
 
    <ion-list>
 
-     <ion-item-sliding  *ngFor="let ev of cantidadInputs(evaluaciones);index as i" #slidingItem  >
+     <ion-item-sliding  *ngFor="let ev of cantidadInputs(evalucionesFiltrados);index as i" #slidingItem  >
       <ion-item-options side="start">
         <ion-item-option color="danger" expandable (click)="eliminar(ev,slidingItem)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>

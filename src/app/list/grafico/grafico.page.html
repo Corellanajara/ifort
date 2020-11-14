@@ -1,6 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>grafico</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="dismiss()"  defaultHref="home" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gráfico informativo</ion-title>
+    <ion-buttons slot="end" (click)="abrirExportarEvaluaciones()">
+      <ion-button>
+        <ion-icon name="arrow-down"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -8,22 +17,14 @@
 
   <ion-card >
       <ion-card-header class="header-card">
-        <ion-item>
-          <div class="contenedor-card">
-            <img class="imagen-card" src="https://image.flaticon.com/icons/png/512/425/425067.png">
-          </div>
-          <ion-label>{{navParams.get("tipo")}}</ion-label>
-         <ion-buttons>
+        <ion-item>          
+          <ion-label>{{tipoGeneral}}</ion-label>
+         <ion-buttons slot="end">
            <ion-label>Tipo grafico</ion-label>
            <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="ngAfterViewInit()" [(ngModel)]="tipoActual">
              <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
            </ion-select>
-          </ion-buttons>
-          <ion-buttons>
-            <ion-button slot="end" id="download">
-              <ion-icon name="cloud-download"></ion-icon>
-            </ion-button>
-          </ion-buttons>
+         </ion-buttons>          
         </ion-item>
       </ion-card-header>
 

@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { ModalController, NavParams } from '@ionic/angular';
 import { UserService } from '../../_servicios/user.service';
+import { ExportExcelService } from '../../_servicios/export-excel.service';
+import { EvaluacionesService } from '../../_servicios/evaluaciones.service';
 import { Chart } from "chart.js";
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import * as jsPDF from 'jspdf';
 
 @Component({
@@ -15,20 +19,32 @@ export class GraficoPage implements OnInit {
   titulo = [];
   intrumentoTitulos = [];
   porcentajes = [];
-  tipo = undefined;
-  tipos = ["bar","horizontalBar","line","radar","polarArea","pie","doughnut","bubble"]
-  tipoActual = "horizontalBar";
+  tipoGeneral = undefined;
+  tipos = ["bar","horizontalBar"]
+  tipoActual = "bar";
+  totalData = [];
   datasets = [];
   titulos = []
   valores = []
+  nombreInstrumento = "Sin nombre";
   colores = []
   fondos = []
   @ViewChild("graficoCanvas",{static: false}) grafico: ElementRef;
   private chart: Chart;
 
-  constructor(public userService:UserService,public navParams : NavParams) {
-    var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    var instrumento = navParams.get('instrumento');
+  constructor(
+    public ete: ExportExcelService,
+    private alertController: AlertController,
+    private router : Router,
+    private location:Location,
+    public evaluacionesService : EvaluacionesService,
+    public userService:UserService) {
+    var usuario = JSON.parse(sessionStorage.getItem('usuario'));    
+    var instrumento = this.evaluacionesService.getInstrumento();
+    if(!instrumento){
+      this.router.navigate(['/home']);
+    }
+    this.nombreInstrumento = instrumento['nombre'] || instrumento['titulo'];
     if(usuario.permissionLevel > 4){
         this.traerTodos(instrumento);
     }else{
@@ -42,10 +58,72 @@ export class GraficoPage implements OnInit {
     var rgb = 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',0.5)'
     return rgb;
   }
+  
   ngOnInit(){
+  }
+  dismiss() {
+    this.location.back();
   }
   calcular(instrumento){
 
+  }
+  generarExcelEvaluaciones(){    
+    console.log(this.totalData);
+    console.log(this.intrumentoTitulos)
+    var usuarios = Object.keys(this.totalData);
+    var data = [];
+    
+    usuarios.map(usuario=>{
+      
+      let obj = {Usuario : usuario};
+      var instrumentos = this.totalData[usuario];      
+      var i = 0;
+      for(var ins in instrumentos){
+        obj['Indicador '+(i+1)] = instrumentos[ins];
+        i++;
+      }
+      
+      data.push(obj);
+    })
+    console.log(data);
+    
+    var dataForExcel = [];   
+    data.map(row=>{
+      dataForExcel.push(Object.values(row))
+    })    
+
+    let reportData = {
+      title: 'Evaluacion por usuario ('+this.nombreInstrumento+')',
+      data: dataForExcel,
+      instrumentos : this.intrumentoTitulos,
+      headers: Object.keys(data[0])
+    }
+
+    this.ete.exportExcelEvaluaciones(reportData);
+    
+  }
+   async abrirExportarEvaluaciones() {
+    const alert = await this.alertController.create({      
+      header: 'Quieres exportar!',
+      message: 'Va a generar un <strong>excel</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Exportar',
+          handler: () => {
+            this.generarExcelEvaluaciones();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
   traerTodos(instrumento){
     console.log(instrumento);
@@ -55,7 +133,8 @@ export class GraficoPage implements OnInit {
       var usuarios = datos;
       var objetos = [];
       for(let i = 0 ; i < usuarios.length; i++){
-        var tipo = this.navParams.get("tipo").toLowerCase();
+        this.tipoGeneral = this.evaluacionesService.getTipo();
+        var tipo = this.tipoGeneral.toLowerCase();
 
         let obj = usuarios[i][tipo];
         obj
@@ -135,7 +214,7 @@ export class GraficoPage implements OnInit {
                 var tamMax = 7;
                 if(labels.indexOf(indicador.titulo.substring(0, tamMax)) == -1){
                     labels.push(indicador.titulo.substring(0, tamMax));
-                    this.intrumentoTitulos.push(indicador.titulo)
+                    this.intrumentoTitulos.push(indicador.titulo)                    
                 }
                 if(!promedios[i]){
                   promedios[i] = 0;
@@ -152,8 +231,9 @@ export class GraficoPage implements OnInit {
             }
           }
         }
-        console.log(data);
-
+        
+        this.totalData = data;
+        
         this.titulos = Object.keys(data);
 
         for(var us in data){
@@ -186,7 +266,7 @@ export class GraficoPage implements OnInit {
   traerDatos(){
     console.log("trae datos");
 
-    this.evaluacion = this.navParams.get('instrumento');
+    this.evaluacion = this.evaluacionesService.getInstrumento();
     if(this.evaluacion.instrumento){
       this.titulo.push(this.evaluacion.instrumento.nombre)
       if(this.evaluacion.instrumento.indicadores){
@@ -233,17 +313,12 @@ export class GraficoPage implements OnInit {
   getBody(bodyItem) {
       return bodyItem.lines;
   }
-  ngAfterViewInit() {
-    //console.log(this.fondos)
-    //console.log(this.colores)
-    //console.log(this.titulos);
-    //console.log(this.valores);
+  ngAfterViewInit() {    
     var self = this;
-    var tipo = this.navParams.get("tipo").toLowerCase();
+    var tipo = this.evaluacionesService.getTipo().toLowerCase();
     if(this.chart){
       this.chart.destroy();
     }
-
     this.chart = new Chart(this.grafico.nativeElement,{
       type: this.tipoActual,
       data: {
@@ -257,7 +332,7 @@ export class GraficoPage implements OnInit {
             enabled: false,
 
             custom: function(tooltipModel) {
-              if(self.navParams.get("tipo") != "encuestas"){
+              if(tipo != "encuestas"){
                 // Tooltip Element
                 var tooltipEl = document.getElementById('chartjs-tooltip');
 
@@ -308,7 +383,7 @@ export class GraficoPage implements OnInit {
                         style += '; border-color:' + colors.borderColor;
                         style += '; border-width: 2px';
                         var span = '<span style="' + style + '"></span>';
-                        innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                        innerHtml += '<tr><td>' + span + body + '%</td></tr>';
                     });
                     innerHtml += '</tbody>';
 

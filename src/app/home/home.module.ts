@@ -10,7 +10,7 @@ import { HomePage } from './home.page';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
+    IonicModule,     
     NgCircleProgressModule,    
     RouterModule.forChild([
       {

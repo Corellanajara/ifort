@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams,ModalController, AlertController } from '@ionic/angular';
+
 import { UserService } from '../../_servicios/user.service';
+import { ExportExcelService } from '../../_servicios/export-excel.service';
+
 import { PermisosPage } from './permisos/permisos.page';
 import { AsignarPage } from './asignar/asignar.page';
 import { ImportarPage } from './importar/importar.page';
@@ -27,6 +30,7 @@ export class UsuariosPage implements OnInit {
   public verAgregar = false;
   buscar : string ;
   constructor(
+    public ete: ExportExcelService,
     public toastController: ToastController,
     private alertController : AlertController,
     private events:Events,
@@ -68,6 +72,59 @@ export class UsuariosPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+  async abrirExportar() {
+    const alert = await this.alertController.create({      
+      header: 'Quieres exportar!',
+      message: 'Va a generar un <strong>excel</strong>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Exportar',
+          handler: () => {
+            this.generarExcel();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  generarExcel(){
+    console.log(this.usuarios);
+    var data = [];
+    
+    this.usuarios.map(usuario=>{
+      var asignados = "Sin asignaciones";
+      if(usuario.asignado && usuario.asignado.length > 0){
+        asignados = "";
+        for(var asignado of usuario.asignado){
+          asignados += " ";
+          asignados += asignado.name
+        }
+      }      
+      let obj = {Nombres : usuario.firstName , Apellidos : usuario.lastName,Correo:usuario.email,Asignados:asignados};
+      data.push(obj);
+    })
+
+    var dataForExcel = [];   
+    data.map(row=>{
+      dataForExcel.push(Object.values(row))
+    })    
+
+    let reportData = {
+      title: 'Usuarios registrados',
+      data: dataForExcel,
+      headers: Object.keys(data[0])
+    }
+
+    this.ete.exportExcel(reportData);
   }
   validar(rut) {
       // Despejar Puntos

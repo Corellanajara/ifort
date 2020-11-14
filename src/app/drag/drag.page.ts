@@ -22,7 +22,7 @@ export class DragPage{
         showRootActionButtons: true, // set false to hide root action buttons.
         enableExpandButtons: true,
         enableDragging: true,
-        rootTitle: 'Arbol jerarquico',
+        rootTitle: 'Árbol jerárquico',
         validationText: 'Ingresa un campo correcto',
         minCharacterLength: 2,
         setItemsAsLinks: false,

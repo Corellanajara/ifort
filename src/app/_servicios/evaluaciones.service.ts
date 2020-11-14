@@ -7,6 +7,9 @@ import { Injectable } from '@angular/core';
 export class EvaluacionesService {
 
   private url: string = "http://178.128.71.20:4120";
+  instrumento : any;
+  tipo : any;
+  noOcultar : any;
 
   constructor(private http: HttpClient) { }
 
@@ -43,6 +46,22 @@ export class EvaluacionesService {
       .set('Authorization',`Bearer ${accessToken}`)
     });
   }
-
-
+  setInstrumento(ins){
+    this.instrumento = ins;
+  }
+  setTipo(tipo){
+    this.tipo = tipo;
+  }
+  setNoOcultar(valor){
+    this.noOcultar = valor;
+  }
+  getInstrumento(){
+    return this.instrumento;
+  }
+  getTipo(){
+    return this.tipo;
+  }
+  getNoOcultar(){
+    return this.noOcultar;
+  }
 }

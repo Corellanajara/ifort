@@ -24,7 +24,7 @@ export class EvaluacionPage implements OnInit {
 
 
   public tiposDeEvaluacion = ["Cuestionario","Evaluación"];
-
+  public buscar : string = "";
   public evaluacion : Evaluacion = {sigla:'',nombre:"",tipo:"",indicadores : [],id:'',fecha:new Date()};
   public verAgregar = false;
   public activos = [];
@@ -35,6 +35,7 @@ export class EvaluacionPage implements OnInit {
   puntos = 0;
   pasos = [];
   evaluaciones = [];
+  evalucionesFiltrados = [];
   inputs = [];
   porcentaje = 0;
   jerarquia = [];
@@ -76,6 +77,7 @@ export class EvaluacionPage implements OnInit {
   ngOnInit() {
     this.evaluacionesService.listar().subscribe(evaluaciones => {
       this.evaluaciones = evaluaciones;
+      this.evalucionesFiltrados = evaluaciones
     });
   }
   public recalcular(){
@@ -112,6 +114,21 @@ export class EvaluacionPage implements OnInit {
       console.log(data);
     })
     this.redefinirEvaluacion();
+  }
+  filtrarInstrumentos(){
+    this.evalucionesFiltrados = [];
+    this.evaluaciones.map(ev=>{
+      for(var indice in ev){
+        var encontrado = false;
+        if(typeof(ev[indice]) == "string" && !encontrado){
+          if(ev[indice].toLowerCase().includes(this.buscar.toLowerCase())){
+            this.evalucionesFiltrados.push(ev);
+            encontrado = true;
+            break;
+          }
+        }
+      }
+    })
   }
   async abrirPreguntas() {
     console.log(this.evaluacion);

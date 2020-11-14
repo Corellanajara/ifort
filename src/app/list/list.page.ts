@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_servicios/user.service';
 import { ModalController,NavParams } from '@ionic/angular';
-import { GraficoPage } from './grafico/grafico.page';
 import { EncuestaService } from '../_servicios/encuestas.service';
+import { Router } from '@angular/router';
 import { EvaluacionesService } from '../_servicios/evaluaciones.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class ListPage implements OnInit {
   usuario = {permissionLevel : 2}
   public items: Array<{ title: string; note: string; icon: string }> = [];
   constructor(
+    private router : Router,
     private evaluacionesService : EvaluacionesService,
     private encuestaService : EncuestaService,
     private modalCtrl : ModalController,
@@ -61,19 +62,12 @@ export class ListPage implements OnInit {
     if(estado == 0){
       return;
     }
-    const modal = await this.modalCtrl.create({
-      component: GraficoPage,
-      cssClass: 'graficos',
-      componentProps: {
-      'instrumento': evaluacion,
-      'tipo' : this.tipo,
-      'noOcultar': false
-    }
-    });
-
-    return await modal.present();
-  }
-  // add back when alpha.4 is out
+    this.evaluacionesService.setInstrumento(evaluacion);
+    this.evaluacionesService.setTipo(this.tipo);
+    this.evaluacionesService.setNoOcultar(false);
+    this.modalCtrl.dismiss();
+    this.router.navigate(['/grafico']);    
+  } 
   // navigate(item) {
   //   this.router.navigate(['/list', JSON.stringify(item)]);
   // }

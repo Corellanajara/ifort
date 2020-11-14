@@ -24,6 +24,7 @@ import { EscojerEncuestasPage } from './encuestas/escojer/escojer.page';
 import { AuthService } from './_servicios/auth.service';
 import { MenusService } from './_servicios/menu.service';
 import { UserService } from './_servicios/user.service';
+import { ExportExcelService } from './_servicios/export-excel.service';
 import { EmpresaService } from './_servicios/empresas.service';
 import { EvaluacionesService } from './_servicios/evaluaciones.service';
 import { EncuestaService } from './_servicios/encuestas.service';
@@ -42,11 +43,10 @@ import { EscojerPage } from './evaluacion/escojer/escojer.page';
 import { RespuestaPage } from './evaluaciones/instrumento/respuesta/respuesta.page';
 import { ResponderPage } from './encuesta/responder/responder.page';
 import { ListPage } from './list/list.page';
-import { GraficoPage } from './list/grafico/grafico.page';
 
 @NgModule({
-  declarations: [AppComponent,EscojerEncuestasPage,ResponderPage,ProductosPage,EscojerPage,GraficoPage,HistorialPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
-  entryComponents: [ CrudEncuestaPage,EscojerEncuestasPage,ListPage,GraficoPage,ProductosPage,EscojerPage,HistorialPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
+  declarations: [AppComponent,EscojerEncuestasPage,ResponderPage,ProductosPage,EscojerPage,HistorialPage,ListPage, CrudEncuestaPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,PreguntaEncuestaPage, PreguntaPage,AsignarPage,PermisosPage,CrudPage],
+  entryComponents: [ CrudEncuestaPage,EscojerEncuestasPage,ListPage,ProductosPage,EscojerPage,HistorialPage,PreguntaEncuestaPage,PreguntaPage,ResponderPage, RespuestaPage, InstrumentoPage,ImportarPageEvaluacion,ImportarPagePregunta,ImportarPage,AsignarPage,PermisosPage,CrudPage],
   imports: [
     BrowserModule,
     FormsModule,
