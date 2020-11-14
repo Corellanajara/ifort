@@ -188,34 +188,7 @@
         </ion-card-content>
       </ion-card>
     </ion-slide>
-    <ion-slide style="height: auto;">
-      <ion-card class="volteado" style="width: 100%;height: 100%;">
-          <ion-card-header class="header-card-flex">
-              <div (click)="cambiarMes()">
-                <img class="imagen-card" src="https://image.flaticon.com/icons/svg/455/455759.svg">
-              </div>
-              <ion-item style="width: -webkit-fill-available;">
-              <!--
-                <ion-select okText="Aceptar" cancelText="Cancelar" (ionChange)="traerDatosFiltrados(false)" [(ngModel)]="tipoActual">
-                  <ion-select-option value="{{tipo}}" *ngFor="let tipo of tipos;index as i">{{tipo.toUpperCase()}}</ion-select-option>
-                </ion-select>
-              -->
-                 <ion-buttons >
-                   <ion-button slot="end" (click)="exportar('actividades')">
-                     <ion-icon color="light" name="cloud-download"></ion-icon>
-                   </ion-button>
-                 </ion-buttons>
-              </ion-item>
-
-        </ion-card-header>
-
-        <ion-card-content>
-          <div >
-            <canvas #webCanvas id="actividades"></canvas>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </ion-slide>
+   
     <ion-slide style="height: auto;">
       <ion-card style="width: 100%;height: 100%;" >
         <ion-card-header class="header-card">
