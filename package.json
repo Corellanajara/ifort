@@ -48,7 +48,7 @@
     "exceljs": "^1.12.0",
     "file-saver": "^2.0.2",
     "idlejs": "^2.0.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "ng-circle-progress": "^1.5.1",
     "ngx-tree-dnd": "^2.6.0",
     "rxjs": "~6.5.1",
