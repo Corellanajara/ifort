@@ -28,7 +28,7 @@
     "@ionic/storage": "^2.2.0",
     "angular-tree-component": "^8.5.1",
     "angular-ui-tree": "^2.22.6",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "cordova-android": "8.1.0",
     "cordova-browser": "5.0.4",
     "cordova-ios": "5.1.1",
